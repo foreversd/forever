@@ -54,7 +54,5 @@ if (typeof options['max'] === 'undefined') {
 
 // Run all of the files forever
 argv._.forEach(function (file) {
-  options.times = 0;
-  options.options.unshift(path.join(__dirname, file));
-  forever.run(options);
+  forever.run(file, options);
 });
