@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+var path = require('path'),
+    eyes = require('eyes'),   
+    sys  = require('sys'),
+    argv = require('optimist').argv;
+    
+require.paths.unshift(path.join(__dirname, '..', 'lib'));
+
+var forever = require('forever');
+
+var help = [
+    "usage: forever [FILE, ...] [options]",
+    "",
+    "options:",
+    "  -m MAX            Only run the specified script MAX times",
+    "  -s, --silent      Run the child script silencing stdout and stderr",
+    "  -h, --help        You're staring at it"
+].join('\n');
+
+var mappings = {
+  'm': 'max',
+  's': 'silent',
+  'silent': 'silent'
+};
+
+// Show help prompt if requested
+if (argv.h || argv.help) {
+  sys.puts(help);
+  process.exit(0);
+}
+
+var options = {};
+
+// Setup pass-thru options for child-process
+options.options = [];
+
+Object.keys(argv).forEach(function (key) {
+  if (key !== '_') {
+    if (typeof mappings[key] !== 'undefined') {
+      options[mappings[key]] = argv[key];
+    }
+    else { 
+      options.options.push('-' + key);
+      options.options.push(argv[key]);
+    }
+  }
+});
+
+// If max isn't specified set it to run forever
+if (typeof options['max'] === 'undefined') {
+  options.forever = true;
+}
+
+// Run all of the files forever
+argv._.forEach(function (file) {
+  options.times = 0;
+  options.options.unshift(path.join(__dirname, file));
+  forever.run(options);
+});
