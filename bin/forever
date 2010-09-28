@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var path = require('path'),
-    eyes = require('eyes'),   
     sys  = require('sys'),
     argv = require('optimist').argv;
     
