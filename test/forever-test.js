@@ -43,6 +43,8 @@ vows.describe('forever').addBatch({
       var child = new (forever.Forever)(path.join(__dirname, '..', 'samples', 'error-on-timer.js'), {
         max: 3,
         silent: true,
+        outfile: 'test/stdout.log',
+        errfile: 'test/stderr.log',
         options: []
       });
       

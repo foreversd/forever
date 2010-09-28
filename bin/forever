@@ -14,13 +14,17 @@ var help = [
     "options:",
     "  -m MAX            Only run the specified script MAX times",
     "  -s, --silent      Run the child script silencing stdout and stderr",
-    "  -h, --help        You're staring at it"
+    "  -h, --help        You're staring at it",
+    "  -o, OUTFILE       Logs stdout from child script to OUTFILE",
+    "  -e, ERRFILE       Logs stderr from child script to ERRFILE"
 ].join('\n');
 
 var mappings = {
   'm': 'max',
   's': 'silent',
-  'silent': 'silent'
+  'silent': 'silent',
+  'o': 'outfile',
+  'e': 'errfile'
 };
 
 // Show help prompt if requested

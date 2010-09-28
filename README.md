@@ -27,6 +27,8 @@ You can use forever to run any kind of script continuously (whether it is writte
     -m MAX            Only run the specified script MAX times
     -s, --silent      Run the child script silencing stdout and stderr
     -h, --help        You're staring at it
+    -o, OUTFILE       Logs stdout from child script to OUTFILE
+    -e, ERRFILE       Logs stderr from child script to ERRFILE
 </pre>
 
 There are several samples designed to test the fault tolerance of forever. Here's a simple example: 
@@ -51,6 +53,20 @@ You can also use forever from inside your own node.js code.
   child.run();
 </pre>
 
+### Options available when using Forever in node.js
+There are several options that you should be aware of when using forever:
+
+<pre>
+  {
+    'max': 10,                  // Sets the maximum number of times a given script should run
+    'forever': true,            // Indicates that this script should run forever 
+    'silent': true,             // Silences the output from stdout and stderr in the parent process
+    'outfile': 'path/to/file',  // Path to log output from child stdout
+    'errfile': 'path/to/file',  // Path to log output from child stderr
+  }
+</pre>
+
+### Events available when using Forever in node.js
 Each forever object is an instance of the node.js core EventEmitter. There are several core events that you can listen for:
 
 * restart [err, forever]: Raised each time the target script is restarted
@@ -63,4 +79,4 @@ Each forever object is an instance of the node.js core EventEmitter. There are s
   vows test/*-test.js --spec
 </pre>
 
-#### Author: [Charlie Robbins](http://www.charlierobbins.com);
+#### Author: [Charlie Robbins](http://www.charlierobbins.com)
