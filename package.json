@@ -9,7 +9,8 @@
   },
   "keywords": ["cli", "fault tolerant", "sysadmin", "tools"],
   "dependencies": {
-    "optimist": ">= 0.0.3"
+    "optimist": ">= 0.0.3",
+    "vows": ">= 0.5.1"
   },
   "bin": { "forever": "./bin/forever" },
   "main": "./lib/forever",
