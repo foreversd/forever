@@ -9,7 +9,7 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
   curl http://npmjs.org/install.sh | sh
 </pre>
 
-### Installing http-agent
+### Installing forever
 <pre>
   [sudo] npm install forever
 </pre>
