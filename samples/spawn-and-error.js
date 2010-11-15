@@ -10,11 +10,11 @@ var sys = require('sys'),
     path = require('path'),
     spawn = require('child_process').spawn;
     
-var child = spawn('node', [path.join(__dirname, 'count-timer.js')]);
+var child = spawn('node', [path.join(__dirname, 'count-timer.js')], { cwd: __dirname });
 
 child.stdout.on('data', function (data) {
   sys.puts(data);
-  throw new Error('User generated fault.');
+  //throw new Error('User generated fault.');
 });
 
 child.stderr.on('data', function (data) {

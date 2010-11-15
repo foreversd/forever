@@ -1,61 +1,115 @@
 #!/usr/bin/env node
 
 var path = require('path'),
+    fs = require('fs'),
     sys  = require('sys'),
-    argv = require('optimist').argv;
-    
+    eyes = require('eyes'),
+    daemon = require('daemon');
+
+var accepts = ['start', 'stop', 'stopall', 'list'], action;
+if (accepts.indexOf(process.argv[2]) !== -1) {
+  action = process.argv.splice(2,1)[0];
+}
+
+var argv = require('optimist').argv;
+
 require.paths.unshift(path.join(__dirname, '..', 'lib'));
 
 var forever = require('forever');
 
 var help = [
-    "usage: forever [FILE, ...] [options]",
+    "usage: forever [start | stop | stopall | list] [options] SCRIPT [script options]",
     "",
     "options:",
-    "  -m MAX            Only run the specified script MAX times",
-    "  -s, --silent      Run the child script silencing stdout and stderr",
-    "  -h, --help        You're staring at it",
-    "  -o, OUTFILE       Logs stdout from child script to OUTFILE",
-    "  -e, ERRFILE       Logs stderr from child script to ERRFILE"
+    "  start          start SCRIPT as a daemon",
+    "  stop           stop the daemon SCRIPT",
+    "  stopall        stop all running forever scripts",
+    "  list           list all running forever scripts",
+    "",
+    "  -m MAX         Only run the specified script MAX times",
+    "  -l  LOGFILE    Logs the forever output to LOGFILE",
+    "  -o  OUTFILE    Logs stdout from child script to OUTFILE",
+    "  -e  ERRFILE    Logs stderr from child script to ERRFILE",
+    "  -p  PATH       Base path for all forever related files (pid files, etc.)",
+    "  -s, --silent   Run the child script silencing stdout and stderr",
+    "  -h, --help     You're staring at it",
+    "",
+    "[Long Running Process]",
+    "  The forever process will continue to run outputting log messages to the console.",
+    "  ex. forever -o out.log -e err.log my-script.js",
+    "",
+    "[Daemon]",
+    "  The forever process will run as a daemon which will make the target process start",
+    "  in the background. This is extremely useful for remote starting simple node.js scripts",
+    "  without using nohup. It is recommended to run start with -o -l, & -e.",
+    "  ex. forever start -l forever.log -o out.log -e err.log my-daemon.js",
+    "      forever stop my-daemon.js",
+    ""
 ].join('\n');
 
 var mappings = {
-  'm': 'max',
-  's': 'silent',
+  'm':      'max',
+  'l':      'logfile',
+  'p':      'path',
+  's':      'silent',
   'silent': 'silent',
-  'o': 'outfile',
-  'e': 'errfile'
+  'o':      'outfile',
+  'e':      'errfile'
 };
 
 // Show help prompt if requested
 if (argv.h || argv.help) {
   sys.puts(help);
-  process.exit(0);
+  return;
 }
 
-var options = {};
+// If we are passed more than one non-hyphenated
+// options, only use the first one. Assume the 
+// rest are pass-through for the child process
+var file = argv._[0];
 
 // Setup pass-thru options for child-process
-options.options = [];
-
-Object.keys(argv).forEach(function (key) {
-  if (key !== '_') {
-    if (typeof mappings[key] !== 'undefined') {
-      options[mappings[key]] = argv[key];
-    }
-    else { 
-      options.options.push('-' + key);
-      options.options.push(argv[key]);
-    }
-  }
-});
+var options = {};
+options.options = process.argv.splice(process.argv.indexOf(file) + 1);
 
 // If max isn't specified set it to run forever
 if (typeof options['max'] === 'undefined') {
   options.forever = true;
 }
 
-// Run all of the files forever
-argv._.forEach(function (file) {
-  forever.run(file, options);
+// Setup configurations for forever
+var config = {
+  root: argv.p
+};
+
+forever.load(config, function () {
+  // Run all of the files forever
+  if (action) {
+    switch (action) {
+      case 'start': 
+        var uid = forever.randomString(16);
+        options.uid = uid;
+        options.pidFile = 'forever' + uid + '.pid';
+        options.logfile = argv.l || 'forever' + uid + '.log'
+        forever.startDaemon(file, options);
+        break;
+      case 'stop':
+        sys.puts('Remark: stop not implemented in 0.2.1');
+        sys.puts('   Try: killall -9 node');
+        sys.puts('        ps axl | grep node');
+        break;
+      case 'stopall':
+        sys.puts('Remark: stop not implemented in 0.2.1');
+        sys.puts('   Try: killall -9 node');
+        sys.puts('        ps axl | grep node');
+        break;
+      case 'list':
+        sys.puts('Remark: stop not implemented in 0.2.1');
+        sys.puts('   Try: ps axl | grep node');
+        break;
+    }
+  }
+  else {
+    forever.start(file, options);
+  }
 });

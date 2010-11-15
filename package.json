@@ -4,16 +4,17 @@
   "version": "0.2.0",
   "author": "Charlie Robbins <charlie.robbins@gmail.com>",
   "contributors": [
-      { "name": "Fedor Indutny", "email": "fedor.indutny@gmail.com" }
-    ],
+    { "name": "Fedor Indutny", "email": "fedor.indutny@gmail.com" }
+  ],
   "repository": {
       "type": "git",
       "url": "http://github.com/indexzero/forever.git" 
   },
   "keywords": ["cli", "fault tolerant", "sysadmin", "tools"],
   "dependencies": {
+    "daemon": ">= 0.1.0",
     "optimist": ">= 0.0.3",
-    "vows": ">= 0.5.1"
+    "vows": ">= 0.5.1",
   },
   "bin": { "forever": "./bin/forever" },
   "main": "./lib/forever",

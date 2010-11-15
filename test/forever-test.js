@@ -12,6 +12,7 @@ var sys = require('sys'),
     assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
+    eyes = require('eyes'),
     forever = require('forever');
 
 vows.describe('forever').addBatch({
@@ -34,7 +35,9 @@ vows.describe('forever').addBatch({
         assert.equal(child.options.max, 10);
         assert.isTrue(child.options.silent);
         assert.isArray(child.options.options);
-        assert.isFunction(child.run); 
+        assert.isFunction(child.start);
+        assert.isFunction(child.save);
+        assert.isFunction(child.stop); 
       }
     }
   },
@@ -49,7 +52,7 @@ vows.describe('forever').addBatch({
       });
       
       child.on('exit', this.callback);
-      child.run();
+      child.start();
     },
     "should emit 'exit' when completed": function (err, child) {
       assert.equal(child.times, 3);
