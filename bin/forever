@@ -89,7 +89,7 @@ forever.load(config, function () {
       case 'start': 
         var uid = forever.randomString(16);
         options.uid = uid;
-        options.pidFile = 'forever' + uid + '.pid';
+        options.pidfile = 'forever' + uid + '.pid';
         options.logfile = argv.l || 'forever' + uid + '.log'
         forever.startDaemon(file, options);
         break;
