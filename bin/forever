@@ -57,8 +57,10 @@ var mappings = {
   'e':      'errfile'
 };
 
-// Show help prompt if requested
-if (argv.h || argv.help) {
+// Show help prompt if requested or if the 
+// incorrect usage options are supplied
+if (argv.h || argv.help || Object.keys(argv).length === 2
+  || argv._.length === 0) {
   sys.puts(help);
   return;
 }
@@ -70,7 +72,16 @@ var file = argv._[0];
 
 // Setup pass-thru options for child-process
 var options = {};
-options.options = process.argv.splice(process.argv.indexOf(file) + 1);
+options.options = process.argv.splice(process.argv.indexOf(file)).splice(1);
+
+// Now that we've removed the target script options
+// reparse the options and setup the forever settings
+argv = require('optimist').argv;
+Object.keys(argv).forEach(function (key) {
+  if (mappings[key]) {
+    options[mappings[key]] = argv[key];
+  }
+});
 
 // If max isn't specified set it to run forever
 if (typeof options['max'] === 'undefined') {
