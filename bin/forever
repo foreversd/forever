@@ -59,8 +59,7 @@ var mappings = {
 
 // Show help prompt if requested or if the 
 // incorrect usage options are supplied
-if (argv.h || argv.help || Object.keys(argv).length === 2
-  || argv._.length === 0) {
+if (argv.h || argv.help || argv._.length === 0) {
   sys.puts(help);
   return;
 }
