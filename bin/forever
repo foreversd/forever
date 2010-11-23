@@ -49,17 +49,22 @@ var help = [
 
 var mappings = {
   'm':      'max',
-  'l':      'logfile',
+  'l':      'logFile',
   'p':      'path',
   's':      'silent',
   'silent': 'silent',
-  'o':      'outfile',
-  'e':      'errfile'
+  'o':      'outFile',
+  'e':      'errFile'
+};
+
+function isSimpleAction () {
+  return ['list', 'stopall'].indexOf(action) !== -1;
 };
 
 // Show help prompt if requested or if the 
 // incorrect usage options are supplied
-if (argv.h || argv.help || argv._.length === 0) {
+if (argv.h || argv.help || 
+  (argv._.length === 0 && !isSimpleAction())) {
   sys.puts(help);
   return;
 }
@@ -75,7 +80,7 @@ options.options = process.argv.splice(process.argv.indexOf(file)).splice(1);
 
 // Now that we've removed the target script options
 // reparse the options and setup the forever settings
-argv = require('optimist').argv;
+argv = require('optimist')(process.argv).argv;
 Object.keys(argv).forEach(function (key) {
   if (mappings[key]) {
     options[mappings[key]] = argv[key];
@@ -92,34 +97,58 @@ var config = {
   root: argv.p
 };
 
-forever.load(config, function () {
-  // Run all of the files forever
-  if (action) {
-    switch (action) {
-      case 'start': 
-        var uid = forever.randomString(16);
-        options.uid = uid;
-        options.pidfile = 'forever' + uid + '.pid';
-        options.logfile = argv.l || 'forever' + uid + '.log'
-        forever.startDaemon(file, options);
-        break;
-      case 'stop':
-        sys.puts('Remark: stop not implemented in 0.2.1');
-        sys.puts('   Try: killall -9 node');
-        sys.puts('        ps axl | grep node');
-        break;
-      case 'stopall':
-        sys.puts('Remark: stop not implemented in 0.2.1');
-        sys.puts('   Try: killall -9 node');
-        sys.puts('        ps axl | grep node');
-        break;
-      case 'list':
-        sys.puts('Remark: stop not implemented in 0.2.1');
-        sys.puts('   Try: ps axl | grep node');
-        break;
+var loader = forever.load(config);
+loader.on('load', function () {
+  var tidy = forever.cleanUp(); 
+  tidy.on('cleanUp', function () {
+    // Run all of the files forever
+    if (action) {
+      switch (action) {
+        case 'start': 
+          var uid = forever.randomString(16);
+          options.uid = uid;
+          options.pidFile = 'forever' + uid + '.pid';
+          options.logFile = argv.l || 'forever' + uid + '.log'
+          forever.startDaemon(file, options);
+          break;
+          
+        case 'stop':
+          if (!(/(\d+)/.test(file))) {
+            sys.puts(file + ' is not a valid index for a forever process.');
+            process.exit(0);
+          }
+
+          var runner = forever.stop(parseInt(file), true);
+          runner.on('stop', function (process) {
+            sys.puts('Forever stopped process:');
+            sys.puts(process);
+          });
+          runner.on('error', function (err) {
+            sys.puts('Forever cannot find process with index: ' + file)
+          })
+          break;
+          
+        case 'stopall':
+          var runner = forever.stopAll(true);
+          runner.on('stopAll', function (processes) {
+            if (processes) {
+              sys.puts('Forever stopped processes:');
+              sys.puts(processes);
+            }
+            else {
+              sys.puts('No forever processes running');
+            }
+          });
+          break;
+          
+        case 'list':
+          var processes = forever.list(true);
+          sys.puts(processes ? processes : 'No forever processes running');
+          break;
+      }
     }
-  }
-  else {
-    forever.start(file, options);
-  }
+    else {
+      forever.start(file, options);
+    }
+  });
 });

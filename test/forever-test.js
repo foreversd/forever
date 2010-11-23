@@ -17,6 +17,9 @@ var sys = require('sys'),
 
 vows.describe('forever').addBatch({
   "When using forever": {
+    topic: function () {
+      forever.load({}, this.callback);
+    },
     "and instance of Forever passed valid options": {
       topic: function () {
         var child = new (forever.Forever)('any-file.js', {
@@ -46,8 +49,8 @@ vows.describe('forever').addBatch({
       var child = new (forever.Forever)(path.join(__dirname, '..', 'samples', 'error-on-timer.js'), {
         max: 3,
         silent: true,
-        outfile: 'test/stdout.log',
-        errfile: 'test/stderr.log',
+        outFile: 'test/stdout.log',
+        errFile: 'test/stderr.log',
         options: []
       });
       
