@@ -12,7 +12,6 @@ var sys = require('sys'),
     assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    eyes = require('eyes'),
     forever = require('forever');
 
 vows.describe('forever').addBatch({

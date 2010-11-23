@@ -2,9 +2,7 @@
 
 var path = require('path'),
     fs = require('fs'),
-    sys  = require('sys'),
-    eyes = require('eyes'),
-    daemon = require('daemon');
+    sys  = require('sys');
 
 var accepts = ['start', 'stop', 'stopall', 'list'], action;
 if (accepts.indexOf(process.argv[2]) !== -1) {
