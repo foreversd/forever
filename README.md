@@ -71,27 +71,6 @@ You can also use forever from inside your own node.js code.
   child.start();
 </pre>
 
-### Using forever module from node.js
-In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever binary script][1] for sample usage.
-
-## forever.load (config, callback)
-Sets the specified configuration (config) for the forever module. In addition to the callback, this method also returns an event emitter which will raise the 'load' event when complete. There are two important options:
-
-* root:    Directory to put all default forever log files 
-* pidPath: Directory to put all forever *.pid files
-
-## forever.stop (index)
-Stops the forever daemon script at the specified index. These indices are the same as those returned by forever.list(). This method returns an EventEmitter that raises the 'stop' event when complete.
-
-## forever.stopAll (format)
-Stops all forever scripts currently running. This method returns an EventEmitter that raises the 'stopAll' event when complete.
-
-## forever.list (format, procs)
-Returns a list of metadata objects about each process that is being run using forever. This method is synchronous and will return the list of metadata as such.
-
-## forever.cleanup ()
-Cleans up any extraneous forever *.pid or *.fvr files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
-
 ### Options available when using Forever in node.js
 There are several options that you should be aware of when using forever:
 
@@ -116,6 +95,27 @@ Each forever object is an instance of the node.js core EventEmitter. There are s
 * exit    [err, forever]: Raised when the call to forever.run() completes
 * stdout  [err, data]:    Raised when data is received from the child process' stdout
 * stderr  [err, data]:    Raised when data is received from the child process' stderr
+
+## Using forever module from node.js
+In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever binary script][1] for sample usage.
+
+### forever.load (config, callback)
+Sets the specified configuration (config) for the forever module. In addition to the callback, this method also returns an event emitter which will raise the 'load' event when complete. There are two important options:
+
+* root:    Directory to put all default forever log files 
+* pidPath: Directory to put all forever *.pid files
+
+### forever.stop (index)
+Stops the forever daemon script at the specified index. These indices are the same as those returned by forever.list(). This method returns an EventEmitter that raises the 'stop' event when complete.
+
+### forever.stopAll (format)
+Stops all forever scripts currently running. This method returns an EventEmitter that raises the 'stopAll' event when complete.
+
+### forever.list (format, procs)
+Returns a list of metadata objects about each process that is being run using forever. This method is synchronous and will return the list of metadata as such.
+
+### forever.cleanup ()
+Cleans up any extraneous forever *.pid or *.fvr files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
 
 ## Run Tests
 The test coverage for 0.3.0 is currently lacking, but will be improved in 0.3.1.
