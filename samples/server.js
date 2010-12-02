@@ -1,4 +1,4 @@
-var sys = require('sys'),    
+var sys = require(process.binding('natives').util ? 'util' : 'sys'),    
   http = require('http');
 
 http.createServer(function (req, res) {
