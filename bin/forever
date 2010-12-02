@@ -2,7 +2,7 @@
 
 var path = require('path'),
     fs = require('fs'),
-    sys  = require('sys');
+    sys  = require(process.binding('natives').util ? 'util' : 'sys');
 
 var accepts = ['start', 'stop', 'stopall', 'list'], action;
 if (accepts.indexOf(process.argv[2]) !== -1) {
