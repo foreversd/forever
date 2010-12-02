@@ -6,7 +6,7 @@
  *
  */
 
-var sys = require('sys');
+var sys = require(process.binding('natives').util ? 'util' : 'sys');
 
 setTimeout(function () {
   sys.puts('Throwing error now.');
