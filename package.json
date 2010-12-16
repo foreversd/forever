@@ -15,7 +15,7 @@
     "colors": ">= 0.3.0",
     "daemon": ">= 0.1.0",
     "optimist": ">= 0.0.6",
-    "vows": ">= 0.5.2",
+    "vows": ">= 0.5.2"
   },
   "bin": { "forever": "./bin/forever" },
   "main": "./lib/forever",
