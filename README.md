@@ -61,7 +61,7 @@ You can also use forever from inside your own node.js code.
 <pre>
   var forever = require('forever');
   
-  var child = new (forever.Forever)('your-filename.js'), {
+  var child = new (forever.Forever)('your-filename.js', {
     max: 3,
     silent: true,
     options: []
@@ -69,6 +69,18 @@ You can also use forever from inside your own node.js code.
   
   child.on('exit', this.callback);
   child.start();
+</pre>
+
+### Spawning a non-node process
+You can spawn non-node processes too. Either set the `command` key in the
+`options` hash or pass in an `Array` in place of the `file` argument like this:
+
+<pre>
+  var forever = require('forever');
+  var child = forever.start([ 'perl', '-le', 'print "moo"' ], {
+    max : 1,
+    silent : true
+  });
 </pre>
 
 ### Options available when using Forever in node.js
@@ -83,6 +95,8 @@ There are several options that you should be aware of when using forever:
     'pidFile': 'path/to/file',  // Path to put pid information for the process(es) started
     'outFile': 'path/to/file',  // Path to log output from child stdout
     'errFile': 'path/to/file',  // Path to log output from child stderr
+    'command': 'perl',          // Binary to run (default: 'node')
+    'options': ['foo','bar'],   // Additional arguments to pass to the script
   }
 </pre>
 
