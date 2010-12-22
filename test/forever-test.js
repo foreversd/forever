@@ -59,5 +59,17 @@ vows.describe('forever').addBatch({
     "should emit 'exit' when completed": function (err, child) {
       assert.equal(child.times, 3);
     }
+  },
+  "non-node usage with a perl one-liner": {
+    topic: function () {
+      var child = forever.start([ 'perl', '-le', 'print "moo"' ], {
+        max: 1,
+        silent: true,
+      });
+      child.on('stdout', this.callback.bind({}, null));
+    },
+    "should get back moo": function (err, buf) {
+      assert.equal(buf.toString(), 'moo\n');
+    }
   }
 }).export(module);
