@@ -4,7 +4,7 @@ var path = require('path'),
     fs = require('fs'),
     sys  = require('sys');
 
-var accepts = ['start', 'stop', 'stopall', 'list'], action;
+var accepts = ['start', 'stop', 'stopall', 'list', 'cleanlogs'], action;
 if (accepts.indexOf(process.argv[2]) !== -1) {
   action = process.argv.splice(2,1)[0];
 }
@@ -16,13 +16,14 @@ require.paths.unshift(path.join(__dirname, '..', 'lib'));
 var forever = require('forever');
 
 var help = [
-    "usage: forever [start | stop | stopall | list] [options] SCRIPT [script options]",
+    "usage: forever [start | stop | stopall | list | cleanlogs] [options] SCRIPT [script options]",
     "",
     "options:",
     "  start          start SCRIPT as a daemon",
     "  stop           stop the daemon SCRIPT",
     "  stopall        stop all running forever scripts",
     "  list           list all running forever scripts",
+    "  cleanlogs      [CAREFUL] Deletes all historical forever log files",
     "",
     "  -m MAX         Only run the specified script MAX times",
     "  -l  LOGFILE    Logs the forever output to LOGFILE",
@@ -56,7 +57,7 @@ var mappings = {
 };
 
 function isSimpleAction () {
-  return ['list', 'stopall'].indexOf(action) !== -1;
+  return ['list', 'stopall', 'cleanlogs'].indexOf(action) !== -1;
 };
 
 // Show help prompt if requested or if the 
@@ -94,26 +95,33 @@ if (typeof options['max'] === 'undefined') {
 var config = {
   root: argv.p
 };
-
 var loader = forever.load(config);
-loader.on('load', function () {
-  var tidy = forever.cleanUp(); 
+loader.on('load', function () {  
+  var tidy = forever.cleanUp(action === 'cleanlogs'); 
   tidy.on('cleanUp', function () {
     // Run all of the files forever
     if (action) {
       switch (action) {
         case 'start': 
-          var uid = forever.randomString(16);
+          var fullPath, uid = forever.randomString(16);
           options.uid = uid;
           options.pidFile = 'forever' + uid + '.pid';
-          options.logFile = argv.l || 'forever' + uid + '.log'
+          options.logFile = argv.l || 'forever' + uid + '.log';
+          fullPath = path.join(forever.config.root, options.logFile);
           
-          fs.stat(file, function (err, stats) {
-            if (err) {
-              sys.puts('Cannot start forever: ' + file + ' does not exist.');
+          fs.stat(fullPath, function (err, stats) {
+            if (!err) {
+              sys.puts('Cannot start forever: ' + fullPath + ' exists.');
               process.exit(0);
             }
-            forever.startDaemon(file, options);
+            
+            fs.stat(file, function (err, stats) {
+              if (err) {
+                sys.puts('Cannot start forever: ' + file + ' does not exist.');
+                process.exit(0);
+              }
+              forever.startDaemon(file, options);
+            });
           });
           break;
           
