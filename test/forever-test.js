@@ -43,7 +43,7 @@ vows.describe('forever').addBatch({
       }
     }
   },
-  "when running error-on-timer sample three times": {
+  "running error-on-timer sample three times": {
     topic: function () {
       var child = new (forever.Forever)(path.join(__dirname, '..', 'samples', 'error-on-timer.js'), {
         max: 3,
@@ -70,6 +70,19 @@ vows.describe('forever').addBatch({
     },
     "should get back moo": function (err, buf) {
       assert.equal(buf.toString(), 'moo\n');
+    }
+  },
+  "attempting to start a script that doesn't exist": {
+    topic: function () {
+      var child = forever.start('invalid-path.js', {
+        max: 1,
+        silent: true
+      });
+      child.on('error', this.callback.bind({}, null));
+    },
+    "should throw an error about the invalid file": function (err) {
+      assert.isNotNull(err);
+      assert.isTrue(err.message.indexOf('does not exist') !== -1);
     }
   }
 }).export(module);

@@ -107,7 +107,14 @@ loader.on('load', function () {
           options.uid = uid;
           options.pidFile = 'forever' + uid + '.pid';
           options.logFile = argv.l || 'forever' + uid + '.log'
-          forever.startDaemon(file, options);
+          
+          fs.stat(file, function (err, stats) {
+            if (err) {
+              sys.puts('Cannot start forever: ' + file + ' does not exist.');
+              process.exit(0);
+            }
+            forever.startDaemon(file, options);
+          });
           break;
           
         case 'stop':
