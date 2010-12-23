@@ -33,10 +33,9 @@ vows.describe('forever').addBatch({
         child.emit('test', null, child);
       },
       "should have correct properties set": function (err, child) {
-        assert.isNotNull(child.options);
-        assert.equal(child.options.max, 10);
-        assert.isTrue(child.options.silent);
-        assert.isArray(child.options.options);
+        assert.isArray(child.options);
+        assert.equal(child.max, 10);
+        assert.isTrue(child.silent);
         assert.isFunction(child.start);
         assert.isFunction(child.save);
         assert.isFunction(child.stop); 
