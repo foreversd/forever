@@ -139,7 +139,7 @@ Returns a list of metadata objects about each process that is being run using fo
 ### forever.cleanup ()
 Cleans up any extraneous forever *.pid or *.fvr files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
 
-### forever.cleanLogsSync
+### forever.cleanLogsSync (processes)
 Removes all log files from the root forever directory that do not belong to current running forever processes.
 
 ## Run Tests
