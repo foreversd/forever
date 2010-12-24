@@ -21,13 +21,14 @@ There are two distinct ways to use forever: through the command line interface, 
 You can use forever to run any kind of script continuously (whether it is written in node.js or not). The usage options are simple:
 
 <pre>
-  usage: forever [start | stop | stopall | list] [options] SCRIPT [script options]
+  usage: forever [start | stop | stopall | list | cleanlogs] [options] SCRIPT [script options]
 
   options:
     start          start SCRIPT as a daemon
     stop           stop the daemon SCRIPT
     stopall        stop all running forever scripts
     list           list all running forever scripts
+    cleanlogs      [CAREFUL] Deletes all historical forever log files
 
     -m MAX         Only run the specified script MAX times
     -l  LOGFILE    Logs the forever output to LOGFILE
@@ -105,10 +106,11 @@ Each forever object is an instance of the node.js core EventEmitter. There are s
 
 * error   [err]:          Raised when an error occurs
 * stop    [process]:      Raised when the target script is stopped by the user
-* restart [err, forever]: Raised each time the target script is restarted
-* exit    [err, forever]: Raised when the call to forever.run() completes
-* stdout  [err, data]:    Raised when data is received from the child process' stdout
-* stderr  [err, data]:    Raised when data is received from the child process' stderr
+* save    [path, data]:   Raised when the target Forever object persists the pid information to disk.
+* restart [forever]:      Raised each time the target script is restarted
+* exit    [forever]:      Raised when the call to forever.run() completes
+* stdout  [data]:         Raised when data is received from the child process' stdout
+* stderr  [data]:         Raised when data is received from the child process' stderr
 
 ## Using forever module from node.js
 In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever binary script][1] for sample usage.
@@ -118,6 +120,12 @@ Sets the specified configuration (config) for the forever module. In addition to
 
 * root:    Directory to put all default forever log files 
 * pidPath: Directory to put all forever *.pid files
+
+### forever.start (file, options)
+Starts a script with forever.
+
+### forever.startDaemon (file, options)
+Starts a script with forever as a daemon. WARNING: Will daemonize the current process.
 
 ### forever.stop (index)
 Stops the forever daemon script at the specified index. These indices are the same as those returned by forever.list(). This method returns an EventEmitter that raises the 'stop' event when complete.
@@ -131,14 +139,17 @@ Returns a list of metadata objects about each process that is being run using fo
 ### forever.cleanup ()
 Cleans up any extraneous forever *.pid or *.fvr files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
 
+### forever.cleanLogsSync
+Removes all log files from the root forever directory that do not belong to current running forever processes.
+
 ## Run Tests
-The test coverage for 0.3.0 is currently lacking, but will be improved in 0.3.1.
+The test coverage for 0.3.1 is currently lacking, but will be improved in 0.3.2.
 <pre>
   vows test/*-test.js --spec
 </pre>
 
 #### Author: [Charlie Robbins](http://www.charlierobbins.com)
-#### Contributors: [Fedor Indutny](http://github.com/donnerjack13589)
+#### Contributors: [Fedor Indutny](http://github.com/donnerjack13589), [James Halliday](http://substack.net/)
 
 [0]: http://nodejitsu.com
 [1]: https://github.com/indexzero/forever/blob/master/bin/forever

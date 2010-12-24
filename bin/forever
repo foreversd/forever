@@ -99,7 +99,6 @@ var loader = forever.load(config);
 loader.on('load', function () {  
   var tidy = forever.cleanUp(action === 'cleanlogs'); 
   tidy.on('cleanUp', function () {
-    // Run all of the files forever
     if (action) {
       switch (action) {
         case 'start': 
@@ -126,12 +125,7 @@ loader.on('load', function () {
           break;
           
         case 'stop':
-          if (!(/(\d+)/.test(file))) {
-            sys.puts(file + ' is not a valid index for a forever process.');
-            process.exit(0);
-          }
-
-          var runner = forever.stop(parseInt(file), true);
+          var runner = forever.stop(file, true);
           runner.on('stop', function (process) {
             sys.puts('Forever stopped process:');
             sys.puts(process);

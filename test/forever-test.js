@@ -52,7 +52,7 @@ vows.describe('forever').addBatch({
         options: []
       });
       
-      child.on('exit', this.callback);
+      child.on('exit', this.callback.bind({}, null));
       child.start();
     },
     "should emit 'exit' when completed": function (err, child) {
