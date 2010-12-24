@@ -95,6 +95,24 @@ if (typeof options['max'] === 'undefined') {
 var config = {
   root: argv.p
 };
+
+function tryStart (callback) {
+  var fullPath, uid = forever.randomString(16);
+  options.uid = uid;
+  options.pidFile = 'forever' + uid + '.pid';
+  options.logFile = argv.l || 'forever' + uid + '.log';
+  fullPath = path.join(forever.config.root, options.logFile);
+  
+  forever.stat(fullPath, file, function (err) {
+    if (err) {
+      sys.puts('Cannot start forever: ' + err.message);
+      process.exit(0);
+    }
+  
+    callback();
+  });
+}
+
 var loader = forever.load(config);
 loader.on('load', function () {  
   var tidy = forever.cleanUp(action === 'cleanlogs'); 
@@ -102,26 +120,7 @@ loader.on('load', function () {
     if (action) {
       switch (action) {
         case 'start': 
-          var fullPath, uid = forever.randomString(16);
-          options.uid = uid;
-          options.pidFile = 'forever' + uid + '.pid';
-          options.logFile = argv.l || 'forever' + uid + '.log';
-          fullPath = path.join(forever.config.root, options.logFile);
-          
-          fs.stat(fullPath, function (err, stats) {
-            if (!err) {
-              sys.puts('Cannot start forever: ' + fullPath + ' exists.');
-              process.exit(0);
-            }
-            
-            fs.stat(file, function (err, stats) {
-              if (err) {
-                sys.puts('Cannot start forever: ' + file + ' does not exist.');
-                process.exit(0);
-              }
-              forever.startDaemon(file, options);
-            });
-          });
+          tryStart(function () { forever.startDaemon(file, options); });
           break;
           
         case 'stop':
@@ -155,7 +154,9 @@ loader.on('load', function () {
       }
     }
     else {
-      forever.start(file, options);
+      tryStart(function () { 
+        forever.start(file, options).save().on('restart', function (fvr) { fvr.save() });
+      });
     }
   });
 });
