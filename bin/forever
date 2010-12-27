@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var path = require('path'),
+
     fs = require('fs'),
     sys  = require('sys');
 
@@ -13,7 +14,7 @@ var argv = require('optimist').argv;
 
 require.paths.unshift(path.join(__dirname, '..', 'lib'));
 
-var forever = require('forever');
+var forever = require('../lib/forever.js');
 
 var help = [
     "usage: forever [start | stop | stopall | list | cleanlogs] [options] SCRIPT [script options]",
@@ -77,6 +78,11 @@ var file = argv._[0];
 var options = {};
 options.options = process.argv.splice(process.argv.indexOf(file)).splice(1);
 
+// Setup configurations for forever before using optimist otherwise it will modify argv! and p will become a boolean
+var config = {
+  root: argv.p
+};
+
 // Now that we've removed the target script options
 // reparse the options and setup the forever settings
 argv = require('optimist')(process.argv).argv;
@@ -91,10 +97,6 @@ if (typeof options['max'] === 'undefined') {
   options.forever = true;
 }
 
-// Setup configurations for forever
-var config = {
-  root: argv.p
-};
 
 function tryStart (callback) {
   var fullPath, uid = forever.randomString(16);
