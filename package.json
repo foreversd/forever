@@ -1,7 +1,7 @@
 {
   "name": "forever",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "0.3.1",
+  "version": "0.3.5",
   "author": "Charlie Robbins <charlie.robbins@gmail.com>",
   "contributors": [
     { "name": "Fedor Indutny", "email": "fedor.indutny@gmail.com" },
@@ -14,7 +14,7 @@
   "keywords": ["cli", "fault tolerant", "sysadmin", "tools"],
   "dependencies": {
     "colors": ">= 0.3.0",
-    "daemon": ">= 0.1.0",
+    "daemon": ">= 0.3.0",
     "optimist": ">= 0.0.6",
     "vows": ">= 0.5.2"
   },
