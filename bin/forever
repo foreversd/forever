@@ -5,7 +5,7 @@ var path = require('path'),
     eyes = require('eyes'),
     sys  = require('sys');
 
-var accepts = ['start', 'stop', 'stopall', 'list', 'cleanlogs'], action;
+var accepts = ['start', 'stop', 'stopall', 'list', 'cleanlogs', 'restart'], action;
 if (accepts.indexOf(process.argv[2]) !== -1) {
   action = process.argv.splice(2,1)[0];
 }
@@ -17,12 +17,13 @@ require.paths.unshift(path.join(__dirname, '..', 'lib'));
 var forever = require('forever');
 
 var help = [
-    "usage: forever [start | stop | stopall | list | cleanlogs] [options] SCRIPT [script options]",
+    "usage: forever [start | stop | restart | stopall | list | cleanlogs] [options] SCRIPT [script options]",
     "",
     "options:",
     "  start          start SCRIPT as a daemon",
     "  stop           stop the daemon SCRIPT",
     "  stopall        stop all running forever scripts",
+    "  restart        restart the daemon SCRIPT",
     "  list           list all running forever scripts",
     "  cleanlogs      [CAREFUL] Deletes all historical forever log files",
     "",
@@ -148,6 +149,19 @@ loader.on('load', function () {
           runner.on('stopAll', function (processes) {
             if (processes) {
               sys.puts('Forever stopped processes:');
+              sys.puts(processes);
+            }
+            else {
+              sys.puts('No forever processes running');
+            }
+          });
+          break;
+          
+        case 'restart': 
+          var runner = forever.restart(file, true);
+          runner.on('restart', function (processes) {
+            if (processes) {
+              sys.puts('Forever restarted processes:');
               sys.puts(processes);
             }
             else {

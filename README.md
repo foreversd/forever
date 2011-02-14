@@ -21,14 +21,16 @@ There are two distinct ways to use forever: through the command line interface, 
 You can use forever to run any kind of script continuously (whether it is written in node.js or not). The usage options are simple:
 
 <pre>
-  usage: forever [start | stop | stopall | list | cleanlogs] [options] SCRIPT [script options]
+  usage: forever [start | stop | restart | stopall | list | cleanlogs] [options] SCRIPT [script options]
 
   options:
     start          start SCRIPT as a daemon
     stop           stop the daemon SCRIPT
     stopall        stop all running forever scripts
+    restart        restart the daemon SCRIPT
     list           list all running forever scripts
     cleanlogs      [CAREFUL] Deletes all historical forever log files
+
 
     -m MAX         Only run the specified script MAX times
     -l  LOGFILE    Logs the forever output to LOGFILE
