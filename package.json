@@ -8,8 +8,8 @@
     { "name": "James Halliday", "email": "mail@substack.net" }
   ],
   "repository": {
-      "type": "git",
-      "url": "http://github.com/indexzero/forever.git" 
+    "type": "git",
+    "url": "http://github.com/indexzero/forever.git" 
   },
   "keywords": ["cli", "fault tolerant", "sysadmin", "tools"],
   "dependencies": {
