@@ -6,7 +6,11 @@
 <span class="cm"> *</span>
 <span class="cm"> */</span>
 
-<span class="kd">var</span> <span class="nx">spawn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">).</span><span class="nx">spawn</span><span class="p">,</span>
+<span class="kd">var</span> <span class="nx">sys</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;sys&#39;</span><span class="p">),</span>
+    <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">),</span>
+    <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">),</span>
+    <span class="nx">events</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">),</span>
+    <span class="nx">spawn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">).</span><span class="nx">spawn</span><span class="p">,</span>
     <span class="nx">forever</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;forever&#39;</span><span class="p">);</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h3>function Monitor (script, options)</h3>
 
 <h4>@script {string} Location of the target script to run.</h4>
@@ -64,6 +68,7 @@
     <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
   <span class="p">}</span>
   
+  <span class="k">this</span><span class="p">.</span><span class="nx">ctime</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">child</span> <span class="o">=</span> <span class="nx">child</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">running</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
   <span class="nx">self</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="nx">restart</span> <span class="o">?</span> <span class="s1">&#39;restart&#39;</span> <span class="o">:</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="nx">self</span><span class="p">);</span>
@@ -128,6 +133,7 @@ trying to execute a script with an env: e.g. node myfile.js</p>             </td
   <span class="p">}</span>
   
   <span class="kd">var</span> <span class="nx">childData</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">ctime</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">ctime</span><span class="p">,</span>
     <span class="nx">pid</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">child</span><span class="p">.</span><span class="nx">pid</span><span class="p">,</span>
     <span class="nx">foreverPid</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">,</span>
     <span class="nx">logFile</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">logFile</span><span class="p">,</span>
