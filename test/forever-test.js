@@ -44,7 +44,7 @@ vows.describe('forever').addBatch({
   },
   "running error-on-timer sample three times": {
     topic: function () {
-      var child = new (forever.Forever)(path.join(__dirname, '..', 'samples', 'error-on-timer.js'), {
+      var child = new (forever.Forever)(path.join(__dirname, '..', 'examples', 'error-on-timer.js'), {
         max: 3,
         silent: true,
         outFile: 'test/stdout.log',
