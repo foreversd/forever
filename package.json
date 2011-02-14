@@ -13,6 +13,7 @@
   },
   "keywords": ["cli", "fault tolerant", "sysadmin", "tools"],
   "dependencies": {
+    "async": ">= 0.1.8",
     "colors": ">= 0.3.0",
     "daemon": ">= 0.3.0",
     "optimist": ">= 0.0.6",

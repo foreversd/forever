@@ -103,7 +103,7 @@ if (!options.sourceDir) options.sourceDir = process.cwd();
 
 // Setup configurations for forever
 var config = {
-  root: argv.p || forever.path
+  root: argv.p
 };
 
 function tryStart (callback) {
@@ -124,79 +124,84 @@ function tryStart (callback) {
   });
 }
 
-// Log starting...
-sys.puts('Loading forever with config: ');
-eyes.inspect(config)
+//
+// Only call `forever.load()` if the root path is different than 
+// the default root exposed by forever.
+//
+if (config.root && config.root !== forever.root) {
+  sys.puts('Loading forever with config: ');
+  eyes.inspect(config);
 
-var loader = forever.load(config);
-loader.on('load', function () {  
-  sys.puts('Loaded forever. Tidying /tmp/forever.');
-  var tidy = forever.cleanUp(action === 'cleanlogs'); 
-  tidy.on('cleanUp', function () {
-    sys.puts('/tmp/forever tidied.');
-    if (file) {
-      sys.puts('Working with file: ' + file);
+  forever.load(config);
+  sys.puts('Loaded forever successfully.');  
+}
+
+sys.puts('Tidying ' + forever.config.root);
+var tidy = forever.cleanUp(action === 'cleanlogs'); 
+tidy.on('cleanUp', function () {
+  sys.puts(forever.config.root + ' tidied.');
+  if (file) {
+    sys.puts('Working with file: ' + file);
+  }
+  
+  if (options) {
+    sys.puts('Using forever options:');
+    eyes.inspect(options);
+  }
+  
+  if (action) {
+    sys.puts('Running action: ' + action.yellow);
+    switch (action) {
+      case 'start': 
+        tryStart(function () { forever.startDaemon(file, options); });
+        break;
+        
+      case 'stop':
+        var runner = forever.stop(file, true);
+        runner.on('stop', function (process) {
+          sys.puts('Forever stopped process:');
+          sys.puts(process);
+        });
+        runner.on('error', function (err) {
+          sys.puts('Forever cannot find process with index: ' + file)
+        })
+        break;
+        
+      case 'stopall':
+        var runner = forever.stopAll(true);
+        runner.on('stopAll', function (processes) {
+          if (processes) {
+            sys.puts('Forever stopped processes:');
+            sys.puts(processes);
+          }
+          else {
+            sys.puts('No forever processes running');
+          }
+        });
+        break;
+        
+      case 'restart': 
+        var runner = forever.restart(file, true);
+        runner.on('restart', function (processes) {
+          if (processes) {
+            sys.puts('Forever restarted processes:');
+            sys.puts(processes);
+          }
+          else {
+            sys.puts('No forever processes running');
+          }
+        });
+        break;
+        
+      case 'list':
+        var processes = forever.list(true);
+        sys.puts(processes ? processes : 'No forever processes running');
+        break;
     }
-    
-    if (options) {
-      sys.puts('Using forever options:');
-      eyes.inspect(options);
-    }
-    
-    if (action) {
-      sys.puts('Running action: ' + action.yellow);
-      switch (action) {
-        case 'start': 
-          tryStart(function () { forever.startDaemon(file, options); });
-          break;
-          
-        case 'stop':
-          var runner = forever.stop(file, true);
-          runner.on('stop', function (process) {
-            sys.puts('Forever stopped process:');
-            sys.puts(process);
-          });
-          runner.on('error', function (err) {
-            sys.puts('Forever cannot find process with index: ' + file)
-          })
-          break;
-          
-        case 'stopall':
-          var runner = forever.stopAll(true);
-          runner.on('stopAll', function (processes) {
-            if (processes) {
-              sys.puts('Forever stopped processes:');
-              sys.puts(processes);
-            }
-            else {
-              sys.puts('No forever processes running');
-            }
-          });
-          break;
-          
-        case 'restart': 
-          var runner = forever.restart(file, true);
-          runner.on('restart', function (processes) {
-            if (processes) {
-              sys.puts('Forever restarted processes:');
-              sys.puts(processes);
-            }
-            else {
-              sys.puts('No forever processes running');
-            }
-          });
-          break;
-          
-        case 'list':
-          var processes = forever.list(true);
-          sys.puts(processes ? processes : 'No forever processes running');
-          break;
-      }
-    }
-    else {
-      tryStart(function () { 
-        forever.start(file, options).save().on('restart', function (fvr) { fvr.save() });
-      });
-    }
-  });
+  }
+  else {
+    tryStart(function () { 
+      forever.start(file, options);
+    });
+  }
 });
