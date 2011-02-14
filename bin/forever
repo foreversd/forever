@@ -2,6 +2,7 @@
 
 var path = require('path'),
     fs = require('fs'),
+    eyes = require('eyes'),
     sys  = require('sys');
 
 var accepts = ['start', 'stop', 'stopall', 'list', 'cleanlogs'], action;
@@ -95,7 +96,7 @@ if (typeof options['max'] === 'undefined') {
 
 // Setup configurations for forever
 var config = {
-  root: argv.p
+  root: argv.p || forever.path
 };
 
 function tryStart (callback) {
@@ -115,10 +116,16 @@ function tryStart (callback) {
   });
 }
 
+// Log starting...
+sys.puts('Loading forever with config: ');
+eyes.inspect(config)
+
 var loader = forever.load(config);
 loader.on('load', function () {  
+  sys.puts('Loaded forever. Cleaning logs...');
   var tidy = forever.cleanUp(action === 'cleanlogs'); 
   tidy.on('cleanUp', function () {
+    sys.puts('Cleaned logs. Running action: ' + action.yellow);
     if (action) {
       switch (action) {
         case 'start': 
