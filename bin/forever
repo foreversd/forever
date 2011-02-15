@@ -12,7 +12,6 @@ if (accepts.indexOf(process.argv[2]) !== -1) {
 }
 
 var argv = require('optimist').argv;
-
 require.paths.unshift(path.join(__dirname, '..', 'lib'));
 
 var forever = require('forever');
@@ -81,11 +80,12 @@ if (argv.h || argv.help ||
 // If we are passed more than one non-hyphenated
 // options, only use the first one. Assume the 
 // rest are pass-through for the child process
-var file = argv._[0];
+var file = argv._[0], options = {};
 
 // Setup pass-thru options for child-process
-var options = {};
-options.options = process.argv.splice(process.argv.indexOf(file)).splice(1);
+if (file) {
+  options.options = process.argv.splice(process.argv.indexOf(file)).splice(1);
+}
 
 // Now that we've removed the target script options
 // reparse the options and configure the forever settings
