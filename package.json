@@ -18,7 +18,8 @@
     "daemon": ">= 0.3.0",
     "optimist": ">= 0.0.6",
     "timespan": ">= 2.0.0",
-    "vows": ">= 0.5.2"
+    "vows": ">= 0.5.2",
+    "winston": ">= 0.2.1"
   },
   "bin": { "forever": "./bin/forever" },
   "main": "./lib/forever",

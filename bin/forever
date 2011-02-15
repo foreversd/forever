@@ -3,6 +3,7 @@
 var path = require('path'),
     fs = require('fs'),
     eyes = require('eyes'),
+    winston = require('winston'),
     sys  = require('sys');
 
 var accepts = ['start', 'stop', 'stopall', 'list', 'cleanlogs', 'restart'], action;
@@ -34,6 +35,7 @@ var help = [
     "  -d  SOURCEDIR  The source directory for which SCRIPT is relative to",
     "  -p  PATH       Base path for all forever related files (pid files, etc.)",
     "  -c  COMMAND    COMMAND to execute (defaults to node)",
+    "  -v, --verbose  Turns on the verbose messages from Forever",
     "  -s, --silent   Run the child script silencing stdout and stderr",
     "  -h, --help     You're staring at it",
     "",
@@ -51,15 +53,17 @@ var help = [
 ].join('\n');
 
 var mappings = {
-  'm':      'max',
-  'l':      'logFile',
-  'p':      'path',
-  'c':      'command',
-  'd':      'sourceDir',
-  's':      'silent',
-  'silent': 'silent',
-  'o':      'outFile',
-  'e':      'errFile'
+  'c':       'command',
+  'e':       'errFile',
+  'd':       'sourceDir',
+  'l':       'logFile',
+  'm':       'max',
+  'o':       'outFile',
+  'p':       'path',
+  's':       'silent',
+  'silent':  'silent',
+  'v':       'verbose',
+  'verbose': 'verbose'  
 };
 
 function isSimpleAction () {
@@ -101,6 +105,15 @@ if (typeof options['max'] === 'undefined') {
 // restarting outside of the main directory
 if (!options.sourceDir) options.sourceDir = process.cwd();
 
+//
+// Configure winston for forever based on the CLI options
+//
+winston.defaultTransports().console.timestamp = false;
+winston.defaultTransports().console.colorize = true;
+if (options.verbose) {
+  winston.defaultTransports().console.level = 'silly';
+}
+
 // Setup configurations for forever
 var config = {
   root: argv.p
@@ -116,7 +129,7 @@ function tryStart (callback) {
   
   forever.stat(fullLog, fullScript, function (err) {
     if (err) {
-      sys.puts('Cannot start forever: ' + err.message);
+      winston.error('Cannot start forever: ' + err.message);
       process.exit(0);
     }
   
@@ -129,28 +142,26 @@ function tryStart (callback) {
 // the default root exposed by forever.
 //
 if (config.root && config.root !== forever.root) {
-  sys.puts('Loading forever with config: ');
-  eyes.inspect(config);
+  winston.silly('Loading forever with config: ', config);
 
   forever.load(config);
-  sys.puts('Loaded forever successfully.');  
+  winston.silly('Loaded forever successfully.');  
 }
 
-sys.puts('Tidying ' + forever.config.root);
+winston.silly('Tidying ' + forever.config.root);
 var tidy = forever.cleanUp(action === 'cleanlogs'); 
 tidy.on('cleanUp', function () {
-  sys.puts(forever.config.root + ' tidied.');
+  winston.silly(forever.config.root + ' tidied.');
   if (file) {
-    sys.puts('Working with file: ' + file);
+    winston.info('Forever processing arguments', { arg: file });
   }
   
   if (options) {
-    sys.puts('Using forever options:');
-    eyes.inspect(options);
+    winston.silly('Forever using options', options);
   }
   
   if (action) {
-    sys.puts('Running action: ' + action.yellow);
+    winston.info('Running action: ' + action.yellow);
     switch (action) {
       case 'start': 
         tryStart(function () { forever.startDaemon(file, options); });
@@ -159,11 +170,11 @@ tidy.on('cleanUp', function () {
       case 'stop':
         var runner = forever.stop(file, true);
         runner.on('stop', function (process) {
-          sys.puts('Forever stopped process:');
+          winston.info('Forever stopped process:');
           sys.puts(process);
         });
         runner.on('error', function (err) {
-          sys.puts('Forever cannot find process with index: ' + file)
+          winston.error('Forever cannot find process with index: ' + file)
         })
         break;
         
@@ -171,11 +182,11 @@ tidy.on('cleanUp', function () {
         var runner = forever.stopAll(true);
         runner.on('stopAll', function (processes) {
           if (processes) {
-            sys.puts('Forever stopped processes:');
+            winston.info('Forever stopped processes:');
             sys.puts(processes);
           }
           else {
-            sys.puts('No forever processes running');
+            winston.info('No forever processes running');
           }
         });
         break;
@@ -184,18 +195,24 @@ tidy.on('cleanUp', function () {
         var runner = forever.restart(file, true);
         runner.on('restart', function (processes) {
           if (processes) {
-            sys.puts('Forever restarted processes:');
+            winston.info('Forever restarted processes:');
             sys.puts(processes);
           }
           else {
-            sys.puts('No forever processes running');
+            winston.info('No forever processes running');
           }
         });
         break;
         
       case 'list':
         var processes = forever.list(true);
-        sys.puts(processes ? processes : 'No forever processes running');
+        if (processes) {
+          winston.info('Forever processes running');
+          sys.puts(processes);
+        }
+        else {
+          winston.info('No forever processes running');
+        }
         break;
     }
   }
