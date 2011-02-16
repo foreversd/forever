@@ -1,5 +1,13 @@
 ## CHANGELOG
 
+### Version 0.4.0 
+
+- Enable forever to track uptime                     (indexzero)
+- Add `restart` command to forever.Monitor and CLI   (indexzero)
+- Ensure forever.load() is called on require()       (indexzero)
+- Better handling for for `-p` CLI option            (indexzero)
+- Enable options to be passed to child_process.spawn (indexzero) 
+
 ### Version 0.3.1
 
 - Allow forever to start any script (not just node) from nodejs code  (substack)

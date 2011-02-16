@@ -1,7 +1,7 @@
 {
   "name": "forever",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "author": "Charlie Robbins <charlie.robbins@gmail.com>",
   "contributors": [
     { "name": "Fedor Indutny", "email": "fedor.indutny@gmail.com" },
@@ -24,5 +24,5 @@
   "bin": { "forever": "./bin/forever" },
   "main": "./lib/forever",
   "scripts": { "test": "vows test/*-test.js --spec" },
-  "engines": { "node": ">= 0.2.0" }
+  "engines": { "node": ">= 0.4.0" }
 }
