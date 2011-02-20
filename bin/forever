@@ -103,7 +103,9 @@ if (typeof options['max'] === 'undefined') {
 
 // Set the sourceDir of the options for graceful
 // restarting outside of the main directory
-if (!options.sourceDir) options.sourceDir = process.cwd();
+if (!options.sourceDir) {
+  options.sourceDir = file && file[0] !== '/' ? process.cwd() : '/';
+}
 
 //
 // Configure winston for forever based on the CLI options
