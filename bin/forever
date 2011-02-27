@@ -132,7 +132,7 @@ function tryStart (callback) {
   forever.stat(fullLog, fullScript, function (err) {
     if (err) {
       winston.error('Cannot start forever: ' + err.message);
-      process.exit(0);
+      process.exit(-1);
     }
   
     callback();
