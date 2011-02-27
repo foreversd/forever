@@ -107,6 +107,11 @@ if (!options.sourceDir) {
   options.sourceDir = file && file[0] !== '/' ? process.cwd() : '/';
 }
 
+// Pass the source dir to spawn
+options.spawnWith = {
+  cwd: options.sourceDir
+};
+
 //
 // Configure winston for forever based on the CLI options
 //
