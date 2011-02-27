@@ -131,7 +131,8 @@ function tryStart (callback) {
   options.uid = uid;
   options.pidFile = 'forever' + uid + '.pid';
   options.logFile = argv.l || 'forever' + uid + '.log';
-  fullLog = path.join(forever.config.root, options.logFile);
+
+  fullLog = forever.logFilePath(options.logFile);
   fullScript = path.join(options.sourceDir, file);
   
   forever.stat(fullLog, fullScript, function (err) {
