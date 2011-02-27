@@ -14,7 +14,7 @@ if (accepts.indexOf(process.argv[2]) !== -1) {
 var argv = require('optimist').argv;
 require.paths.unshift(path.join(__dirname, '..', 'lib'));
 
-var forever = require('forever');
+var forever = require('../lib/forever');
 
 var help = [
     "usage: forever [start | stop | restart | stopall | list | cleanlogs] [options] SCRIPT [script options]",
