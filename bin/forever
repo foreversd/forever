@@ -29,6 +29,7 @@ var help = [
     "",
     "  -m MAX             Only run the specified script MAX times",
     "  -l  LOGFILE        Logs the forever output to LOGFILE",
+    "  -a, --append       Append logs",
     "  -o  OUTFILE        Logs stdout from child script to OUTFILE",
     "  -e  ERRFILE        Logs stderr from child script to ERRFILE",
     "  -d  SOURCEDIR      The source directory for which SCRIPT is relative to",
@@ -57,6 +58,8 @@ var mappings = {
   'e':       'errFile',
   'd':       'sourceDir',
   'l':       'logFile',
+  'a':       'appendLog',
+  'append':  'appendLog',
   'm':       'max',
   'o':       'outFile',
   'p':       'path',
@@ -137,7 +140,7 @@ function tryStart (callback) {
   fullLog = forever.logFilePath(options.logFile);
   fullScript = path.join(options.sourceDir, file);
   
-  forever.stat(fullLog, fullScript, function (err) {
+  forever.stat(fullLog, fullScript, options.appendLog, function (err) {
     if (err) {
       winston.error('Cannot start forever: ' + err.message);
       process.exit(-1);
