@@ -27,16 +27,17 @@ var help = [
     "  list           list all running forever scripts",
     "  cleanlogs      [CAREFUL] Deletes all historical forever log files",
     "",
-    "  -m MAX         Only run the specified script MAX times",
-    "  -l  LOGFILE    Logs the forever output to LOGFILE",
-    "  -o  OUTFILE    Logs stdout from child script to OUTFILE",
-    "  -e  ERRFILE    Logs stderr from child script to ERRFILE",
-    "  -d  SOURCEDIR  The source directory for which SCRIPT is relative to",
-    "  -p  PATH       Base path for all forever related files (pid files, etc.)",
-    "  -c  COMMAND    COMMAND to execute (defaults to node)",
-    "  -v, --verbose  Turns on the verbose messages from Forever",
-    "  -s, --silent   Run the child script silencing stdout and stderr",
-    "  -h, --help     You're staring at it",
+    "  -m MAX             Only run the specified script MAX times",
+    "  -l  LOGFILE        Logs the forever output to LOGFILE",
+    "  -o  OUTFILE        Logs stdout from child script to OUTFILE",
+    "  -e  ERRFILE        Logs stderr from child script to ERRFILE",
+    "  -d  SOURCEDIR      The source directory for which SCRIPT is relative to",
+    "  -p  PATH           Base path for all forever related files (pid files, etc.)",
+    "  -c  COMMAND        COMMAND to execute (defaults to node)",
+    "  --pidfile=PIDFILE  The pid file",
+    "  -v, --verbose      Turns on the verbose messages from Forever",
+    "  -s, --silent       Run the child script silencing stdout and stderr",
+    "  -h, --help         You're staring at it",
     "",
     "[Long Running Process]",
     "  The forever process will continue to run outputting log messages to the console.",
@@ -59,6 +60,7 @@ var mappings = {
   'm':       'max',
   'o':       'outFile',
   'p':       'path',
+  'pidfile': 'pidFile',
   's':       'silent',
   'silent':  'silent',
   'v':       'verbose',
@@ -129,7 +131,7 @@ var config = {
 function tryStart (callback) {
   var fullLog, fullScript, uid = forever.randomString(16);
   options.uid = uid;
-  options.pidFile = 'forever' + uid + '.pid';
+  options.pidFile = options.pidFile || 'forever' + uid + '.pid';
   options.logFile = argv.l || 'forever' + uid + '.log';
 
   fullLog = forever.logFilePath(options.logFile);
