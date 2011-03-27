@@ -70,7 +70,7 @@ stop() {
 }
 
 getForeverId() {
-    local pid=$(pidofproc $pidfile)
+    local pid=$(pidofproc -p $pidfile)
     $forever list -p $forever_dir | $sed -e 's/\x1b\[[0-9; ]*m//g' | $awk "\$4 == \"$pid]\" { gsub(/[\[\]]/, \"\", \$1); print \$1; }"
 }
 id=$(getForeverId)
