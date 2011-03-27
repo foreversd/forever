@@ -20,6 +20,7 @@ SOURCE_NAME=main.js                 # Name os the applcation entry point script
 user=apache
 pidfile=/var/run/$NAME.pid
 logfile=/var/log/$NAME.log
+forever_dir=/var/run/forever        # Forever root directory.
 
 node=node
 forever=forever
@@ -40,7 +41,7 @@ start() {
         # Launch the application
         daemon --user=$user \
             env PORT=$PORT \
-            $forever start --pidfile $pidfile -l $logfile -a -d $INSTANCE_DIR $SOURCE_NAME
+            $forever start -p $forever_dir --pidfile $pidfile -l $logfile -a -d $INSTANCE_DIR $SOURCE_NAME
         RETVAL=$?
     else
         echo "Instance already running"
@@ -51,7 +52,7 @@ start() {
 restart() {
     echo -n "Restarting $NAME node instance : "
     if [ "$id" != "" ]; then
-        $forever restart $id
+        $forever restart -p $forever_dir $id
         RETVAL=$?
     else
         start
@@ -61,7 +62,7 @@ restart() {
 stop() {
     echo -n "Shutting down $NAME node instance : "
     if [ "$id" != "" ]; then
-        $forever stop $id
+        $forever stop -p $forever_dir $id
     else
         echo "Instance is not running";
     fi
@@ -70,7 +71,7 @@ stop() {
 
 getForeverId() {
     local pid=$(pidofproc $pidfile)
-    $forever list | $sed -e 's/\x1b\[[0-9; ]*m//g' | $awk "\$4 == \"$pid]\" { gsub(/[\[\]]/, \"\", \$1); print \$1; }"
+    $forever list -p $forever_dir | $sed -e 's/\x1b\[[0-9; ]*m//g' | $awk "\$4 == \"$pid]\" { gsub(/[\[\]]/, \"\", \$1); print \$1; }"
 }
 id=$(getForeverId)
 
