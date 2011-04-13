@@ -2,7 +2,6 @@
 
 var path = require('path'),
     fs = require('fs'),
-    eyes = require('eyes'),
     winston = require('winston'),
     sys  = require('sys');
 
