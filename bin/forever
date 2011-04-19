@@ -13,7 +13,7 @@ if (accepts.indexOf(process.argv[2]) !== -1) {
 var argv = require('optimist').argv;
 require.paths.unshift(path.join(__dirname, '..', 'lib'));
 
-var forever = require('forever');
+var forever = require('../lib/forever');
 
 var help = [
     "usage: forever [start | stop | restart | stopall | list | cleanlogs] [options] SCRIPT [script options]",
@@ -26,16 +26,18 @@ var help = [
     "  list           list all running forever scripts",
     "  cleanlogs      [CAREFUL] Deletes all historical forever log files",
     "",
-    "  -m MAX         Only run the specified script MAX times",
-    "  -l  LOGFILE    Logs the forever output to LOGFILE",
-    "  -o  OUTFILE    Logs stdout from child script to OUTFILE",
-    "  -e  ERRFILE    Logs stderr from child script to ERRFILE",
-    "  -d  SOURCEDIR  The source directory for which SCRIPT is relative to",
-    "  -p  PATH       Base path for all forever related files (pid files, etc.)",
-    "  -c  COMMAND    COMMAND to execute (defaults to node)",
-    "  -v, --verbose  Turns on the verbose messages from Forever",
-    "  -s, --silent   Run the child script silencing stdout and stderr",
-    "  -h, --help     You're staring at it",
+    "  -m MAX             Only run the specified script MAX times",
+    "  -l  LOGFILE        Logs the forever output to LOGFILE",
+    "  -a, --append       Append logs",
+    "  -o  OUTFILE        Logs stdout from child script to OUTFILE",
+    "  -e  ERRFILE        Logs stderr from child script to ERRFILE",
+    "  -d  SOURCEDIR      The source directory for which SCRIPT is relative to",
+    "  -p  PATH           Base path for all forever related files (pid files, etc.)",
+    "  -c  COMMAND        COMMAND to execute (defaults to node)",
+    "  --pidfile=PIDFILE  The pid file",
+    "  -v, --verbose      Turns on the verbose messages from Forever",
+    "  -s, --silent       Run the child script silencing stdout and stderr",
+    "  -h, --help         You're staring at it",
     "",
     "[Long Running Process]",
     "  The forever process will continue to run outputting log messages to the console.",
@@ -55,9 +57,12 @@ var mappings = {
   'e':       'errFile',
   'd':       'sourceDir',
   'l':       'logFile',
+  'a':       'appendLog',
+  'append':  'appendLog',
   'm':       'max',
   'o':       'outFile',
   'p':       'path',
+  'pidfile': 'pidFile',
   's':       'silent',
   'silent':  'silent',
   'v':       'verbose',
@@ -106,6 +111,11 @@ if (!options.sourceDir) {
   options.sourceDir = file && file[0] !== '/' ? process.cwd() : '/';
 }
 
+// Pass the source dir to spawn
+options.spawnWith = {
+  cwd: options.sourceDir
+};
+
 //
 // Configure winston for forever based on the CLI options
 //
@@ -123,15 +133,16 @@ var config = {
 function tryStart (callback) {
   var fullLog, fullScript, uid = forever.randomString(16);
   options.uid = uid;
-  options.pidFile = 'forever' + uid + '.pid';
+  options.pidFile = options.pidFile || 'forever' + uid + '.pid';
   options.logFile = argv.l || 'forever' + uid + '.log';
-  fullLog = path.join(forever.config.root, options.logFile);
+
+  fullLog = forever.logFilePath(options.logFile);
   fullScript = path.join(options.sourceDir, file);
   
-  forever.stat(fullLog, fullScript, function (err) {
+  forever.stat(fullLog, fullScript, options.appendLog, function (err) {
     if (err) {
       winston.error('Cannot start forever: ' + err.message);
-      process.exit(0);
+      process.exit(-1);
     }
   
     callback();
