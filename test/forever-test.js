@@ -16,23 +16,14 @@ var sys = require('sys'),
 
 vows.describe('forever').addBatch({
   "When using forever": {
-    topic: function () {
-      forever.load({}, this.callback);
-    },
     "and instance of Forever passed valid options": {
-      topic: function () {
+      "should have correct properties set": function () {
         var child = new (forever.Forever)('any-file.js', {
           max: 10,
           silent: true,
           options: []
         });
         
-        // Emit a useless callback since we can't return 
-        // an instance of an events.EventEmitter
-        child.on('test', this.callback);
-        child.emit('test', null, child);
-      },
-      "should have correct properties set": function (err, child) {
         assert.isArray(child.options);
         assert.equal(child.max, 10);
         assert.isTrue(child.silent);

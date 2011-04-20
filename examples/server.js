@@ -1,11 +1,14 @@
-var sys = require('sys'),    
-  http = require('http');
+var sys = require('sys'),
+    http = require('http'),
+    argv = require('optimist').argv;
+
+var port = argv.p || argv.port || 80;
 
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
   res.write('hello, i know nodejitsu.')
   res.end();
-}).listen(8000);
+}).listen(port);
 
 /* server started */  
-sys.puts('> hello world running on port 80');
+sys.puts('> hello world running on port ' + port);

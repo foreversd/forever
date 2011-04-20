@@ -131,10 +131,10 @@ var config = {
 };
 
 function tryStart (callback) {
-  var fullLog, fullScript, uid = forever.randomString(16);
+  var fullLog, fullScript, uid = forever.randomString(24);
   options.uid = uid;
-  options.pidFile = options.pidFile || 'forever' + uid + '.pid';
-  options.logFile = argv.l || 'forever' + uid + '.log';
+  options.pidFile = options.pidFile || uid + '.pid';
+  options.logFile = argv.l || uid + '.log';
 
   fullLog = forever.logFilePath(options.logFile);
   fullScript = path.join(options.sourceDir, file);
@@ -160,10 +160,11 @@ if (config.root && config.root !== forever.root) {
   winston.silly('Loaded forever successfully.');  
 }
 
-winston.silly('Tidying ' + forever.config.root);
+winston.silly('Tidying ' + forever.config.get('root'));
 var tidy = forever.cleanUp(action === 'cleanlogs'); 
 tidy.on('cleanUp', function () {
-  winston.silly(forever.config.root + ' tidied.');
+  winston.silly(forever.config.get('root') + ' tidied.');
+  
   if (file) {
     winston.info('Forever processing arguments', { arg: file });
   }
