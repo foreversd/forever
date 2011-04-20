@@ -16,40 +16,40 @@ require.paths.unshift(path.join(__dirname, '..', 'lib'));
 var forever = require('forever');
 
 var help = [
-    "usage: forever [start | stop | restart | stopall | list | cleanlogs] [options] SCRIPT [script options]",
-    "",
-    "options:",
-    "  start          start SCRIPT as a daemon",
-    "  stop           stop the daemon SCRIPT",
-    "  stopall        stop all running forever scripts",
-    "  restart        restart the daemon SCRIPT",
-    "  list           list all running forever scripts",
-    "  cleanlogs      [CAREFUL] Deletes all historical forever log files",
-    "",
-    "  -m MAX         Only run the specified script MAX times",
-    "  -l  LOGFILE    Logs the forever output to LOGFILE",
-    "  -a, --append   Append logs",
-    "  -o  OUTFILE    Logs stdout from child script to OUTFILE",
-    "  -e  ERRFILE    Logs stderr from child script to ERRFILE",
-    "  -d  SOURCEDIR  The source directory for which SCRIPT is relative to",
-    "  -p  PATH       Base path for all forever related files (pid files, etc.)",
-    "  -c  COMMAND    COMMAND to execute (defaults to node)",
-    "  --pidfile      The pid file",
-    "  -v, --verbose  Turns on the verbose messages from Forever",
-    "  -s, --silent   Run the child script silencing stdout and stderr",
-    "  -h, --help     You're staring at it",
-    "",
-    "[Long Running Process]",
-    "  The forever process will continue to run outputting log messages to the console.",
-    "  ex. forever -o out.log -e err.log my-script.js",
-    "",
-    "[Daemon]",
-    "  The forever process will run as a daemon which will make the target process start",
-    "  in the background. This is extremely useful for remote starting simple node.js scripts",
-    "  without using nohup. It is recommended to run start with -o -l, & -e.",
-    "  ex. forever start -l forever.log -o out.log -e err.log my-daemon.js",
-    "      forever stop my-daemon.js",
-    ""
+    'usage: forever [start | stop | restart | stopall | list | cleanlogs] [options] SCRIPT [script options]',
+    '',
+    'options:',
+    '  start          start SCRIPT as a daemon',
+    '  stop           stop the daemon SCRIPT',
+    '  stopall        stop all running forever scripts',
+    '  restart        restart the daemon SCRIPT',
+    '  list           list all running forever scripts',
+    '  cleanlogs      [CAREFUL] Deletes all historical forever log files',
+    '',
+    '  -m MAX         Only run the specified script MAX times',
+    '  -l  LOGFILE    Logs the forever output to LOGFILE',
+    '  -a, --append   Append logs',
+    '  -o  OUTFILE    Logs stdout from child script to OUTFILE',
+    '  -e  ERRFILE    Logs stderr from child script to ERRFILE',
+    '  -d  SOURCEDIR  The source directory for which SCRIPT is relative to',
+    '  -p  PATH       Base path for all forever related files (pid files, etc.)',
+    '  -c  COMMAND    COMMAND to execute (defaults to node)',
+    '  --pidfile      The pid file',
+    '  -v, --verbose  Turns on the verbose messages from Forever',
+    '  -s, --silent   Run the child script silencing stdout and stderr',
+    '  -h, --help     You\'re staring at it',
+    '',
+    '[Long Running Process]',
+    '  The forever process will continue to run outputting log messages to the console.',
+    '  ex. forever -o out.log -e err.log my-script.js',
+    '',
+    '[Daemon]',
+    '  The forever process will run as a daemon which will make the target process start',
+    '  in the background. This is extremely useful for remote starting simple node.js scripts',
+    '  without using nohup. It is recommended to run start with -o -l, & -e.',
+    '  ex. forever start -l forever.log -o out.log -e err.log my-daemon.js',
+    '      forever stop my-daemon.js',
+    ''
 ].join('\n');
 
 var mappings = {
@@ -136,7 +136,7 @@ function tryStart (callback) {
   options.pidFile = options.pidFile || uid + '.pid';
   options.logFile = argv.l || uid + '.log';
 
-  fullLog = forever.logFilePath(options.logFile);
+  fullLog = forever.logFilePath(options.logFile, uid);
   fullScript = path.join(options.sourceDir, file);
   
   forever.stat(fullLog, fullScript, options.appendLog, function (err) {
