@@ -124,6 +124,19 @@ options.uid = uid;
 options.pidFile = options.pidFile || uid + '.pid';
 options.logFile = argv.l || uid + '.log';
 
+//
+// Check for existing global config and set each
+// key appropriately if it exists.
+//
+['append', 'silent', 'verbose'].forEach(function (key) {
+  var target = mappings[key],
+      value = forever.config.get(key);
+      
+  if (value) {
+    options[target] = options[target] || value === 'true';
+  }
+});
+
 // Pass the source dir to spawn
 options.spawnWith = {
   cwd: options.sourceDir
@@ -134,9 +147,8 @@ options.spawnWith = {
 //
 winston.defaultTransports().console.timestamp = false;
 winston.defaultTransports().console.colorize = true;
-if (options.verbose || options.v) {
+if (options.verbose) {
   winston.defaultTransports().console.level = 'silly';
-  
 }
 
 // Setup configurations for forever
