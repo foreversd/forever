@@ -26,14 +26,15 @@ You can use forever to run any kind of script continuously (whether it is writte
   Monitors the script specified in the current process or as a daemon
 
   actions:
-    start          Start SCRIPT as a daemon
-    stop           Stop the daemon SCRIPT
-    stopall        Stop all running forever scripts
-    restart        Restart the daemon SCRIPT
-    list           List all running forever scripts
-    config         Lists all forever user configuration
-    set <key>      Sets the specified forever config <key>
-    cleanlogs      [CAREFUL] Deletes all historical forever log files
+    start            Start SCRIPT as a daemon
+    stop             Stop the daemon SCRIPT
+    stopall          Stop all running forever scripts
+    restart          Restart the daemon SCRIPT
+    list             List all running forever scripts
+    config           Lists all forever user configuration
+    set <key> <val>  Sets the specified forever config <key>
+    clear <key>      Clears the specified forever config <key>
+    cleanlogs        [CAREFUL] Deletes all historical forever log files
 
   options:
     -m MAX         Only run the specified script MAX times
