@@ -89,18 +89,24 @@ var mappings = {
   'verbose': 'verbose'  
 };
 
+//
 // If we are passed more than one non-hyphenated
 // options, only use the first one. Assume the 
 // rest are pass-through for the child process
+//
 var file = argv._[0], options = {};
 
-// Setup pass-thru options for child-process
 if (file) {
+  //
+  // Setup pass-thru options for child-process
+  //
   options.options = process.argv.splice(process.argv.indexOf(file)).splice(1);
 }
 
+//
 // Now that we've removed the target script options
 // reparse the options and configure the forever settings
+//
 argv = require('optimist')(process.argv).boolean(['v', 'verbose', 'a', 'append', 's', 'silent']).argv;
 Object.keys(argv).forEach(function (key) {
   if (mappings[key] && argv[key]) {
@@ -108,14 +114,18 @@ Object.keys(argv).forEach(function (key) {
   }
 });
 
-// If max isn't specified set it to run forever
 if (typeof options['max'] === 'undefined') {
+  //
+  // If max isn't specified set it to run forever
+  //
   options.forever = true;
 }
 
-// Set the sourceDir of the options for graceful
-// restarting outside of the main directory
 if (!options.sourceDir) {
+  //
+  // Set the sourceDir of the options for graceful
+  // restarting outside of the main directory
+  //
   options.sourceDir = file && file[0] !== '/' ? process.cwd() : '/';
 }
 
@@ -137,7 +147,9 @@ options.logFile = argv.l || uid + '.log';
   }
 });
 
+//
 // Pass the source dir to spawn
+//
 options.spawnWith = {
   cwd: options.sourceDir
 };
@@ -151,7 +163,9 @@ if (options.verbose) {
   winston.defaultTransports().console.level = 'silly';
 }
 
+//
 // Setup configurations for forever
+//
 var config = {
   root: argv.p
 };

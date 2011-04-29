@@ -1,8 +1,0 @@
-> hello world running on port 8080
-GET request: /foo/barbazz
-GET request: /favicon.ico
-HEAD request: /foo/barbazz
-GET request: /foo/barbazz
-GET request: /favicon.ico
-HEAD request: /foo/barbazz
-> hello world running on port 8080
