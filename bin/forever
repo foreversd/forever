@@ -5,36 +5,41 @@ var path = require('path'),
     winston = require('winston'),
     sys  = require('sys');
 
-var accepts = ['start', 'stop', 'stopall', 'list', 'cleanlogs', 'restart'], action;
+var accepts = ['start', 'stop', 'stopall', 'list', 'config', 'clear', 'set', 'cleanlogs', 'restart'], action;
 if (accepts.indexOf(process.argv[2]) !== -1) {
   action = process.argv.splice(2,1)[0];
 }
 
-var argv = require('optimist').argv;
+var argv = require('optimist').boolean(['v', 'verbose', 'a', 'append', 's', 'silent']).argv;
 require.paths.unshift(path.join(__dirname, '..', 'lib'));
 
 var forever = require('forever');
 
 var help = [
-  'usage: forever [start | stop | restart | stopall | list | cleanlogs] [options] SCRIPT [script options]',
+  'usage: forever [action] [options] SCRIPT [script-options]',
   '',
-  'options:',
-  '  start          start SCRIPT as a daemon',
-  '  stop           stop the daemon SCRIPT',
-  '  stopall        stop all running forever scripts',
-  '  restart        restart the daemon SCRIPT',
-  '  list           list all running forever scripts',
+  'Monitors the script specified in the current process or as a daemon',
+  '',
+  'actions:',
+  '  start          Start SCRIPT as a daemon',
+  '  stop           Stop the daemon SCRIPT',
+  '  stopall        Stop all running forever scripts',
+  '  restart        Restart the daemon SCRIPT',
+  '  list           List all running forever scripts',
+  '  config         Lists all forever user configuration',
+  '  set <key>      Sets the specified forever config <key>',
   '  cleanlogs      [CAREFUL] Deletes all historical forever log files',
   '',
+  'options:',
   '  -m MAX         Only run the specified script MAX times',
   '  -l  LOGFILE    Logs the forever output to LOGFILE',
-  '  -a, --append   Append logs',
   '  -o  OUTFILE    Logs stdout from child script to OUTFILE',
   '  -e  ERRFILE    Logs stderr from child script to ERRFILE',
   '  -d  SOURCEDIR  The source directory for which SCRIPT is relative to',
   '  -p  PATH       Base path for all forever related files (pid files, etc.)',
   '  -c  COMMAND    COMMAND to execute (defaults to node)',
   '  --pidfile      The pid file',
+  '  -a, --append   Append logs',
   '  -v, --verbose  Turns on the verbose messages from Forever',
   '  -s, --silent   Run the child script silencing stdout and stderr',
   '  -h, --help     You\'re staring at it',
@@ -51,6 +56,20 @@ var help = [
   '      forever stop my-daemon.js',
   ''
 ].join('\n');
+
+function isSimpleAction () {
+  return ['config', 'list', 'stopall', 'cleanlogs'].indexOf(action) !== -1;
+};
+
+//
+// Show help prompt if requested or if the 
+// incorrect usage options are supplied
+//
+if (argv.h || argv.help || 
+  (argv._.length === 0 && !isSimpleAction())) {
+  sys.puts(help);
+  return;
+}
 
 var mappings = {
   'c':       'command',
@@ -69,18 +88,6 @@ var mappings = {
   'verbose': 'verbose'  
 };
 
-function isSimpleAction () {
-  return ['list', 'stopall', 'cleanlogs'].indexOf(action) !== -1;
-};
-
-// Show help prompt if requested or if the 
-// incorrect usage options are supplied
-if (argv.h || argv.help || 
-  (argv._.length === 0 && !isSimpleAction())) {
-  sys.puts(help);
-  return;
-}
-
 // If we are passed more than one non-hyphenated
 // options, only use the first one. Assume the 
 // rest are pass-through for the child process
@@ -93,9 +100,9 @@ if (file) {
 
 // Now that we've removed the target script options
 // reparse the options and configure the forever settings
-argv = require('optimist')(process.argv).argv;
+argv = require('optimist')(process.argv).boolean(['v', 'verbose', 'a', 'append', 's', 'silent']).argv;
 Object.keys(argv).forEach(function (key) {
-  if (mappings[key]) {
+  if (mappings[key] && argv[key]) {
     options[mappings[key]] = argv[key];
   }
 });
@@ -111,6 +118,11 @@ if (!options.sourceDir) {
   options.sourceDir = file && file[0] !== '/' ? process.cwd() : '/';
 }
 
+var uid = forever.randomString(24);
+options.uid = uid;
+options.pidFile = options.pidFile || uid + '.pid';
+options.logFile = argv.l || uid + '.log';
+
 // Pass the source dir to spawn
 options.spawnWith = {
   cwd: options.sourceDir
@@ -121,8 +133,9 @@ options.spawnWith = {
 //
 winston.defaultTransports().console.timestamp = false;
 winston.defaultTransports().console.colorize = true;
-if (options.verbose) {
+if (options.verbose || options.v) {
   winston.defaultTransports().console.level = 'silly';
+  
 }
 
 // Setup configurations for forever
@@ -130,108 +143,18 @@ var config = {
   root: argv.p
 };
 
-function tryStart (callback) {
-  var fullLog, fullScript, uid = forever.randomString(24);
-  options.uid = uid;
-  options.pidFile = options.pidFile || uid + '.pid';
-  options.logFile = argv.l || uid + '.log';
-
-  fullLog = forever.logFilePath(options.logFile, uid);
-  fullScript = path.join(options.sourceDir, file);
-  
-  forever.stat(fullLog, fullScript, options.appendLog, function (err) {
-    if (err) {
-      winston.error('Cannot start forever: ' + err.message);
-      process.exit(-1);
-    }
-  
-    callback();
-  });
-}
-
 //
 // Only call `forever.load()` if the root path is different than 
 // the default root exposed by forever.
 //
 if (config.root && config.root !== forever.root) {
   winston.silly('Loading forever with config: ', config);
-
   forever.load(config);
   winston.silly('Loaded forever successfully.');  
 }
 
-winston.silly('Tidying ' + forever.config.get('root'));
-var tidy = forever.cleanUp(action === 'cleanlogs'); 
-tidy.on('cleanUp', function () {
-  winston.silly(forever.config.get('root') + ' tidied.');
-  
-  if (file) {
-    winston.info('Forever processing arguments', { arg: file });
-  }
-  
-  if (options) {
-    winston.silly('Forever using options', options);
-  }
-  
-  if (action) {
-    winston.info('Running action: ' + action.yellow);
-    switch (action) {
-      case 'start': 
-        tryStart(function () { forever.startDaemon(file, options); });
-        break;
-        
-      case 'stop':
-        var runner = forever.stop(file, true);
-        runner.on('stop', function (process) {
-          winston.info('Forever stopped process:');
-          sys.puts(process);
-        });
-        runner.on('error', function (err) {
-          winston.error('Forever cannot find process with index: ' + file)
-        })
-        break;
-        
-      case 'stopall':
-        var runner = forever.stopAll(true);
-        runner.on('stopAll', function (processes) {
-          if (processes) {
-            winston.info('Forever stopped processes:');
-            sys.puts(processes);
-          }
-          else {
-            winston.info('No forever processes running');
-          }
-        });
-        break;
-        
-      case 'restart': 
-        var runner = forever.restart(file, true);
-        runner.on('restart', function (processes) {
-          if (processes) {
-            winston.info('Forever restarted processes:');
-            sys.puts(processes);
-          }
-          else {
-            winston.info('No forever processes running');
-          }
-        });
-        break;
-        
-      case 'list':
-        var processes = forever.list(true);
-        if (processes) {
-          winston.info('Forever processes running');
-          sys.puts(processes);
-        }
-        else {
-          winston.info('No forever processes running');
-        }
-        break;
-    }
-  }
-  else {
-    tryStart(function () { 
-      forever.start(file, options);
-    });
-  }
-});
+if (action === 'set') {
+  options = options.options[0];
+}
+
+forever.cli.exec(action, file, options);
