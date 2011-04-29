@@ -5,14 +5,14 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
 ## Installation
 
 ### Installing npm (node package manager)
-<pre>
+```
   curl http://npmjs.org/install.sh | sh
-</pre>
+```
 
 ### Installing forever
-<pre>
+```
   [sudo] npm install forever
-</pre>
+```
 
 ## Usage 
 There are two distinct ways to use forever: through the command line interface, or by requiring the forever module in your own code.  
@@ -20,23 +20,32 @@ There are two distinct ways to use forever: through the command line interface, 
 ### Using forever from the command line
 You can use forever to run any kind of script continuously (whether it is written in node.js or not). The usage options are simple:
 
-<pre>
-  usage: forever [start | stop | restart | stopall | list | cleanlogs] [options] SCRIPT [script options]
+```
+  usage: forever [action] [options] SCRIPT [script-options]
 
-  options:
-    start          start SCRIPT as a daemon
-    stop           stop the daemon SCRIPT
-    stopall        stop all running forever scripts
-    restart        restart the daemon SCRIPT
-    list           list all running forever scripts
+  Monitors the script specified in the current process or as a daemon
+
+  actions:
+    start          Start SCRIPT as a daemon
+    stop           Stop the daemon SCRIPT
+    stopall        Stop all running forever scripts
+    restart        Restart the daemon SCRIPT
+    list           List all running forever scripts
+    config         Lists all forever user configuration
+    set <key>      Sets the specified forever config <key>
     cleanlogs      [CAREFUL] Deletes all historical forever log files
 
-
+  options:
     -m MAX         Only run the specified script MAX times
     -l  LOGFILE    Logs the forever output to LOGFILE
     -o  OUTFILE    Logs stdout from child script to OUTFILE
     -e  ERRFILE    Logs stderr from child script to ERRFILE
+    -d  SOURCEDIR  The source directory for which SCRIPT is relative to
     -p  PATH       Base path for all forever related files (pid files, etc.)
+    -c  COMMAND    COMMAND to execute (defaults to node)
+    --pidfile      The pid file
+    -a, --append   Append logs
+    -v, --verbose  Turns on the verbose messages from Forever
     -s, --silent   Run the child script silencing stdout and stderr
     -h, --help     You're staring at it
 
@@ -50,7 +59,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     without using nohup. It is recommended to run start with -o -l, & -e.
     ex. forever start -l forever.log -o out.log -e err.log my-daemon.js
         forever stop my-daemon.js
-</pre>
+```
 
 There are several samples designed to test the fault tolerance of forever. Here's a simple example: 
 
@@ -61,7 +70,7 @@ There are several samples designed to test the fault tolerance of forever. Here'
 ### Using an instance of Forever from node.js 
 You can also use forever from inside your own node.js code. 
 
-<pre>
+```javascript
   var forever = require('forever');
   
   var child = new (forever.Forever)('your-filename.js', {
@@ -72,24 +81,24 @@ You can also use forever from inside your own node.js code.
   
   child.on('exit', this.callback);
   child.start();
-</pre>
+```
 
 ### Spawning a non-node process
 You can spawn non-node processes too. Either set the `command` key in the
 `options` hash or pass in an `Array` in place of the `file` argument like this:
 
-<pre>
+```javascript
   var forever = require('forever');
   var child = forever.start([ 'perl', '-le', 'print "moo"' ], {
     max : 1,
     silent : true
   });
-</pre>
+```
 
 ### Options available when using Forever in node.js
 There are several options that you should be aware of when using forever:
 
-<pre>
+```javascript
   {
     'max': 10,                  // Sets the maximum number of times a given script should run
     'forever': true,            // Indicates that this script should run forever 
@@ -101,7 +110,7 @@ There are several options that you should be aware of when using forever:
     'command': 'perl',          // Binary to run (default: 'node')
     'options': ['foo','bar'],   // Additional arguments to pass to the script
   }
-</pre>
+```
 
 ### Events available when using an instance of Forever in node.js
 Each forever object is an instance of the node.js core EventEmitter. There are several core events that you can listen for:
@@ -115,7 +124,7 @@ Each forever object is an instance of the node.js core EventEmitter. There are s
 * stderr  [data]:         Raised when data is received from the child process' stderr
 
 ## Using forever module from node.js
-In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever binary script][1] for sample usage.
+In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever cli commands][1] for sample usage.
 
 ### forever.load (config, callback)
 Sets the specified configuration (config) for the forever module. In addition to the callback, this method also returns an event emitter which will raise the 'load' event when complete. There are two important options:
@@ -146,12 +155,12 @@ Removes all log files from the root forever directory that do not belong to curr
 
 ## Run Tests
 The test coverage for 0.3.1 is currently lacking, but will be improved in 0.3.2.
-<pre>
+```
   vows test/*-test.js --spec
-</pre>
+```
 
-#### Author: [Charlie Robbins](http://www.charlierobbins.com)
+#### Author: [Charlie Robbins][0]
 #### Contributors: [Fedor Indutny](http://github.com/donnerjack13589), [James Halliday](http://substack.net/)
 
 [0]: http://nodejitsu.com
-[1]: https://github.com/indexzero/forever/blob/master/bin/forever
+[1]: https://github.com/indexzero/forever/blob/master/lib/forever/cli.js
