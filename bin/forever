@@ -3,7 +3,8 @@
 var path = require('path'),
     fs = require('fs'),
     winston = require('winston'),
-    sys  = require('sys');
+    sys  = require('sys'),
+    forever = require('./../lib/forever');
 
 var accepts = ['start', 'stop', 'stopall', 'list', 'config', 'clear', 'set', 'cleanlogs', 'restart'], action;
 if (accepts.indexOf(process.argv[2]) !== -1) {
@@ -11,9 +12,6 @@ if (accepts.indexOf(process.argv[2]) !== -1) {
 }
 
 var argv = require('optimist').boolean(['v', 'verbose', 'a', 'append', 's', 'silent']).argv;
-require.paths.unshift(path.join(__dirname, '..', 'lib'));
-
-var forever = require('forever');
 
 var help = [
   'usage: forever [action] [options] SCRIPT [script-options]',

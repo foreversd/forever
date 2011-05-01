@@ -1,8 +1,6 @@
-require.paths.unshift(require('path').join(__dirname, '..', 'lib'));
-
 var util = require('util'),
-    forever = require('forever'),
     path = require('path'),
+    forever = require('./../lib/forever'),
     script = path.join(__dirname, 'server.js');
         
 var child1 = new (forever.Forever)(script, { 'options': [ "--port=8080"] });
