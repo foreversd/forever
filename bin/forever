@@ -64,7 +64,7 @@ function isSimpleAction () {
 // Show help prompt if requested or if the 
 // incorrect usage options are supplied
 //
-if (argv.h || argv.help || 
+if (argv.h || argv.help || !action ||
   (argv._.length === 0 && !isSimpleAction())) {
   sys.puts(help);
   return;
