@@ -11,11 +11,11 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
 
 ### Installing forever
 ```
-  [sudo] npm install forever -g
+  [sudo] npm install forever
 ```
 
-## Usage 
-There are two distinct ways to use forever: through the command line interface, or by requiring the forever module in your own code.  
+## Usage
+There are two distinct ways to use forever: through the command line interface, or by requiring the forever module in your own code.
 
 ### Using forever from the command line
 You can use forever to run any kind of script continuously (whether it is written in node.js or not). The usage options are simple:
@@ -62,24 +62,24 @@ You can use forever to run any kind of script continuously (whether it is writte
         forever stop my-daemon.js
 ```
 
-There are several samples designed to test the fault tolerance of forever. Here's a simple example: 
+There are several samples designed to test the fault tolerance of forever. Here's a simple example:
 
 <pre>
   forever samples/error-on-timer.js -m 5
 </pre>
 
-### Using an instance of Forever from node.js 
-You can also use forever from inside your own node.js code. 
+### Using an instance of Forever from node.js
+You can also use forever from inside your own node.js code.
 
 ```javascript
   var forever = require('forever');
-  
+
   var child = new (forever.Forever)('your-filename.js', {
     max: 3,
     silent: true,
     options: []
   });
-  
+
   child.on('exit', this.callback);
   child.start();
 ```
@@ -102,7 +102,7 @@ There are several options that you should be aware of when using forever:
 ```javascript
   {
     'max': 10,                  // Sets the maximum number of times a given script should run
-    'forever': true,            // Indicates that this script should run forever 
+    'forever': true,            // Indicates that this script should run forever
     'silent': true,             // Silences the output from stdout and stderr in the parent process
     'logFile': 'path/to/file',  // Path to log output from forever process (when in daemon)
     'pidFile': 'path/to/file',  // Path to put pid information for the process(es) started
@@ -130,7 +130,7 @@ In addition to using a Forever object, the forever module also exposes some usef
 ### forever.load (config, callback)
 Sets the specified configuration (config) for the forever module. In addition to the callback, this method also returns an event emitter which will raise the 'load' event when complete. There are two important options:
 
-* root:    Directory to put all default forever log files 
+* root:    Directory to put all default forever log files
 * pidPath: Directory to put all forever *.pid files
 
 ### forever.start (file, options)
