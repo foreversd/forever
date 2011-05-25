@@ -11,7 +11,7 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
 
 ### Installing forever
 ```
-  [sudo] npm install forever
+  [sudo] npm install forever -g
 ```
 
 ## Usage
