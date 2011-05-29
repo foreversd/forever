@@ -14,7 +14,7 @@ var sys = require('sys'),
     vows = require('vows'),
     forever = require('forever');
 
-vows.describe('forever').addBatch({
+vows.describe('forever/spin-restart').addBatch({
   "When using forever": {
     "and spawning a script that spin restarts": {
       topic: function () {

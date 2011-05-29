@@ -14,7 +14,7 @@ var sys = require('sys'),
     vows = require('vows'),
     forever = require('forever');
 
-vows.describe('forever').addBatch({
+vows.describe('forever/multiple-processes').addBatch({
   "When using forever": {
     "and spawning two processes using the same script": {
       topic: function () {

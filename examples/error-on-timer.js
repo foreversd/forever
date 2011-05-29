@@ -11,4 +11,4 @@ var sys = require('sys');
 setTimeout(function () {
   sys.puts('Throwing error now.');
   throw new Error('User generated fault.');
-}, 1000);
+}, 200);

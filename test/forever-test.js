@@ -37,6 +37,7 @@ vows.describe('forever').addBatch({
     topic: function () {
       var child = new (forever.Forever)(path.join(__dirname, '..', 'examples', 'error-on-timer.js'), {
         max: 3,
+        minUptime: 200,
         silent: true,
         outFile: 'test/stdout.log',
         errFile: 'test/stderr.log',
@@ -73,6 +74,23 @@ vows.describe('forever').addBatch({
     "should throw an error about the invalid file": function (err) {
       assert.isNotNull(err);
       assert.isTrue(err.message.indexOf('does not exist') !== -1);
+    }
+  }
+}).addBatch({
+  "When the tests are over": {
+    "a call to forever.list()": {
+      topic: function () {
+        var that = this;
+        var tidy = forever.cleanUp(true, true);
+        
+        tidy.on('cleanUp', function () {
+          that.callback(null, forever.list(false));
+        });
+      },
+      "should respond with no processes": function (err, procs) {
+        assert.isNull(err);
+        assert.isNull(procs);
+      }
     }
   }
 }).export(module);
