@@ -64,8 +64,8 @@ function isSimpleAction () {
 // Show help prompt if requested or if the 
 // incorrect usage options are supplied
 //
-if (argv.h || argv.help || !action ||
-  (argv._.length === 0 && !isSimpleAction())) {
+if (argv.h || argv.help || (argv._.length === 0 && !isSimpleAction()) 
+  && (!argv.c && !argv.command)) {
   sys.puts(help);
   return;
 }
@@ -99,6 +99,9 @@ if (file) {
   // Setup pass-thru options for child-process
   //
   options.options = process.argv.splice(process.argv.indexOf(file)).splice(1);
+}
+else if (argv.c || argv.command) {
+  options.options = process.argv.splice(process.argv.indexOf(argv.c || argv.command) + 1);
 }
 
 //
