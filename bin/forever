@@ -30,18 +30,20 @@ var help = [
   '  cleanlogs        [CAREFUL] Deletes all historical forever log files',
   '',
   'options:',
-  '  -m MAX         Only run the specified script MAX times',
-  '  -l  LOGFILE    Logs the forever output to LOGFILE',
-  '  -o  OUTFILE    Logs stdout from child script to OUTFILE',
-  '  -e  ERRFILE    Logs stderr from child script to ERRFILE',
-  '  -d  SOURCEDIR  The source directory for which SCRIPT is relative to',
-  '  -p  PATH       Base path for all forever related files (pid files, etc.)',
-  '  -c  COMMAND    COMMAND to execute (defaults to node)',
-  '  --pidfile      The pid file',
-  '  -a, --append   Append logs',
-  '  -v, --verbose  Turns on the verbose messages from Forever',
-  '  -s, --silent   Run the child script silencing stdout and stderr',
-  '  -h, --help     You\'re staring at it',
+  '  -m MAX          Only run the specified script MAX times',
+  '  -l  LOGFILE     Logs the forever output to LOGFILE',
+  '  -o  OUTFILE     Logs stdout from child script to OUTFILE',
+  '  -e  ERRFILE     Logs stderr from child script to ERRFILE',
+  '  -d  SOURCEDIR   The source directory for which SCRIPT is relative to',
+  '  -p  PATH        Base path for all forever related files (pid files, etc.)',
+  '  -c  COMMAND     COMMAND to execute (defaults to node)',
+  '  --pidfile       The pid file',
+  '  -a, --append    Append logs',
+  '  --minUptime     Minimum uptime (millis) for a script to not be considered "spinning"',
+  '  --spinSleepTime Time to wait (millis) between launches of a spinning script.  (defaults to killing a spinning script).',
+  '  -v, --verbose   Turns on the verbose messages from Forever',
+  '  -s, --silent    Run the child script silencing stdout and stderr',
+  '  -h, --help      You\'re staring at it',
   '',
   '[Long Running Process]',
   '  The forever process will continue to run outputting log messages to the console.',
@@ -71,20 +73,22 @@ if (argv.h || argv.help || (argv._.length === 0 && !isSimpleAction())
 }
 
 var mappings = {
-  'c':       'command',
-  'e':       'errFile',
-  'd':       'sourceDir',
-  'l':       'logFile',
-  'a':       'appendLog',
-  'append':  'appendLog',
-  'm':       'max',
-  'o':       'outFile',
-  'p':       'path',
-  'pidfile': 'pidFile',
-  's':       'silent',
-  'silent':  'silent',
-  'v':       'verbose',
-  'verbose': 'verbose'  
+  'c':             'command',
+  'e':             'errFile',
+  'd':             'sourceDir',
+  'l':             'logFile',
+  'a':             'appendLog',
+  'append':        'appendLog',
+  'm':             'max',
+  'o':             'outFile',
+  'p':             'path',
+  'pidfile':       'pidFile',
+  's':             'silent',
+  'silent':        'silent',
+  'minUptime':     'minUptime',
+  'spinSleepTime': 'spinSleepTime',
+  'v':             'verbose',
+  'verbose':       'verbose'  
 };
 
 //
@@ -120,6 +124,13 @@ if (typeof options['max'] === 'undefined') {
   // If max isn't specified set it to run forever
   //
   options.forever = true;
+}
+
+if (typeof options['minUptime'] !== 'undefined') {
+    options['minUptime'] = parseFloat(options['minUptime']);
+}
+if (typeof options['spinSleepTime'] !== 'undefined') {
+    options['spinSleepTime'] = parseFloat(options['spinSleepTime']);
 }
 
 if (!options.sourceDir) {
