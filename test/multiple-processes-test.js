@@ -19,27 +19,38 @@ vows.describe('forever/multiple-processes').addBatch({
     "and spawning two processes using the same script": {
       topic: function () {
         var that = this,
-            script = path.join(__dirname, '..', 'examples', 'server.js'),
-            child1 = new (forever.Forever)(script, { 'options': [ "--port=8080"] });
+            script = path.join(__dirname, '..', 'examples', 'server.js');
+            
+        this.child1 = new (forever.Forever)(script, { 
+          silent: true,
+          maxRestart: 1,
+          options: [ "--port=8080"] 
+        });
         
         var tidy = forever.cleanUp(true);
         tidy.on('cleanUp', function () {
-          child1.on('start', function () {
-            var child2 = new (forever.Forever)(script, { 'options': [ "--port=8081"] });          
-            child2.on('start', function () {
+          that.child1.on('start', function () {
+            that.child2 = new (forever.Forever)(script, { 
+              silent: true,
+              maxRestart: 1,
+              options: [ "--port=8081"] 
+            });
+            
+            that.child2.on('start', function () {
               that.callback(null, forever.list(false));
             });
 
-            child2.start();
-
+            that.child2.start();
           });
 
-          child1.start();
+          that.child1.start();
         });        
       },
       "should spawn both processes appropriately": function (err, procs) {
         assert.isNull(err);
         assert.length(procs, 2);
+        this.child1.stop();
+        this.child2.stop();
       }
     }
   },
