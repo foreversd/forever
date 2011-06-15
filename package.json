@@ -29,10 +29,11 @@
     "colors": "0.x.x",
     "eyes": "0.1.x",
     "daemon": "0.3.x",
+    "nconf": "0.x.x",
     "optimist": "0.2.x",
+    "pkginfo": "0.x.x",
     "timespan": "2.0.x",
-    "winston": "0.3.x", 
-    "nconf": "0.x.x"
+    "winston": "0.3.x"
   },
   "devDependencies": {
     "vows": "0.5.x"
