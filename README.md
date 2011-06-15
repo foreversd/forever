@@ -155,9 +155,9 @@ Cleans up any extraneous forever *.pid or *.fvr files that are on the target sys
 Removes all log files from the root forever directory that do not belong to current running forever processes.
 
 ## Run Tests
-The test coverage for 0.3.1 is currently lacking, but will be improved in 0.3.2.
-```
-  vows test/*-test.js --spec
+
+``` bash
+  $ vows test/*-test.js --spec
 ```
 
 #### Author: [Charlie Robbins][0]
