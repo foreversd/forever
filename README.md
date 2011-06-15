@@ -128,7 +128,7 @@ Each forever object is an instance of the node.js core EventEmitter. There are s
 In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever cli commands][1] for sample usage.
 
 ### forever.load (config)
-Sets the specified configuration (config) for the forever module. There are two important options:
+_Synchronously_ sets the specified configuration (config) for the forever module. There are two important options:
 
 * root:    Directory to put all default forever log files
 * pidPath: Directory to put all forever *.pid files
