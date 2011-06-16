@@ -103,26 +103,42 @@ There are several options that you should be aware of when using forever:
   {
     'max': 10,                  // Sets the maximum number of times a given script should run
     'forever': true,            // Indicates that this script should run forever
+
     'silent': true,             // Silences the output from stdout and stderr in the parent process
+
+    'minUptime': 2000,          // Minimum time a child process has to be up. Forever will 'exit' otherwise.
+    'spinSleepTime': 1000,      // Interval between restarts if a child is spinning (i.e. alive < minUptime).
+
     'logFile': 'path/to/file',  // Path to log output from forever process (when in daemon)
     'pidFile': 'path/to/file',  // Path to put pid information for the process(es) started
     'outFile': 'path/to/file',  // Path to log output from child stdout
     'errFile': 'path/to/file',  // Path to log output from child stderr
+    
+    'uid': 'your-UID'           // Custom uid for this forever process. (default: autogen)
+    'fvrFile': 'some-file.fvr'  // Custom file to save the child process information (default uid.fvr)
+
     'command': 'perl',          // Binary to run (default: 'node')
-    'options': ['foo','bar'],   // Additional arguments to pass to the script
+    'options': ['foo','bar'],   // Additional arguments to pass to the script,
+
+    'spawnWith': {
+      env: process.env,         // Information passed along to the child process
+      customFds: [-1, -1, -1],  // that forever spawns.
+      setsid: false
+    }
   }
 ```
 
 ### Events available when using an instance of Forever in node.js
 Each forever object is an instance of the node.js core EventEmitter. There are several core events that you can listen for:
 
-* error   [err]:          Raised when an error occurs
-* stop    [process]:      Raised when the target script is stopped by the user
-* save    [path, data]:   Raised when the target Forever object persists the pid information to disk.
-* restart [forever]:      Raised each time the target script is restarted
-* exit    [forever]:      Raised when the call to forever.run() completes
-* stdout  [data]:         Raised when data is received from the child process' stdout
-* stderr  [data]:         Raised when data is received from the child process' stderr
+* error   [err]:                    Raised when an error occurs
+* start   [process, fvrFile, data]: Raise when the target script is first started.
+* stop    [process]:                Raised when the target script is stopped by the user
+* save    [path, data]:             Raised when the target Forever object persists the pid information to disk.
+* restart [forever]:                Raised each time the target script is restarted
+* exit    [forever]:                Raised when the target script actually exits (permenantly).
+* stdout  [data]:                   Raised when data is received from the child process' stdout
+* stderr  [data]:                   Raised when data is received from the child process' stderr
 
 ## Using forever module from node.js
 In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever cli commands][1] for sample usage.
@@ -145,7 +161,7 @@ Stops the forever daemon script at the specified index. These indices are the sa
 ### forever.stopAll (format)
 Stops all forever scripts currently running. This method returns an EventEmitter that raises the 'stopAll' event when complete.
 
-### forever.list (format, procs)
+### forever.list (format, [procs])
 Returns a list of metadata objects about each process that is being run using forever. This method is synchronous and will return the list of metadata as such.
 
 ### forever.cleanup ()
