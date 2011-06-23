@@ -5,13 +5,20 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
 ## Installation
 
 ### Installing npm (node package manager)
-```
+``` bash
   curl http://npmjs.org/install.sh | sh
 ```
 
 ### Installing forever
+``` bash
+  $ [sudo] npm install forever -g
 ```
-  [sudo] npm install forever -g
+
+**Note:** If you are using forever _programatically_ you should not install it globally. 
+
+``` bash
+  $ cd /path/to/your/project
+  $ [sudo] npm install forever
 ```
 
 ## Usage
@@ -64,14 +71,14 @@ You can use forever to run any kind of script continuously (whether it is writte
 
 There are several samples designed to test the fault tolerance of forever. Here's a simple example:
 
-<pre>
-  forever samples/error-on-timer.js -m 5
-</pre>
+``` bash
+  $ forever samples/error-on-timer.js -m 5
+```
 
 ### Using an instance of Forever from node.js
 You can also use forever from inside your own node.js code.
 
-```javascript
+``` js
   var forever = require('forever');
 
   var child = new (forever.Monitor)('your-filename.js', {
@@ -88,7 +95,7 @@ You can also use forever from inside your own node.js code.
 You can spawn non-node processes too. Either set the `command` key in the
 `options` hash or pass in an `Array` in place of the `file` argument like this:
 
-```javascript
+``` js
   var forever = require('forever');
   var child = forever.start([ 'perl', '-le', 'print "moo"' ], {
     max : 1,
@@ -97,34 +104,57 @@ You can spawn non-node processes too. Either set the `command` key in the
 ```
 
 ### Options available when using Forever in node.js
-There are several options that you should be aware of when using forever:
+There are several options that you should be aware of when using forever. Most of this configuration is optional.
 
-```javascript
+``` js
   {
-    'max': 10,                  // Sets the maximum number of times a given script should run
+    //
+    // Basic configuration options
+    //
+    'silent': false,            // Silences the output from stdout and stderr in the parent process
     'forever': true,            // Indicates that this script should run forever
-
-    'silent': true,             // Silences the output from stdout and stderr in the parent process
-
-    'minUptime': 2000,          // Minimum time a child process has to be up. Forever will 'exit' otherwise.
-    'spinSleepTime': 1000,      // Interval between restarts if a child is spinning (i.e. alive < minUptime).
-
-    'logFile': 'path/to/file',  // Path to log output from forever process (when in daemon)
-    'pidFile': 'path/to/file',  // Path to put pid information for the process(es) started
-    'outFile': 'path/to/file',  // Path to log output from child stdout
-    'errFile': 'path/to/file',  // Path to log output from child stderr
-    
     'uid': 'your-UID'           // Custom uid for this forever process. (default: autogen)
+    'pidFile': 'path/to/a.pid', // Path to put pid information for the process(es) started
     'fvrFile': 'some-file.fvr'  // Custom file to save the child process information (default uid.fvr)
-
-    'command': 'perl',          // Binary to run (default: 'node')
-    'options': ['foo','bar'],   // Additional arguments to pass to the script,
-
+    'max': 10,                  // Sets the maximum number of times a given script should run
+    
+    //
+    // These options control how quickly forever restarts a child process
+    // as well as when to kill a "spinning" process
+    //
+    'minUptime': 2000,     // Minimum time a child process has to be up. Forever will 'exit' otherwise.
+    'spinSleepTime': 1000, // Interval between restarts if a child is spinning (i.e. alive < minUptime).
+    
+    //
+    // Command to spawn as well as options and other vars 
+    // (env, cwd, etc) to pass along
+    //
+    'command': 'perl',         // Binary to run (default: 'node')
+    'options': ['foo','bar'],  // Additional arguments to pass to the script,
+    'sourceDir': 'script/path' // Directory that the source script is in
+    
+    //
+    // All or nothing options passed along to `child_process.spawn`.
+    //
     'spawnWith': {
-      env: process.env,         // Information passed along to the child process
-      customFds: [-1, -1, -1],  // that forever spawns.
+      env: process.env,        // Information passed along to the child process
+      customFds: [-1, -1, -1], // that forever spawns.
       setsid: false
-    }
+    },
+    
+    //
+    // More specific options to pass along to `child_process.spawn` which 
+    // will override anything passed to the `spawnWith` option
+    //
+    'env': { 'ADDITIONAL': 'CHILD ENV VARS' }
+    'cwd': '/path/to/child/working/directory'
+    
+    //
+    // Log files and associated logging options for this instance
+    //
+    'logFile': 'path/to/file', // Path to log output from forever process (when daemonized)
+    'outFile': 'path/to/file', // Path to log output from child stdout
+    'errFile': 'path/to/file'  // Path to log output from child stderr
   }
 ```
 
@@ -134,7 +164,7 @@ Each forever object is an instance of the node.js core EventEmitter. There are s
 * error   [err]:                    Raised when an error occurs
 * start   [process, fvrFile, data]: Raise when the target script is first started.
 * stop    [process]:                Raised when the target script is stopped by the user
-* save    [path, data]:             Raised when the target Forever object persists the pid information to disk.
+* save    [path, data]:             Raised when the target Monitor saves the pid information to disk.
 * restart [forever]:                Raised each time the target script is restarted
 * exit    [forever]:                Raised when the target script actually exits (permenantly).
 * stdout  [data]:                   Raised when data is received from the child process' stdout
@@ -173,7 +203,7 @@ Removes all log files from the root forever directory that do not belong to curr
 ## Run Tests
 
 ``` bash
-  $ vows test/*-test.js --spec
+  $ npm test
 ```
 
 #### Author: [Charlie Robbins][0]
