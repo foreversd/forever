@@ -74,7 +74,7 @@ You can also use forever from inside your own node.js code.
 ```javascript
   var forever = require('forever');
 
-  var child = new (forever.Forever)('your-filename.js', {
+  var child = new (forever.Monitor)('your-filename.js', {
     max: 3,
     silent: true,
     options: []

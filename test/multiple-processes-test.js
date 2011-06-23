@@ -6,13 +6,11 @@
  *
  */
 
-require.paths.unshift(require('path').join(__dirname, '..', 'lib'));
-
 var sys = require('sys'),
     assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    forever = require('forever');
+    forever = require('../lib/forever');
 
 vows.describe('forever/multiple-processes').addBatch({
   "When using forever": {
@@ -21,7 +19,7 @@ vows.describe('forever/multiple-processes').addBatch({
         var that = this,
             script = path.join(__dirname, '..', 'examples', 'server.js');
             
-        this.child1 = new (forever.Forever)(script, { 
+        this.child1 = new (forever.Monitor)(script, { 
           silent: true,
           maxRestart: 1,
           options: [ "--port=8080"] 
@@ -30,7 +28,7 @@ vows.describe('forever/multiple-processes').addBatch({
         var tidy = forever.cleanUp(true);
         tidy.on('cleanUp', function () {
           that.child1.on('start', function () {
-            that.child2 = new (forever.Forever)(script, { 
+            that.child2 = new (forever.Monitor)(script, { 
               silent: true,
               maxRestart: 1,
               options: [ "--port=8081"] 

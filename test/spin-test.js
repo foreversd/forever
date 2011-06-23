@@ -6,13 +6,11 @@
  *
  */
 
-require.paths.unshift(require('path').join(__dirname, '..', 'lib'));
-
 var sys = require('sys'),
     assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    forever = require('forever');
+    forever = require('../lib/forever');
 
 vows.describe('forever/spin-restart').addBatch({
   "When using forever": {
@@ -20,7 +18,7 @@ vows.describe('forever/spin-restart').addBatch({
       "with no spinSleepTime specified": {
         topic: function () {
           var script = path.join(__dirname, '..', 'examples', 'always-throw.js'),
-              child = new (forever.Forever)(script, { silent: true, max: 3 });
+              child = new (forever.Monitor)(script, { silent: true, max: 3 });
 
           child.on('exit', this.callback.bind({}, null));
           child.start();
@@ -28,15 +26,14 @@ vows.describe('forever/spin-restart').addBatch({
         "should spawn both processes appropriately": function (err, child, spinning) {
           assert.isTrue(spinning);
         },
-        "should not restart spinning processes": function (err, child, spinning) {
-          assert.equal(child.times, 0);
+        "should only run the bad process once": function (err, child, spinning) {
+          assert.equal(child.times, 1);
         }
       },
-
       "with a spinSleepTime specified": {
         topic: function () {
           var script = path.join(__dirname, '..', 'examples', 'always-throw.js'),
-              child = new (forever.Forever)(script, { silent: true, max: 3, spinSleepTime: 1 });
+              child = new (forever.Monitor)(script, { silent: true, max: 3, spinSleepTime: 1 });
 
           child.on('exit', this.callback.bind({}, null));
           child.start();
