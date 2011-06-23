@@ -8,27 +8,12 @@
 
 <span class="kd">var</span> <span class="nx">sys</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;sys&#39;</span><span class="p">),</span>
     <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">),</span>
-    <span class="nx">eyes</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;eyes&#39;</span><span class="p">),</span>
-    <span class="nx">winston</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;winston&#39;</span><span class="p">),</span>
-    <span class="nx">forever</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;forever&#39;</span><span class="p">);</span>
+    <span class="nx">cliff</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cliff&#39;</span><span class="p">),</span>
+    <span class="nx">forever</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../forever&#39;</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">cli</span> <span class="o">=</span> <span class="nx">exports</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">reserved</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;pidPath&#39;</span><span class="p">];</span>
-
-<span class="kd">var</span> <span class="nx">inspect</span> <span class="o">=</span> <span class="nx">eyes</span><span class="p">.</span><span class="nx">inspector</span><span class="p">({</span> <span class="nx">stream</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
-  <span class="nx">styles</span><span class="o">:</span> <span class="p">{</span>               <span class="c1">// Styles applied to stdout</span>
-    <span class="nx">all</span><span class="o">:</span>     <span class="kc">null</span><span class="p">,</span>        <span class="c1">// Overall style applied to everything</span>
-    <span class="nx">label</span><span class="o">:</span>   <span class="s1">&#39;underline&#39;</span><span class="p">,</span> <span class="c1">// Inspection labels, like &#39;array&#39; in `array: [1, 2, 3]`</span>
-    <span class="nx">other</span><span class="o">:</span>   <span class="s1">&#39;inverted&#39;</span><span class="p">,</span>  <span class="c1">// Objects which don&#39;t have a literal representation, such as functions</span>
-    <span class="nx">key</span><span class="o">:</span>     <span class="s1">&#39;grey&#39;</span><span class="p">,</span>      <span class="c1">// The keys in object literals, like &#39;a&#39; in `{a: 1}`</span>
-    <span class="nx">special</span><span class="o">:</span> <span class="s1">&#39;grey&#39;</span><span class="p">,</span>      <span class="c1">// null, undefined...</span>
-    <span class="nx">number</span><span class="o">:</span>  <span class="s1">&#39;blue&#39;</span><span class="p">,</span>      <span class="c1">// 1, 2, 3, etc</span>
-    <span class="nx">bool</span><span class="o">:</span>    <span class="s1">&#39;magenta&#39;</span><span class="p">,</span>   <span class="c1">// true false</span>
-    <span class="nx">regexp</span><span class="o">:</span>  <span class="s1">&#39;green&#39;</span><span class="p">,</span>     <span class="c1">// /\d+/</span>
-    <span class="nx">string</span><span class="o">:</span>  <span class="s1">&#39;yellow&#39;</span>
-  <span class="p">}</span>
-<span class="p">});</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h3>function exec (action, file, options)</h3>
+<span class="kd">var</span> <span class="nx">reserved</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;pidPath&#39;</span><span class="p">];</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h3>function exec (action, file, options)</h3>
 
 <h4>@action {string} CLI action to execute</h4>
 
@@ -37,19 +22,25 @@
 <h4>@options {Object} Options to pass to forever for the <code>action</code>.</h4>
 
 <p>Executes the <code>action</code> in forever with the specified <code>file</code> and <code>options</code>.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">cli</span><span class="p">.</span><span class="nx">exec</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">action</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Running action: &#39;</span> <span class="o">+</span> <span class="nx">action</span><span class="p">.</span><span class="nx">yellow</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Running action: &#39;</span> <span class="o">+</span> <span class="nx">action</span><span class="p">.</span><span class="nx">yellow</span><span class="p">);</span>
+  <span class="p">}</span>
   
-  <span class="nx">winston</span><span class="p">.</span><span class="nx">silly</span><span class="p">(</span><span class="s1">&#39;Tidying &#39;</span> <span class="o">+</span> <span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">));</span>
+  <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">silly</span><span class="p">(</span><span class="s1">&#39;Tidying &#39;</span> <span class="o">+</span> <span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">));</span>
   <span class="kd">var</span> <span class="nx">tidy</span> <span class="o">=</span> <span class="nx">forever</span><span class="p">.</span><span class="nx">cleanUp</span><span class="p">(</span><span class="nx">action</span> <span class="o">===</span> <span class="s1">&#39;cleanlogs&#39;</span><span class="p">);</span> 
   <span class="nx">tidy</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;cleanUp&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">silly</span><span class="p">(</span><span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; tidied.&#39;</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">silly</span><span class="p">(</span><span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; tidied.&#39;</span><span class="p">);</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="nx">file</span> <span class="o">&amp;&amp;</span> <span class="nx">action</span> <span class="o">!==</span> <span class="s1">&#39;set&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">action</span> <span class="o">!==</span> <span class="s1">&#39;clear&#39;</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever processing file: &#39;</span> <span class="o">+</span> <span class="nx">file</span><span class="p">.</span><span class="nx">grey</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">file</span> <span class="o">&amp;&amp;</span> <span class="nx">action</span> <span class="o">===</span> <span class="s1">&#39;start&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever processing file: &#39;</span> <span class="o">+</span> <span class="nx">file</span><span class="p">.</span><span class="nx">grey</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">command</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever using command: &#39;</span> <span class="o">+</span> <span class="nx">options</span><span class="p">.</span><span class="nx">command</span><span class="p">.</span><span class="nx">grey</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="nx">action</span> <span class="o">!==</span> <span class="s1">&#39;set&#39;</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">winston</span><span class="p">.</span><span class="nx">silly</span><span class="p">(</span><span class="s1">&#39;Forever using options&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+      <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">silly</span><span class="p">(</span><span class="s1">&#39;Forever using options&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
     <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>If there is no action then start in the current
 process with the specified <code>file</code> and <code>options</code>.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="nx">cli</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
@@ -58,8 +49,7 @@ process with the specified <code>file</code> and <code>options</code>.</p>      
       <span class="k">return</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="kd">var</span> <span class="nx">daemon</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="nx">cli</span><span class="p">[</span><span class="nx">action</span><span class="p">](</span><span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">daemon</span><span class="p">);</span>
+    <span class="nx">cli</span><span class="p">[</span><span class="nx">action</span><span class="p">](</span><span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <h3>function start (file, options, daemon)</h3>
 
@@ -85,12 +75,12 @@ started as a daemon process.</p>             </td>             <td class="code">
   <span class="kd">var</span> <span class="nx">runner</span> <span class="o">=</span> <span class="nx">forever</span><span class="p">.</span><span class="nx">stop</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
   
   <span class="nx">runner</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;stop&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">process</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever stopped process:&#39;</span><span class="p">);</span>
-    <span class="nx">sys</span><span class="p">.</span><span class="nx">puts</span><span class="p">(</span><span class="nx">process</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever stopped process:&#39;</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">process</span><span class="p">);</span>
   <span class="p">});</span>
   
   <span class="nx">runner</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Forever cannot find process with index: &#39;</span> <span class="o">+</span> <span class="nx">file</span><span class="p">)</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Forever cannot find process with index: &#39;</span> <span class="o">+</span> <span class="nx">file</span><span class="p">)</span>
   <span class="p">});</span>
 <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <h3>function stopall ()</h3>
 
@@ -98,11 +88,13 @@ started as a daemon process.</p>             </td>             <td class="code">
   <span class="kd">var</span> <span class="nx">runner</span> <span class="o">=</span> <span class="nx">forever</span><span class="p">.</span><span class="nx">stopAll</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
   <span class="nx">runner</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;stopAll&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">processes</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">processes</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever stopped processes:&#39;</span><span class="p">);</span>
-      <span class="nx">sys</span><span class="p">.</span><span class="nx">puts</span><span class="p">(</span><span class="nx">processes</span><span class="p">);</span>
+      <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever stopped processes:&#39;</span><span class="p">);</span>
+      <span class="nx">processes</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+      <span class="p">});</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="p">{</span>
-      <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;No forever processes running&#39;</span><span class="p">);</span>
+      <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;No forever processes running&#39;</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">});</span>
 <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <h3>function restart (file)</h3>
@@ -113,29 +105,38 @@ started as a daemon process.</p>             </td>             <td class="code">
   <span class="kd">var</span> <span class="nx">runner</span> <span class="o">=</span> <span class="nx">forever</span><span class="p">.</span><span class="nx">restart</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
   <span class="nx">runner</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;restart&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">processes</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">processes</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever restarted processes:&#39;</span><span class="p">);</span>
-      <span class="nx">sys</span><span class="p">.</span><span class="nx">puts</span><span class="p">(</span><span class="nx">processes</span><span class="p">);</span>
+      <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever restarted process(es):&#39;</span><span class="p">);</span>
+      <span class="nx">processes</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+      <span class="p">});</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="p">{</span>
-      <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;No forever processes running&#39;</span><span class="p">);</span>
+      <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;No forever processes running&#39;</span><span class="p">);</span>
     <span class="p">}</span>
+  <span class="p">});</span>
+  
+  <span class="nx">runner</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error restarting process: &#39;</span> <span class="o">+</span> <span class="nx">file</span><span class="p">.</span><span class="nx">grey</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <h3>function list ()</h3>
 
 <p>Lists all currently running forever processes.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">cli</span><span class="p">.</span><span class="nx">list</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">processes</span> <span class="o">=</span> <span class="nx">forever</span><span class="p">.</span><span class="nx">list</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">processes</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever processes running&#39;</span><span class="p">);</span>
-    <span class="nx">sys</span><span class="p">.</span><span class="nx">puts</span><span class="p">(</span><span class="nx">processes</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever processes running&#39;</span><span class="p">);</span>
+    <span class="nx">processes</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+    <span class="p">})</span>
   <span class="p">}</span>
   <span class="k">else</span> <span class="p">{</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;No forever processes running&#39;</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;No forever processes running&#39;</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <h3>function config ()</h3>
 
 <p>Lists all of the configuration in <code>~/.forever/config.json</code>.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">cli</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">store</span><span class="p">),</span>
-      <span class="nx">conf</span> <span class="o">=</span> <span class="nx">inspect</span><span class="p">(</span><span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">store</span><span class="p">);</span>
+      <span class="nx">conf</span> <span class="o">=</span> <span class="nx">cliff</span><span class="p">.</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">store</span><span class="p">);</span>
   
   <span class="k">if</span> <span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">conf</span> <span class="o">=</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\{\s/</span><span class="p">,</span> <span class="s1">&#39;{ \n&#39;</span><span class="p">)</span>
@@ -148,7 +149,7 @@ started as a daemon process.</p>             </td>             <td class="code">
   <span class="p">}</span>
   
   <span class="nx">conf</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <h3>function set (key, value)</h3>
 
@@ -159,11 +160,11 @@ started as a daemon process.</p>             </td>             <td class="code">
 <p>Sets the specified <code>key</code> / <code>value</code> pair in the
 forever user config.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">cli</span><span class="p">.</span><span class="nx">set</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">key</span> <span class="o">||</span> <span class="o">!</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">winston</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Both &lt;key&gt; and &lt;value&gt; are required.&#39;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Both &lt;key&gt; and &lt;value&gt; are required.&#39;</span><span class="p">);</span>
   <span class="p">}</span>
   
   <span class="nx">updateConfig</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Setting forever config: &#39;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">.</span><span class="nx">grey</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Setting forever config: &#39;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">.</span><span class="nx">grey</span><span class="p">);</span>
     <span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <h3>function clear (key)</h3>
@@ -172,16 +173,16 @@ forever user config.</p>             </td>             <td class="code">        
 
 <p>Removes the specified <code>key</code> from the forever user config.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">cli</span><span class="p">.</span><span class="nx">clear</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">reserved</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;Cannot clear reserved config: &#39;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">.</span><span class="nx">grey</span><span class="p">);</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;Use `forever set &#39;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s1">&#39;` instead&#39;</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;Cannot clear reserved config: &#39;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">.</span><span class="nx">grey</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;Use `forever set &#39;</span> <span class="o">+</span> <span class="nx">key</span> <span class="o">+</span> <span class="s1">&#39;` instead&#39;</span><span class="p">);</span>
     <span class="k">return</span><span class="p">;</span>
   <span class="p">}</span>
   
   <span class="nx">updateConfig</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Clearing forever config: &#39;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">.</span><span class="nx">grey</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Clearing forever config: &#39;</span> <span class="o">+</span> <span class="nx">key</span><span class="p">.</span><span class="nx">grey</span><span class="p">);</span>
     <span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">clear</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
   <span class="p">});</span>
-<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <h3>function (file, options, callback)</h3>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <h3>@private function (file, options, callback)</h3>
 
 <h4>@file {string} Target script to start</h4>
 
@@ -191,20 +192,21 @@ forever user config.</p>             </td>             <td class="code">        
 
 <p>Helper function that sets up the pathing for the specified <code>file</code>
 then stats the appropriate files and responds.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">tryStart</span> <span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">fullLog</span><span class="p">,</span> <span class="nx">fullScript</span>
+  <span class="kd">var</span> <span class="nx">fullLog</span><span class="p">,</span> <span class="nx">fullScript</span><span class="p">;</span>
 
   <span class="nx">fullLog</span> <span class="o">=</span> <span class="nx">forever</span><span class="p">.</span><span class="nx">logFilePath</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">logFile</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">uid</span><span class="p">);</span>
   <span class="nx">fullScript</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">sourceDir</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
   
   <span class="nx">forever</span><span class="p">.</span><span class="nx">stat</span><span class="p">(</span><span class="nx">fullLog</span><span class="p">,</span> <span class="nx">fullScript</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">appendLog</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">winston</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Cannot start forever: &#39;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+      <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Cannot start forever&#39;</span><span class="p">);</span>
+      <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
       <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
   
     <span class="nx">callback</span><span class="p">();</span>
   <span class="p">});</span>
-<span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <h3>function updateConfig (updater)</h3>
+<span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <h3>@private function updateConfig (updater)</h3>
 
 <h4>@updater {function} Function which updates the forever config</h4>
 
@@ -213,11 +215,12 @@ config to <code>forever.config.get('root')</code>.</p>             </td>        
   <span class="nx">updater</span><span class="p">();</span>
   <span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">winston</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error saving config: &#39;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error saving config: &#39;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
     <span class="p">}</span>
     
     <span class="nx">cli</span><span class="p">.</span><span class="nx">config</span><span class="p">();</span>
-    <span class="nx">winston</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever config saved: &#39;</span> <span class="o">+</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">),</span> <span class="s1">&#39;config.json&#39;</span><span class="p">).</span><span class="nx">yellow</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">configFile</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">forever</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">),</span> <span class="s1">&#39;config.json&#39;</span><span class="p">);</span>
+    <span class="nx">forever</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;Forever config saved: &#39;</span> <span class="o">+</span> <span class="nx">configFile</span><span class="p">.</span><span class="nx">yellow</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">}</span>
 
