@@ -44,18 +44,21 @@ You can use forever to run any kind of script continuously (whether it is writte
     cleanlogs        [CAREFUL] Deletes all historical forever log files
 
   options:
-    -m MAX         Only run the specified script MAX times
-    -l  LOGFILE    Logs the forever output to LOGFILE
-    -o  OUTFILE    Logs stdout from child script to OUTFILE
-    -e  ERRFILE    Logs stderr from child script to ERRFILE
-    -d  SOURCEDIR  The source directory for which SCRIPT is relative to
-    -p  PATH       Base path for all forever related files (pid files, etc.)
-    -c  COMMAND    COMMAND to execute (defaults to node)
-    --pidfile      The pid file
-    -a, --append   Append logs
-    -v, --verbose  Turns on the verbose messages from Forever
-    -s, --silent   Run the child script silencing stdout and stderr
-    -h, --help     You're staring at it
+    -m  MAX          Only run the specified script MAX times
+    -l  LOGFILE      Logs the forever output to LOGFILE
+    -o  OUTFILE      Logs stdout from child script to OUTFILE
+    -e  ERRFILE      Logs stderr from child script to ERRFILE
+    -p  PATH         Base path for all forever related files (pid files, etc.)
+    -c  COMMAND      COMMAND to execute (defaults to node)
+    -a, --append     Append logs
+    --pidfile        The pid file
+    --sourceDir      The source directory for which SCRIPT is relative to
+    --minUptime      Minimum uptime (millis) for a script to not be considered "spinning"
+    --spinSleepTime  Time to wait (millis) between launches of a spinning script.
+    -d, --debug      Forces forever to log debug output
+    -v, --verbose    Turns on the verbose messages from Forever
+    -s, --silent     Run the child script silencing stdout and stderr
+    -h, --help       You're staring at it
 
   [Long Running Process]
     The forever process will continue to run outputting log messages to the console.
