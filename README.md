@@ -72,10 +72,10 @@ You can use forever to run any kind of script continuously (whether it is writte
         forever stop my-daemon.js
 ```
 
-There are several samples designed to test the fault tolerance of forever. Here's a simple example:
+There are several examples designed to test the fault tolerance of forever. Here's a simple usage example:
 
 ``` bash
-  $ forever samples/error-on-timer.js -m 5
+  $ forever examples/error-on-timer.js -m 5
 ```
 
 ### Using an instance of Forever from node.js
