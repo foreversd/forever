@@ -7,14 +7,14 @@ var path = require('path'),
     forever = require('./../lib/forever');
 
 var action, accepts = [
-  'start', 
-  'stop', 
-  'stopall', 
-  'list', 
-  'config', 
-  'clear', 
-  'set', 
-  'cleanlogs', 
+  'start',
+  'stop',
+  'stopall',
+  'list',
+  'config',
+  'clear',
+  'set',
+  'cleanlogs',
   'restart'
 ];
 
@@ -75,10 +75,10 @@ function isSimpleAction () {
 };
 
 //
-// Show help prompt if requested or if the 
+// Show help prompt if requested or if the
 // incorrect usage options are supplied
 //
-if (argv.h || argv.help || (argv._.length === 0 && !isSimpleAction()) 
+if (argv.h || argv.help || (argv._.length === 0 && !isSimpleAction())
   && (!argv.c && !argv.command)) {
   return sys.puts(help);
 }
@@ -106,7 +106,7 @@ var mappings = {
 
 //
 // If we are passed more than one non-hyphenated
-// options, only use the first one. Assume the 
+// options, only use the first one. Assume the
 // rest are pass-through for the child process
 //
 var file = argv._[0], options = {};
@@ -154,6 +154,10 @@ if (!options.sourceDir) {
   options.sourceDir = file && file[0] !== '/' ? process.cwd() : '/';
 }
 
+        process.on('uncaughtException',function(err){
+          console.dir(arguments)
+        })
+
 var uid = forever.randomString(24);
 options.uid = uid;
 options.pidFile = options.pidFile || uid + '.pid';
@@ -166,7 +170,7 @@ options.logFile = argv.l || uid + '.log';
 ['append', 'silent', 'verbose'].forEach(function (key) {
   var target = mappings[key],
       value = forever.config.get(key);
-      
+
   if (value) {
     options[target] = options[target] || value === 'true';
   }
@@ -194,17 +198,17 @@ var config = {
 };
 
 //
-// Only call `forever.load()` if the root path is different than 
+// Only call `forever.load()` if the root path is different than
 // the default root exposed by forever.
 //
 if ((config.root && config.root !== forever.root)) {
   forever.log.silly('Loading forever with config: ', config);
   forever.load(config);
-  forever.log.silly('Loaded forever successfully.');  
+  forever.log.silly('Loaded forever successfully.');
 }
 
 //
-// If we should debug this forever process then 
+// If we should debug this forever process then
 // configure it to do so.
 //
 if (argv.d || argv.debug) {
