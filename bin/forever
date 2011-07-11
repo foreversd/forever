@@ -212,7 +212,10 @@ if ((config.root && config.root !== forever.root)) {
 // it to the default `forever._debug`.
 //
 process.on('uncaughtException', function (err) {
-  console.dir(err.stack.split('\n'));
+  forever._debug();
+  forever.log.error('uncaughtException');
+  forever.log.error(err.message);
+  forever.log.error(err.stack);
 });
 
 //
