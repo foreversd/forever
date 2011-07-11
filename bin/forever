@@ -7,14 +7,15 @@ var path = require('path'),
     forever = require('./../lib/forever');
 
 var action, accepts = [
+  'config',
+  'cleanlogs',
+  'clear',
+  'columns',
+  'list',
   'start',
   'stop',
   'stopall',
-  'list',
-  'config',
-  'clear',
   'set',
-  'cleanlogs',
   'restart'
 ];
 
@@ -30,15 +31,17 @@ var help = [
   'Monitors the script specified in the current process or as a daemon',
   '',
   'actions:',
-  '  start            Start SCRIPT as a daemon',
-  '  stop             Stop the daemon SCRIPT',
-  '  stopall          Stop all running forever scripts',
-  '  restart          Restart the daemon SCRIPT',
-  '  list             List all running forever scripts',
-  '  config           Lists all forever user configuration',
-  '  set <key> <val>  Sets the specified forever config <key>',
-  '  clear <key>      Clears the specified forever config <key>',
-  '  cleanlogs        [CAREFUL] Deletes all historical forever log files',
+  '  start              Start SCRIPT as a daemon',
+  '  stop               Stop the daemon SCRIPT',
+  '  stopall            Stop all running forever scripts',
+  '  restart            Restart the daemon SCRIPT',
+  '  list               List all running forever scripts',
+  '  config             Lists all forever user configuration',
+  '  set <key> <val>    Sets the specified forever config <key>',
+  '  clear <key>        Clears the specified forever config <key>',
+  '  columns add <col>  Adds the specified column to the output in `forever list`',
+  '  columns rm <col>   Removed the specified column from the output in `forever list`',
+  '  cleanlogs          [CAREFUL] Deletes all historical forever log files',
   '',
   'options:',
   '  -m  MAX          Only run the specified script MAX times',
@@ -220,12 +223,22 @@ if (argv.d || argv.debug) {
   forever._debug();
 }
 
-//
-// If this is a set action then get the first 
-// value from the options and continue.
-//
 if (action === 'set') {
+  //
+  // If this is a set action then get the first 
+  // value from the options and continue.
+  //
   options = options.options[0];
+}
+else if (action === 'columns') {
+  //
+  // Otherwise if this is a `forever columns`
+  // operation then update the action, options,
+  // and file then continue. 
+  //
+  action = [action, file];
+  options = options.options[0];
+  file = null;
 }
 
 forever.cli.exec(action, file, options);
