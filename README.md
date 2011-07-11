@@ -33,15 +33,18 @@ You can use forever to run any kind of script continuously (whether it is writte
   Monitors the script specified in the current process or as a daemon
 
   actions:
-    start            Start SCRIPT as a daemon
-    stop             Stop the daemon SCRIPT
-    stopall          Stop all running forever scripts
-    restart          Restart the daemon SCRIPT
-    list             List all running forever scripts
-    config           Lists all forever user configuration
-    set <key> <val>  Sets the specified forever config <key>
-    clear <key>      Clears the specified forever config <key>
-    cleanlogs        [CAREFUL] Deletes all historical forever log files
+    start               Start SCRIPT as a daemon
+    stop                Stop the daemon SCRIPT
+    stopall             Stop all running forever scripts
+    restart             Restart the daemon SCRIPT
+    list                List all running forever scripts
+    config              Lists all forever user configuration
+    set <key> <val>     Sets the specified forever config <key>
+    clear <key>         Clears the specified forever config <key>
+    columns add <col>   Adds the specified column to the output in `forever list`
+    columns rm <col>    Removed the specified column from the output in `forever list`
+    columns set <cols>  Set all columns for the output in `forever list`
+    cleanlogs           [CAREFUL] Deletes all historical forever log files
 
   options:
     -m  MAX          Only run the specified script MAX times
@@ -92,6 +95,12 @@ You can also use forever from inside your own node.js code.
 
   child.on('exit', this.callback);
   child.start();
+```
+
+**Remark:** As of `forever@0.6.0` processes will not automatically be available in `forever.list()`. In order to get your processes into `forever.list()` or `forever list` you must instantiate the `forever` socket server:
+
+``` js
+  forever.startServer(child);
 ```
 
 ### Spawning a non-node process
@@ -192,8 +201,8 @@ Stops the forever daemon script at the specified index. These indices are the sa
 ### forever.stopAll (format)
 Stops all forever scripts currently running. This method returns an EventEmitter that raises the 'stopAll' event when complete.
 
-### forever.list (format, [procs])
-Returns a list of metadata objects about each process that is being run using forever. This method is synchronous and will return the list of metadata as such.
+### forever.list (format, callback)
+Returns a list of metadata objects about each process that is being run using forever. This method is synchronous and will return the list of metadata as such. Only processes which have invoked `forever.startServer()` will be available from `forever.list()`
 
 ### forever.cleanup ()
 Cleans up any extraneous forever *.pid files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
