@@ -172,13 +172,13 @@ There are several options that you should be aware of when using forever. Most o
 ### Events available when using an instance of Forever in node.js
 Each forever object is an instance of the node.js core EventEmitter. There are several core events that you can listen for:
 
-* error   [err]:             Raised when an error occurs
-* start   [process, data]:   Raised when the target script is first started.
-* stop    [process]:         Raised when the target script is stopped by the user
-* restart [forever]:         Raised each time the target script is restarted
-* exit    [forever]:         Raised when the target script actually exits (permenantly).
-* stdout  [data]:            Raised when data is received from the child process' stdout
-* stderr  [data]:            Raised when data is received from the child process' stderr
+* **error**   _[err]:_             Raised when an error occurs
+* **start**   _[process, data]:_   Raised when the target script is first started.
+* **stop**    _[process]:_         Raised when the target script is stopped by the user
+* **restart** _[forever]:_         Raised each time the target script is restarted
+* **exit**    _[forever]:_         Raised when the target script actually exits (permenantly).
+* **stdout**  _[data]:_            Raised when data is received from the child process' stdout
+* **stderr**  _[data]:_            Raised when data is received from the child process' stderr
 
 ## Using forever module from node.js
 In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever cli commands][1] for sample usage.
