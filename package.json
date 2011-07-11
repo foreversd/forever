@@ -33,6 +33,7 @@
     "nconf": "0.x.x",
     "optimist": "0.2.x",
     "pkginfo": "0.x.x",
+    "portfinder": "0.x.x",
     "timespan": "2.0.x",
     "winston": "0.3.x"
   },
