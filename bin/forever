@@ -154,10 +154,6 @@ if (!options.sourceDir) {
   options.sourceDir = file && file[0] !== '/' ? process.cwd() : '/';
 }
 
-        process.on('uncaughtException',function(err){
-          console.dir(arguments)
-        })
-
 var uid = forever.randomString(24);
 options.uid = uid;
 options.pidFile = options.pidFile || uid + '.pid';
@@ -206,6 +202,14 @@ if ((config.root && config.root !== forever.root)) {
   forever.load(config);
   forever.log.silly('Loaded forever successfully.');
 }
+
+//
+// If there is an uncaught exception then log
+// it to the default `forever._debug`.
+//
+process.on('uncaughtException', function (err) {
+  console.dir(err.stack.split('\n'));
+});
 
 //
 // If we should debug this forever process then
