@@ -237,7 +237,7 @@ else if (action === 'columns') {
   // and file then continue. 
   //
   action = [action, file];
-  options = options.options[0];
+  options = options.options;
   file = null;
 }
 
