@@ -118,7 +118,6 @@ There are several options that you should be aware of when using forever. Most o
     'forever': true,            // Indicates that this script should run forever
     'uid': 'your-UID'           // Custom uid for this forever process. (default: autogen)
     'pidFile': 'path/to/a.pid', // Path to put pid information for the process(es) started
-    'fvrFile': 'some-file.fvr'  // Custom file to save the child process information (default uid.fvr)
     'max': 10,                  // Sets the maximum number of times a given script should run
     
     //
@@ -164,14 +163,13 @@ There are several options that you should be aware of when using forever. Most o
 ### Events available when using an instance of Forever in node.js
 Each forever object is an instance of the node.js core EventEmitter. There are several core events that you can listen for:
 
-* error   [err]:                    Raised when an error occurs
-* start   [process, fvrFile, data]: Raise when the target script is first started.
-* stop    [process]:                Raised when the target script is stopped by the user
-* save    [path, data]:             Raised when the target Monitor saves the pid information to disk.
-* restart [forever]:                Raised each time the target script is restarted
-* exit    [forever]:                Raised when the target script actually exits (permenantly).
-* stdout  [data]:                   Raised when data is received from the child process' stdout
-* stderr  [data]:                   Raised when data is received from the child process' stderr
+* error   [err]:             Raised when an error occurs
+* start   [process, data]:   Raised when the target script is first started.
+* stop    [process]:         Raised when the target script is stopped by the user
+* restart [forever]:         Raised each time the target script is restarted
+* exit    [forever]:         Raised when the target script actually exits (permenantly).
+* stdout  [data]:            Raised when data is received from the child process' stdout
+* stderr  [data]:            Raised when data is received from the child process' stderr
 
 ## Using forever module from node.js
 In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever cli commands][1] for sample usage.
@@ -198,7 +196,7 @@ Stops all forever scripts currently running. This method returns an EventEmitter
 Returns a list of metadata objects about each process that is being run using forever. This method is synchronous and will return the list of metadata as such.
 
 ### forever.cleanup ()
-Cleans up any extraneous forever *.pid or *.fvr files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
+Cleans up any extraneous forever *.pid files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
 
 ### forever.cleanLogsSync (processes)
 Removes all log files from the root forever directory that do not belong to current running forever processes.
