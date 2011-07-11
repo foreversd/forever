@@ -25,24 +25,3 @@ helpers.assertTimes = function (script, times, options) {
     }
   }
 };
-
-helpers.assertEmpty = function () {
-  return {
-    "When the tests are over": {
-      "a call to forever.list()": {
-        topic: function () {
-          var that = this;
-          var tidy = forever.cleanUp(true, true);
-
-          tidy.on('cleanUp', function () {
-            that.callback(null, forever.list(false));
-          });
-        },
-        "should respond with no processes": function (err, procs) {
-          assert.isNull(err);
-          assert.isNull(procs);
-        }
-      }
-    }
-  }
-};

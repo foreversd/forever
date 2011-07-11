@@ -19,21 +19,20 @@
        "with a simple hook": {
          topic: function () {
            var script = path.join(__dirname, '..', 'examples', 'always-throw.js'),
+               hook = new TestHook(),
                child;
                
            child = new (forever.Monitor)(script, { 
              silent: true, 
              max: 1,
-             hooks: [
-               new TestHook()
-             ]
+             hooks: [hook]
            });
 
-           child.on('exit', this.callback.bind({}, null));
+           hook.on('hook-exit', this.callback.bind(null, null));
            child.start();
          },
          "should raise the `hook-exit` event": function (err, child, spinning) {
-           assert.isTrue(spinning);
+           assert.isNull(err);
          }
        }
      }

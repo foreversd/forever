@@ -6,9 +6,10 @@
  *
  */
 
-var sys = require('sys'),
-    assert = require('assert'),
+var assert = require('assert'),
+    net = require('net'),
     path = require('path'),
+    sys = require('sys'),
     vows = require('vows'),
     forever = require('../lib/forever');
 
@@ -25,28 +26,31 @@ vows.describe('forever/multiple-processes').addBatch({
           options: [ "--port=8080"] 
         });
         
-        var tidy = forever.cleanUp(true);
-        tidy.on('cleanUp', function () {
-          that.child1.on('start', function () {
-            that.child2 = new (forever.Monitor)(script, { 
-              silent: true,
-              maxRestart: 1,
-              options: [ "--port=8081"] 
+        that.child1.on('start', function () {
+          that.child2 = new (forever.Monitor)(script, { 
+            silent: true,
+            maxRestart: 1,
+            options: [ "--port=8081"] 
+          });
+          
+          that.child2.on('start', function () {
+            forever.startServer(that.child1, that.child2, function (err, server, socketPath) {
+              var socket = new net.Socket();
+              socket.on('data', that.callback.bind(null, null));
+              socket.on('error', that.callback);
+              socket.connect(socketPath);
             });
-            
-            that.child2.on('start', function () {
-              that.callback(null, forever.list(false));
-            });
-
-            that.child2.start();
           });
 
-          that.child1.start();
-        });        
+          that.child2.start();
+        });
+
+        that.child1.start();
       },
-      "should spawn both processes appropriately": function (err, procs) {
+      "should spawn both processes appropriately": function (err, data) {
         assert.isNull(err);
-        assert.length(procs, 2);
+        data = JSON.parse(data.toString());
+        assert.length(data.monitors, 2);
         this.child1.stop();
         this.child2.stop();
       }

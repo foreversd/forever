@@ -27,7 +27,7 @@ vows.describe('forever').addBatch({
         assert.equal(child.max, 10);
         assert.isTrue(child.silent);
         assert.isFunction(child.start);
-        assert.isFunction(child.save);
+        assert.isObject(child.data);
         assert.isFunction(child.stop); 
       },
       "running error-on-timer sample three times": helpers.assertTimes(
@@ -79,6 +79,4 @@ vows.describe('forever').addBatch({
       }
     }
   }
-}).addBatch(
-  helpers.assertEmpty()
-).export(module);
+}).export(module);

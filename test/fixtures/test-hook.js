@@ -18,6 +18,6 @@ util.inherits(TestHook, events.EventEmitter);
 TestHook.prototype.attach = function (monitor) {
   var self = this;
   monitor.on('exit', function () {
-    self.emit.apply(['hook-exit'].concat(arguments));
+    self.emit.apply(self, ['hook-exit'].concat(arguments));
   });
 };

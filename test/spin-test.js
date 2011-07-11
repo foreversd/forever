@@ -18,7 +18,7 @@ vows.describe('forever/spin-restart').addBatch({
       "with no spinSleepTime specified": {
         topic: function () {
           var script = path.join(__dirname, '..', 'examples', 'always-throw.js'),
-              child = new (forever.Monitor)(script, { silent: true, max: 3 });
+              child = new (forever.Monitor)(script, { silent: true, minUptime: 2000, max: 3 });
 
           child.on('exit', this.callback.bind({}, null));
           child.start();

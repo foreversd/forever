@@ -71,6 +71,4 @@ vows.describe('forever').addBatch({
       }
     }
   }
-}).addBatch(
-  helpers.assertEmpty()
-).export(module);
+}).export(module);
