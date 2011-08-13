@@ -13,7 +13,7 @@ var sys = require('sys'),
     forever = require('../lib/forever'),
     helpers = require('./helpers');
 
-vows.describe('forever').addBatch({
+vows.describe('forever/spawn-options').addBatch({
   "When using forever": {
     "an instance of forever.Monitor with valid options": {
       "passing environment variables to env-vars.js": {

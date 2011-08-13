@@ -16,13 +16,12 @@ var sys = require('sys'),
 vows.describe('forever').addBatch({
   "When using forever": {
     "an instance of forever.Monitor with valid options": {
-      "should have correct properties set": function () {
-        var child = new (forever.Monitor)('any-file.js', {
-          max: 10,
-          silent: true,
-          options: []
-        });
-        
+      topic: new (forever.Monitor)(path.join(__dirname, '..', 'examples', 'server.js'), {
+        max: 10,
+        silent: true,
+        options: ['-p', 8090]
+      }),
+      "should have correct properties set": function (child) {
         assert.isArray(child.options);
         assert.equal(child.max, 10);
         assert.isTrue(child.silent);
@@ -30,52 +29,65 @@ vows.describe('forever').addBatch({
         assert.isObject(child.data);
         assert.isFunction(child.stop); 
       },
-      "running error-on-timer sample three times": helpers.assertTimes(
-        path.join(__dirname, '..', 'examples', 'error-on-timer.js'),
-        3,
-        {
-          minUptime: 200,
-          silent: true,
-          outFile: 'test/stdout.log',
-          errFile: 'test/stderr.log',
-          options: []
-        }
-      ),
-      "running error-on-timer sample once": helpers.assertTimes(
-        path.join(__dirname, '..', 'examples', 'error-on-timer.js'),
-        1,
-        {
-          minUptime: 200,
-          silent: true,
-          outFile: 'test/stdout.log',
-          errFile: 'test/stderr.log',
-          options: []
-        }
-      ),
-      "non-node usage with a perl one-liner": {
-        topic: function () {
-          var child = forever.start([ 'perl', '-le', 'print "moo"' ], {
-            max: 1,
-            silent: true,
+      "calling the restart() method in less than `minUptime`": {
+        topic: function (child) {
+          var that = this;
+          child.once('start', function () {
+            child.once('restart', that.callback.bind(this, null));
+            child.restart();
           });
-          child.on('stdout', this.callback.bind({}, null));
+          child.start();
         },
-        "should get back moo": function (err, buf) {
-          assert.equal(buf.toString(), 'moo\n');
+        "should restart the child process": function (_, _, data) {
+          assert.isObject(data);
         }
+      }
+    },
+    "running error-on-timer sample three times": helpers.assertTimes(
+      path.join(__dirname, '..', 'examples', 'error-on-timer.js'),
+      3,
+      {
+        minUptime: 200,
+        silent: true,
+        outFile: 'test/stdout.log',
+        errFile: 'test/stderr.log',
+        options: []
+      }
+    ),
+    "running error-on-timer sample once": helpers.assertTimes(
+      path.join(__dirname, '..', 'examples', 'error-on-timer.js'),
+      1,
+      {
+        minUptime: 200,
+        silent: true,
+        outFile: 'test/stdout.log',
+        errFile: 'test/stderr.log',
+        options: []
+      }
+    ),
+    "non-node usage with a perl one-liner": {
+      topic: function () {
+        var child = forever.start([ 'perl', '-le', 'print "moo"' ], {
+          max: 1,
+          silent: true,
+        });
+        child.on('stdout', this.callback.bind({}, null));
       },
-      "attempting to start a script that doesn't exist": {
-        topic: function () {
-          var child = forever.start('invalid-path.js', {
-            max: 1,
-            silent: true
-          });
-          child.on('error', this.callback.bind({}, null));
-        },
-        "should throw an error about the invalid file": function (err) {
-          assert.isNotNull(err);
-          assert.isTrue(err.message.indexOf('does not exist') !== -1);
-        }
+      "should get back moo": function (err, buf) {
+        assert.equal(buf.toString(), 'moo\n');
+      }
+    },
+    "attempting to start a script that doesn't exist": {
+      topic: function () {
+        var child = forever.start('invalid-path.js', {
+          max: 1,
+          silent: true
+        });
+        child.on('error', this.callback.bind({}, null));
+      },
+      "should throw an error about the invalid file": function (err) {
+        assert.isNotNull(err);
+        assert.isTrue(err.message.indexOf('does not exist') !== -1);
       }
     }
   }
