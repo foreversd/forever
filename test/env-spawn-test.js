@@ -1,5 +1,5 @@
 /*
- * forever-test.js: Tests for forever module
+ * env-spawn-test.js: Tests for supporting environment variables in the forever module
  *
  * (C) 2010 and Charlie Robbins
  * MIT LICENCE
@@ -68,7 +68,39 @@ vows.describe('forever/spawn-options').addBatch({
           assert.equal(child.times, 1);
           assert.equal(this.stdout, this.cwd);
         }
-      }
+      },
+      "setting `hideEnv` when spawning all-env-vars.js": {
+        topic: function () {
+          var that = this, child;
+          
+          this.hideEnv = [
+            'USER',
+            'OLDPWD'
+          ];
+          
+          child = new (forever.Monitor)(path.join(__dirname, '..', 'examples', 'all-env-vars.js'), {
+            max: 1,
+            silent: true,
+            minUptime: 0,
+            hideEnv: this.hideEnv
+          });
+
+          child.on('stdout', function (data) {
+            that.env = Object.keys(JSON.parse(data.toString()));
+          });
+          
+          child.on('exit', this.callback.bind(this, null));
+          child.start();
+        },
+        "should hide the environment variables passed to the child": function (err, child) {
+          var that = this;
+          
+          assert.equal(child.times, 1);
+          this.hideEnv.forEach(function (key) {
+            assert.isTrue(that.env.indexOf(key) === -1);
+          });
+        }
+      },
     }
   }
 }).export(module);
