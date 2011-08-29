@@ -113,7 +113,7 @@ var mappings = {
 // options, only use the first one. Assume the
 // rest are pass-through for the child process
 //
-var file = argv._[0], options = {};
+var file = argv._[1], options = {};
 
 if (file) {
   //
