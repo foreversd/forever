@@ -6,11 +6,11 @@
  *
  */
  
-var sys = require('sys'); 
+var util = require('util');
 
 var count = 0;
 
 var id = setInterval(function () {
-  sys.puts('Count is ' + count + '. Incrementing now.');
+  util.puts('Count is ' + count + '. Incrementing now.');
   count++;
 }, 1000);

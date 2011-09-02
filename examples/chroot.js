@@ -1,14 +1,14 @@
-var sys = require('sys'),
+var util = require('util'),
     daemon = require('daemon'),
     fs = require('fs');
 
 daemon.chroot('/tmp/chroot');
-sys.puts('Working in chroot');
+util.puts('Working in chroot');
 
 setInterval(function () {
   fs.readdir('./', function (err, files) {
-    sys.puts('Current directory: ' + process.cwd());
-    sys.puts('err: ' + sys.inspect(err));
-    sys.puts('files: ' + sys.inspect(files));
+    util.puts('Current directory: ' + process.cwd());
+    util.puts('err: ' + util.inspect(err));
+    util.puts('files: ' + util.inspect(files));
   });
 }, 10000 );
