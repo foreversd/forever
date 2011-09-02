@@ -6,9 +6,9 @@
  *
  */
 
-var sys = require('sys');
+var util = require('util');
 
 setTimeout(function () {
-  sys.puts('Throwing error now.');
+  util.puts('Throwing error now.');
   throw new Error('User generated fault.');
 }, 200);
