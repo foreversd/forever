@@ -9,7 +9,6 @@
 var assert = require('assert'),
     net = require('net'),
     path = require('path'),
-    sys = require('sys'),
     vows = require('vows'),
     forever = require('../lib/forever');
 
