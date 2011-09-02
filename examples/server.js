@@ -1,4 +1,4 @@
-var sys = require('sys'),
+var util = require('util'),
     http = require('http'),
     argv = require('optimist').argv;
 
@@ -12,5 +12,5 @@ http.createServer(function (req, res) {
 }).listen(port);
 
 /* server started */
-sys.puts('> hello world running on port ' + port);
+util.puts('> hello world running on port ' + port);
 

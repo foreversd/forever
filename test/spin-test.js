@@ -6,8 +6,7 @@
  *
  */
 
-var sys = require('sys'),
-    assert = require('assert'),
+var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
     forever = require('../lib/forever');

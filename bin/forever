@@ -3,7 +3,7 @@
 var path = require('path'),
     fs = require('fs'),
     winston = require('winston'),
-    sys  = require('sys'),
+    util  = require('util'),
     forever = require('./../lib/forever');
 
 var action, accepts = [
@@ -84,7 +84,7 @@ function isSimpleAction () {
 //
 if (argv.h || argv.help || (argv._.length === 0 && !isSimpleAction())
   && (!argv.c && !argv.command)) {
-  return sys.puts(help);
+  return util.puts(help);
 }
 
 var mappings = {
