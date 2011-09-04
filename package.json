@@ -36,6 +36,7 @@
     "pkginfo": "0.x.x",
     "portfinder": "0.x.x",
     "timespan": "2.0.x",
+    "watch": "0.3.x",
     "winston": "0.5.x"
   },
   "devDependencies": {
