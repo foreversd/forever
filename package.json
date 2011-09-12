@@ -2,7 +2,7 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "author": "Charlie Robbins <charlie.robbins@gmail.com>",
   "contributors": [
     {
@@ -36,7 +36,7 @@
     "pkginfo": "0.x.x",
     "portfinder": "0.x.x",
     "timespan": "2.0.x",
-    "winston": "0.4.x"
+    "winston": "0.5.x"
   },
   "devDependencies": {
     "vows": "0.5.x"
