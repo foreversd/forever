@@ -12,7 +12,11 @@ var action, accepts = [
   'clear',
   'columns',
   'list',
-  'service',
+  'service-install',
+  'service-add',
+  'service-start',
+  'service-stop',
+  'service-restart',
   'start',
   'stop',
   'stopall',
@@ -78,7 +82,16 @@ var help = [
 ].join('\n');
 
 function isSimpleAction () {
-  return ['config', 'list', 'stopall', 'cleanlogs'].indexOf(action) !== -1;
+  return [
+          'config',
+          'list',
+          'stopall',
+          'cleanlogs',
+          'service-install',
+          'service-start',
+          'service-stop',
+          'service-restart'
+        ].indexOf(action) !== -1;
 };
 
 //

@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# forever-services     Node init.d 
+#
+# chkconfig: 345 80 20
+# description: Node init.d for forever service files
+# processname: node
+# pidfile: /var/run/forever-services.pid
+# logfile: /var/log/forever-services.log
+#
+
+# Source function library.
+
+NAME=forever-services               # Unique name for the application
+SOURCE_NAME=main.js                 # Name os the applcation entry point script
+
+forever_dir=/var/local/forever        # Forever root directory.
+
+node=node
+forever=forever
+
+start() {
+    echo "Starting $NAME: "
+    $forever service-start -p $forever_dir
+    RETVAL=0
+}
+
+restart() {
+    echo -n "Restarting $NAME: "
+    $forever service-restart -p $forever_dir
+    RETVAL=0
+}
+
+stop() {
+    echo -n "Shutting down $NAME: "
+    $forever service-stop -p $forever_dir
+    RETVAL=0
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status -p ${pidfile}
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo "Usage:  {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit $RETVAL
