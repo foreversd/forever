@@ -12,6 +12,7 @@ var action, accepts = [
   'clear',
   'columns',
   'list',
+  'service',
   'start',
   'stop',
   'stopall',
