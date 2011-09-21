@@ -11,7 +11,7 @@
 
 # Source function library.
 . /lib/lsb/init-functions
-path=$path:/user/local/bin
+PATH=$PATH:/usr/local/bin
 
 NAME=forever-services
 pidfile=/var/run/$NAME.pid
@@ -24,7 +24,7 @@ awk=awk
 sed=sed
 
 start() {
-    echo "Starting $NAME node instance: "
+    echo "Starting $NAME: "
 
     if [ "$id" = "" ]; then
         # Create the log and pid files, making sure that the target use has access to them
@@ -43,7 +43,7 @@ start() {
 }
 
 restart() {
-    echo -n "Restarting $NAME node instance : "
+    echo -n "Restarting $NAME: "
     if [ "$id" != "" ]; then
         $forever service-restart -p $forever_dir
         RETVAL=$?
@@ -53,7 +53,7 @@ restart() {
 }
 
 stop() {
-    echo -n "Shutting down $NAME node instance : "
+    echo -n "Shutting down $NAME: "
     if [ "$id" != "" ]; then
         $forever service-stop -p $forever_dir
     else
