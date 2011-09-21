@@ -22,7 +22,6 @@ node=node
 forever=`which forever`
 awk=awk
 sed=sed
-echo `env`
 
 start() {
     echo "Starting $NAME node instance: "
@@ -36,7 +35,7 @@ start() {
         chown $USER $pidfile
 
         # Launch the application
-        start_daemon -p $pidfile $forever service-start -p $forever_dir
+        start_daemon -p $pidfile -- $forever service-start -p $forever_dir
     else
         echo "Instance already running"
     fi
