@@ -1,41 +1,73 @@
 #!/bin/bash
 #
-# forever-services     Node init.d 
+# initd-example      Node init.d 
 #
 # chkconfig: 345 80 20
-# description: Node init.d for forever service files
+# description: Node init.d example
 # processname: node
-# pidfile: /var/run/forever-services.pid
-# logfile: /var/log/forever-services.log
+# pidfile: /var/run/initd-example.pid
+# logfile: /var/log/initd-example.log
 #
 
 # Source function library.
+. /lib/lsb/init-functions
+path=$path:/user/local/bin
 
-NAME=forever-services               # Unique name for the application
-SOURCE_NAME=main.js                 # Name os the applcation entry point script
-
+NAME=forever-services
+pidfile=/var/run/$NAME.pid
+logfile=/var/log/$NAME.log
 forever_dir=/var/local/forever        # Forever root directory.
 
 node=node
-forever=forever
+forever=`which forever`
+awk=awk
+sed=sed
+echo `env`
 
 start() {
-    echo "Starting $NAME: "
-    $forever service-start -p $forever_dir
-    RETVAL=0
+    echo "Starting $NAME node instance: "
+
+    if [ "$id" = "" ]; then
+        # Create the log and pid files, making sure that the target use has access to them
+        touch $logfile
+        chown $USER $logfile
+
+        touch $pidfile
+        chown $USER $pidfile
+
+        # Launch the application
+        start_daemon -p $pidfile $forever service-start -p $forever_dir
+    else
+        echo "Instance already running"
+    fi
+    RETVAL=$?
 }
 
 restart() {
-    echo -n "Restarting $NAME: "
-    $forever service-restart -p $forever_dir
-    RETVAL=0
+    echo -n "Restarting $NAME node instance : "
+    if [ "$id" != "" ]; then
+        $forever service-restart -p $forever_dir
+        RETVAL=$?
+    else
+        start
+    fi
 }
 
 stop() {
-    echo -n "Shutting down $NAME: "
-    $forever service-stop -p $forever_dir
-    RETVAL=0
+    echo -n "Shutting down $NAME node instance : "
+    if [ "$id" != "" ]; then
+        $forever service-stop -p $forever_dir
+    else
+        echo "Instance is not running";
+    fi
+    RETVAL=$?
 }
+
+getForeverId() {
+    local pid=$(pidofproc -p $pidfile)
+    $forever list -p $forever_dir | $sed -e 's/\x1b\[[0-9; ]*m//g' | $awk "\$4 == \"$pid]\" { gsub(/[\[\]]/, \"\", \$1); print \$1; }"
+}
+id=$(getForeverId)
 
 case "$1" in
     start)

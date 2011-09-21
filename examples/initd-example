@@ -10,7 +10,7 @@
 #
 
 # Source function library.
-. /etc/init.d/functions
+. /lib/lsb/init-functions
 
 NAME=initd-example                  # Unique name for the application
 PORT=1234                           # Port (in this case the application uses process.env.PORT to set the port)
@@ -39,8 +39,7 @@ start() {
         chown $user $pidfile
 
         # Launch the application
-        daemon --user=$user \
-            env PORT=$PORT \
+        start_daemon
             $forever start -p $forever_dir --pidfile $pidfile -l $logfile -a -d $INSTANCE_DIR $SOURCE_NAME
         RETVAL=$?
     else
