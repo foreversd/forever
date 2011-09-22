@@ -13,7 +13,7 @@
 . /lib/lsb/init-functions
 PATH=$PATH:/usr/local/bin
 
-NAME=forever-services
+NAME=foreverd
 pidfile=/var/run/$NAME.pid
 logfile=/var/log/$NAME.log
 forever_dir=/var/local/forever        # Forever root directory.
@@ -30,12 +30,9 @@ start() {
         # Create the log and pid files, making sure that the target use has access to them
         touch $logfile
         chown $USER $logfile
-
-        touch $pidfile
-        chown $USER $pidfile
-
+        
         # Launch the application
-        start_daemon -p $pidfile -- $forever service-start -p $forever_dir
+        $forever service-start -p $forever_dir
     else
         echo "Instance already running"
     fi
@@ -76,7 +73,7 @@ case "$1" in
         stop
         ;;
     status)
-        status -p ${pidfile}
+        $forever list -p $forever_dir
         ;;
     restart)
         restart
