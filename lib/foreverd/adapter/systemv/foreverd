@@ -27,12 +27,8 @@ start() {
     echo "Starting $NAME: "
 
     if [ "$id" = "" ]; then
-        # Create the log and pid files, making sure that the target use has access to them
-        touch $logfile
-        chown $USER $logfile
-        
         # Launch the application
-        $foreverd -p $forever_dir
+        $foreverd -p $forever_dir run
     else
         echo "Instance already running"
     fi
@@ -42,7 +38,7 @@ start() {
 restart() {
     echo -n "Restarting $NAME: "
     if [ "$id" != "" ]; then
-        $foreverd -p $forever_dir
+        $foreverd -p $forever_dir restart
         RETVAL=$?
     else
         start
@@ -52,7 +48,7 @@ restart() {
 stop() {
     echo -n "Shutting down $NAME: "
     if [ "$id" != "" ]; then
-        $foreverd -p $forever_dir
+        $foreverd -p $forever_dir stop
     else
         echo "Instance is not running";
     fi
@@ -73,7 +69,7 @@ case "$1" in
         stop
         ;;
     status)
-        $foreverd list -p $forever_dir
+        $foreverd -p $forever_dir list
         ;;
     restart)
         restart
