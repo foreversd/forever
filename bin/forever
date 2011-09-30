@@ -23,7 +23,7 @@ if (accepts.indexOf(process.argv[2]) !== -1) {
   action = process.argv.splice(2,1)[0];
 }
 
-var argv = require('optimist').boolean(['v', 'verbose', 'a', 'append', 's', 'silent']).argv;
+var argv = require('optimist').boolean(['v', 'verbose', 'a', 'append', 's', 'silent', 'w', 'watch']).argv;
 
 var help = [
   'usage: forever [action] [options] SCRIPT [script-options]',
@@ -59,6 +59,7 @@ var help = [
   '  -d, --debug      Forces forever to log debug output',
   '  -v, --verbose    Turns on the verbose messages from Forever',
   '  -s, --silent     Run the child script silencing stdout and stderr',
+  '  -w, --watch      Watch for file changes',
   '  -h, --help       You\'re staring at it',
   '',
   '[Long Running Process]',
@@ -104,6 +105,7 @@ var mappings = {
   'spinSleepTime': 'spinSleepTime',
   'v':             'verbose',
   'verbose':       'verbose',
+  'w':             'watch',
   'd':             'debug',
   'debug':         'debug'
 };
@@ -129,7 +131,7 @@ else if (argv.c || argv.command) {
 // Now that we've removed the target script options
 // reparse the options and configure the forever settings
 //
-argv = require('optimist')(process.argv).boolean(['v', 'verbose', 'a', 'append', 's', 'silent']).argv;
+argv = require('optimist')(process.argv).boolean(['v', 'verbose', 'a', 'append', 's', 'silent', 'watch', 'w']).argv;
 Object.keys(argv).forEach(function (key) {
   if (mappings[key] && argv[key]) {
     options[mappings[key]] = argv[key];
@@ -167,7 +169,7 @@ options.logFile = argv.l || uid + '.log';
 // Check for existing global config and set each
 // key appropriately if it exists.
 //
-['append', 'silent', 'verbose'].forEach(function (key) {
+['append', 'silent', 'verbose', 'watch'].forEach(function (key) {
   var target = mappings[key],
       value = forever.config.get(key);
 
