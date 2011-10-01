@@ -59,6 +59,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     --sourceDir      The source directory for which SCRIPT is relative to
     --minUptime      Minimum uptime (millis) for a script to not be considered "spinning"
     --spinSleepTime  Time to wait (millis) between launches of a spinning script.
+    --plain          Disable command line colors
     -d, --debug      Forces forever to log debug output
     -v, --verbose    Turns on the verbose messages from Forever
     -s, --silent     Run the child script silencing stdout and stderr
