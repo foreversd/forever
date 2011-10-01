@@ -23,7 +23,7 @@ if (accepts.indexOf(process.argv[2]) !== -1) {
   action = process.argv.splice(2,1)[0];
 }
 
-var argv = require('optimist').boolean(['v', 'verbose', 'a', 'append', 's', 'silent', 'w', 'watch']).argv;
+var argv = require('optimist').boolean(['v', 'verbose', 'a', 'append', 's', 'silent', 'w', 'watch', 'plain']).argv;
 
 var help = [
   'usage: forever [action] [options] SCRIPT [script-options]',
@@ -56,6 +56,7 @@ var help = [
   '  --sourceDir      The source directory for which SCRIPT is relative to',
   '  --minUptime      Minimum uptime (millis) for a script to not be considered "spinning"',
   '  --spinSleepTime  Time to wait (millis) between launches of a spinning script.',
+  '  --plain          Disable command line colors',
   '  -d, --debug      Forces forever to log debug output',
   '  -v, --verbose    Turns on the verbose messages from Forever',
   '  -s, --silent     Run the child script silencing stdout and stderr',
@@ -103,6 +104,7 @@ var mappings = {
   'sourceDir':     'sourceDir',
   'minUptime':     'minUptime',
   'spinSleepTime': 'spinSleepTime',
+  'plain':         'plain',
   'v':             'verbose',
   'verbose':       'verbose',
   'w':             'watch',
@@ -132,7 +134,7 @@ else if (argv.c || argv.command) {
 // Now that we've removed the target script options
 // reparse the options and configure the forever settings
 //
-argv = require('optimist')(process.argv).boolean(['v', 'verbose', 'a', 'append', 's', 'silent', 'watch', 'w']).argv;
+argv = require('optimist')(process.argv).boolean(['v', 'verbose', 'a', 'append', 's', 'silent', 'watch', 'w', 'plain']).argv;
 Object.keys(argv).forEach(function (key) {
   if (mappings[key] && argv[key]) {
     options[mappings[key]] = argv[key];
@@ -170,7 +172,7 @@ options.logFile = argv.l || uid + '.log';
 // Check for existing global config and set each
 // key appropriately if it exists.
 //
-['append', 'silent', 'verbose', 'watch'].forEach(function (key) {
+['append', 'silent', 'verbose', 'watch', 'plain'].forEach(function (key) {
   var target = mappings[key],
       value = forever.config.get(key);
 
@@ -178,6 +180,16 @@ options.logFile = argv.l || uid + '.log';
     options[target] = options[target] || value === 'true';
   }
 });
+
+//
+// If options.plain is false, set colors.mode = 'none' to avoid colorful
+// output (see https://github.com/indexzero/forever/issues/112 ).
+// Modifying colors.mode turns off output coloring for all node modules
+// which use colors because of node.js require caching.
+//
+if (options.plain) {
+  require('colors').mode = 'none';
+}
 
 //
 // Pass the source dir to spawn
