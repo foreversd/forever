@@ -106,6 +106,7 @@ var mappings = {
   'v':             'verbose',
   'verbose':       'verbose',
   'w':             'watch',
+  'watch':         'watch',
   'd':             'debug',
   'debug':         'debug'
 };
