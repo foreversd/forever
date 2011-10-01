@@ -28,6 +28,7 @@ There are two distinct ways to use forever: through the command line interface, 
 You can use forever to run any kind of script continuously (whether it is written in node.js or not). The usage options are simple:
 
 ```
+  $ forever --help
   usage: forever [action] [options] SCRIPT [script-options]
 
   Monitors the script specified in the current process or as a daemon
@@ -61,6 +62,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     -d, --debug      Forces forever to log debug output
     -v, --verbose    Turns on the verbose messages from Forever
     -s, --silent     Run the child script silencing stdout and stderr
+    -w, --watch      Watch for file changes
     -h, --help       You're staring at it
 
   [Long Running Process]
@@ -143,6 +145,14 @@ There are several options that you should be aware of when using forever. Most o
     'command': 'perl',         // Binary to run (default: 'node')
     'options': ['foo','bar'],  // Additional arguments to pass to the script,
     'sourceDir': 'script/path' // Directory that the source script is in
+    
+    //
+    // Options for restarting on watched files.
+    //
+    'watch': false              // Value indicating if we should watch files.
+    'watchIgnoreDotFiles': null // Dot files we should read to ignore ('.foreverignore', etc).
+    'watchIgnorePatterns': null // Ignore patterns to use when watching files.
+    'watchDirectory': null      // Top-level directory to watch from.
     
     //
     // All or nothing options passed along to `child_process.spawn`.
