@@ -1,7 +1,7 @@
 /*
  * helpers.js: Test helpers for the forever module
  *
- * (C) 2010 Charlie Robbins
+ * (C) 2010 Nodejitsu Inc.
  * MIT LICENCE
  *
  */

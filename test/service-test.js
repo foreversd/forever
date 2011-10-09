@@ -1,7 +1,7 @@
 /*
  * service-test.js: Tests for the forever.service module
  *
- * (C) 2010 Charlie Robbins
+ * (C) 2010 Nodejitsu Inc.
  * MIT LICENCE
  *
  */

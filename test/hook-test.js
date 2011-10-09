@@ -1,7 +1,7 @@
 /*
  * hook-test.js: Tests for forever-based hooks
  *
- * (C) 2010 Charlie Robbins
+ * (C) 2010 Nodejitsu Inc.
  * MIT LICENCE
  *
  */

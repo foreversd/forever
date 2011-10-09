@@ -1,7 +1,7 @@
 /*
  * spin-test.js: Tests for spin restarts in forever.
  *
- * (C) 2010 Charlie Robbins
+ * (C) 2010 Nodejitsu Inc.
  * MIT LICENCE
  *
  */

@@ -1,7 +1,7 @@
 /*
  * multiple-processes-test.js: Tests for spawning multiple processes with forever
  *
- * (C) 2010 Charlie Robbins
+ * (C) 2010 Nodejitsu Inc.
  * MIT LICENCE
  *
  */

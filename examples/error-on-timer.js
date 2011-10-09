@@ -1,7 +1,7 @@
 /*
  * error-on-timer.js: Sample script that errors on a timer
  *
- * (C) 2010 Charlie Robbins
+ * (C) 2010 Nodejitsu Inc.
  * MIT LICENCE
  *
  */

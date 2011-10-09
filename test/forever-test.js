@@ -1,7 +1,7 @@
 /*
  * forever-test.js: Tests for forever module
  *
- * (C) 2010 Charlie Robbins
+ * (C) 2010 Nodejitsu Inc.
  * MIT LICENCE
  *
  */
