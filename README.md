@@ -42,6 +42,8 @@ You can use forever to run any kind of script continuously (whether it is writte
     config              Lists all forever user configuration
     set <key> <val>     Sets the specified forever config <key>
     clear <key>         Clears the specified forever config <key>
+    logs                Lists log files for all forever processes
+    logs <script|index> Tails the logs for <script|index>
     columns add <col>   Adds the specified column to the output in `forever list`
     columns rm <col>    Removed the specified column from the output in `forever list`
     columns set <cols>  Set all columns for the output in `forever list`
@@ -131,6 +133,7 @@ There are several options that you should be aware of when using forever. Most o
     'uid': 'your-UID'           // Custom uid for this forever process. (default: autogen)
     'pidFile': 'path/to/a.pid', // Path to put pid information for the process(es) started
     'max': 10,                  // Sets the maximum number of times a given script should run
+    'killTree': true            // Kills the entire child process tree on `exit`
     
     //
     // These options control how quickly forever restarts a child process
@@ -214,6 +217,9 @@ Stops all forever scripts currently running. This method returns an EventEmitter
 
 ### forever.list (format, callback)
 Returns a list of metadata objects about each process that is being run using forever. This method is synchronous and will return the list of metadata as such. Only processes which have invoked `forever.startServer()` will be available from `forever.list()`
+
+### forever.tail (target, [length,] callback)
+Responds with the logs from the target script(s) from `tail`. If `length` is provided it is used as the `-n` parameter to `tail`.
 
 ### forever.cleanup ()
 Cleans up any extraneous forever *.pid files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
