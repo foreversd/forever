@@ -4,6 +4,10 @@
 
 - Added experimental foreverd implementation for working with init.d, systemv, etc
 - Expose `Monitor.killTree` for killing process trees for processes spawned by forever (default: true)
+- Added commands for working with forever log files
+- Added forever.tail()
+- Update daemon to 0.3.2
+- Expose Monitor.spawnWith in Monitor.data
 
 ### Version 0.6.9
 
