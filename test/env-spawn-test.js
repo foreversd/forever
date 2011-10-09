@@ -18,12 +18,12 @@ vows.describe('forever/spawn-options').addBatch({
       "passing environment variables to env-vars.js": {
         topic: function () {
           var that = this, child;
-          
+
           this.env = {
-            FOO: 'foo', 
+            FOO: 'foo',
             BAR: 'bar'
           };
-          
+
           child = new (forever.Monitor)(path.join(__dirname, '..', 'examples', 'env-vars.js'), {
             max: 1,
             silent: true,
@@ -34,7 +34,7 @@ vows.describe('forever/spawn-options').addBatch({
           child.on('stdout', function (data) {
             that.stdout = data.toString();
           });
-          
+
           child.on('exit', this.callback.bind({}, null));
           child.start();
         },
@@ -46,9 +46,9 @@ vows.describe('forever/spawn-options').addBatch({
       "passing a custom cwd to custom-cwd.js": {
         topic: function () {
           var that = this, child;
-          
+
           this.cwd = path.join(__dirname, '..');
-          
+
           child = new (forever.Monitor)(path.join(__dirname, '..', 'examples', 'custom-cwd.js'), {
             max: 1,
             silent: true,
@@ -59,7 +59,7 @@ vows.describe('forever/spawn-options').addBatch({
           child.on('stdout', function (data) {
             that.stdout = data.toString();
           });
-          
+
           child.on('exit', this.callback.bind({}, null));
           child.start();
         },
@@ -71,12 +71,12 @@ vows.describe('forever/spawn-options').addBatch({
       "setting `hideEnv` when spawning all-env-vars.js": {
         topic: function () {
           var that = this, child;
-          
+
           this.hideEnv = [
             'USER',
             'OLDPWD'
           ];
-          
+
           child = new (forever.Monitor)(path.join(__dirname, '..', 'examples', 'all-env-vars.js'), {
             max: 1,
             silent: true,
@@ -87,13 +87,13 @@ vows.describe('forever/spawn-options').addBatch({
           child.on('stdout', function (data) {
             that.env = Object.keys(JSON.parse(data.toString()));
           });
-          
+
           child.on('exit', this.callback.bind(this, null));
           child.start();
         },
         "should hide the environment variables passed to the child": function (err, child) {
           var that = this;
-          
+
           assert.equal(child.times, 1);
           this.hideEnv.forEach(function (key) {
             assert.isTrue(that.env.indexOf(key) === -1);

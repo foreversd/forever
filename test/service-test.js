@@ -1,5 +1,5 @@
 /*
- * forever-test.js: Tests for forever module
+ * service-test.js: Tests for the forever.service module
  *
  * (C) 2010 Charlie Robbins
  * MIT LICENCE
@@ -18,7 +18,7 @@ vows.describe('forever/service').addBatch({
         assert.isObject(forever.service);
         assert.isFunction(forever.service.Service);
         assert.isObject(forever.service.adapters);
-        assert.isFunction(forever.service.adapters.initd)
+        assert.isFunction(forever.service.adapters.initd);
       }
     }
   }

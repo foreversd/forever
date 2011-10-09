@@ -26,7 +26,7 @@ vows.describe('forever').addBatch({
         assert.isTrue(child.silent);
         assert.isFunction(child.start);
         assert.isObject(child.data);
-        assert.isFunction(child.stop); 
+        assert.isFunction(child.stop);
       },
       "calling the restart() method in less than `minUptime`": {
         topic: function (child) {

@@ -1,5 +1,5 @@
 /*
- * forever-test.js: Tests for forever module
+ * multiple-processes-test.js: Tests for spawning multiple processes with forever
  *
  * (C) 2010 Charlie Robbins
  * MIT LICENCE
@@ -18,20 +18,20 @@ vows.describe('forever/multiple-processes').addBatch({
       topic: function () {
         var that = this,
             script = path.join(__dirname, '..', 'examples', 'server.js');
-            
-        this.child1 = new (forever.Monitor)(script, { 
+
+        this.child1 = new (forever.Monitor)(script, {
           silent: true,
           maxRestart: 1,
-          options: [ "--port=8080"] 
+          options: [ "--port=8080"]
         });
-        
+
         that.child1.on('start', function () {
-          that.child2 = new (forever.Monitor)(script, { 
+          that.child2 = new (forever.Monitor)(script, {
             silent: true,
             maxRestart: 1,
-            options: [ "--port=8081"] 
+            options: [ "--port=8081"]
           });
-          
+
           that.child2.on('start', function () {
             forever.startServer(that.child1, that.child2, function (err, server, socketPath) {
               var socket = new net.Socket();

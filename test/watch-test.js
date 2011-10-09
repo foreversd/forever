@@ -1,7 +1,7 @@
 /*
- * watch-test.js
+ * watch-test.js: Tests for restarting forever processes when a file changes.
  *
- * (C) 2010 and Charlie Robbins
+ * (C) 2010 Charlie Robbins
  * MIT LICENSE
  *
  */
