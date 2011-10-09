@@ -32,7 +32,6 @@
     "dnode": "0.8.x",
     "eyes": "0.1.x",
     "daemon": "0.3.x",
-    "eventemitter2": "0.4.x",
     "mkdirp": "0.x.x",
     "nconf": "0.x.x",
     "optimist": "0.2.x",

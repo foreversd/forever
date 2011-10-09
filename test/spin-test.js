@@ -1,7 +1,7 @@
 /*
- * forever-test.js: Tests for forever module
+ * spin-test.js: Tests for spin restarts in forever.
  *
- * (C) 2010 and Charlie Robbins
+ * (C) 2010 Charlie Robbins
  * MIT LICENCE
  *
  */

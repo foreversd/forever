@@ -1,7 +1,7 @@
 /*
  * spawn-and-error.js: Sample script that spawns a simple child process and errors
  *
- * (C) 2010 and Charlie Robbins
+ * (C) 2010 Charlie Robbins
  * MIT LICENCE
  *
  */

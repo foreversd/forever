@@ -1,7 +1,7 @@
 /*
  * helpers.js: Test helpers for the forever module
  *
- * (C) 2010 and Charlie Robbins
+ * (C) 2010 Charlie Robbins
  * MIT LICENCE
  *
  */

@@ -1,7 +1,7 @@
 /*
  * count-timer.js: Counts forever on a timer
  *
- * (C) 2010 and Charlie Robbins
+ * (C) 2010 Charlie Robbins
  * MIT LICENCE
  *
  */

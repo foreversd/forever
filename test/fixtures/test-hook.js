@@ -1,7 +1,7 @@
 /*
  * test-hook.js: Test hook fixture for raising an event on forever.Monitor `exit`
  *
- * (C) 2010 and Charlie Robbins
+ * (C) 2010 Charlie Robbins
  * MIT LICENCE
  *
  */
