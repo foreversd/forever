@@ -25,7 +25,7 @@ var action, accepts = [
 ];
 
 if (accepts.indexOf(process.argv[2]) !== -1) {
-  action = process.argv.splice(2,1)[0];
+  action = process.argv.splice(2, 1)[0];
 }
 
 var argv = require('optimist').boolean(['v', 'verbose', 'a', 'append', 's', 'silent', 'w', 'watch', 'plain']).argv;
@@ -81,18 +81,18 @@ var help = [
   ''
 ].join('\n');
 
-function isSimpleAction () {
+function isSimpleAction() {
   return [
-          'config',
-          'list',
-          'stopall',
-          'cleanlogs',
-          'service-install',
-          'service-start',
-          'service-stop',
-          'service-restart'
-        ].indexOf(action) !== -1;
-};
+    'config',
+    'list',
+    'stopall',
+    'cleanlogs',
+    'service-install',
+    'service-start',
+    'service-stop',
+    'service-restart'
+  ].indexOf(action) !== -1;
+}
 
 //
 // Show help prompt if requested or if the
@@ -258,7 +258,7 @@ if (argv.d || argv.debug) {
 
 if (action === 'set') {
   //
-  // If this is a set action then get the first 
+  // If this is a set action then get the first
   // value from the options and continue.
   //
   options = options.options[0];
@@ -267,7 +267,7 @@ else if (action === 'columns') {
   //
   // Otherwise if this is a `forever columns`
   // operation then update the action, options,
-  // and file then continue. 
+  // and file then continue.
   //
   action = [action, file];
   options = options.options;

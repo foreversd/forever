@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-var clip = require('clip');
+var Clip = require('clip');
 
-var app = new clip();
-console.log("FOREVERD")
+var app = new Clip();
+
 require('../lib/foreverd/cli')(app);
-console.log("FOREVERD LOADED")
+
 app.run();
-console.log("FOREVER RAN")
