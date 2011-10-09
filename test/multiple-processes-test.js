@@ -17,6 +17,7 @@ vows.describe('forever/multiple-processes').addBatch({
     "and spawning two processes using the same script": {
       topic: function () {
         var that = this,
+            output = ''
             script = path.join(__dirname, '..', 'examples', 'server.js');
 
         this.child1 = new (forever.Monitor)(script, {
@@ -31,11 +32,26 @@ vows.describe('forever/multiple-processes').addBatch({
             maxRestart: 1,
             options: [ "--port=8081"]
           });
+          
+          function buildJson (data) {
+            var json;
+            
+            try {
+              output += data;
+              json = JSON.parse(output.toString());
+              that.callback(null, json);
+            }
+            catch (ex) {
+              //
+              // Do nothing here
+              //
+            }
+          }
 
           that.child2.on('start', function () {
             forever.startServer(that.child1, that.child2, function (err, server, socketPath) {
               var socket = new net.Socket();
-              socket.on('data', that.callback.bind(null, null));
+              socket.on('data', buildJson);
               socket.on('error', that.callback);
               socket.connect(socketPath);
             });
@@ -48,7 +64,6 @@ vows.describe('forever/multiple-processes').addBatch({
       },
       "should spawn both processes appropriately": function (err, data) {
         assert.isNull(err);
-        data = JSON.parse(data.toString());
         assert.length(data.monitors, 2);
         this.child1.stop();
         this.child2.stop();
