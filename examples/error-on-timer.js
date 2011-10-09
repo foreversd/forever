@@ -1,11 +1,3 @@
-/*
- * error-on-timer.js: Sample script that errors on a timer
- *
- * (C) 2010 Nodejitsu Inc.
- * MIT LICENCE
- *
- */
-
 var util = require('util');
 
 setTimeout(function () {

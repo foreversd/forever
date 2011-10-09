@@ -1,11 +1,3 @@
-/*
- * spawn-and-error.js: Sample script that spawns a simple child process and errors
- *
- * (C) 2010 Nodejitsu Inc.
- * MIT LICENCE
- *
- */
- 
 var util = require('util'),
     path = require('path'),
     spawn = require('child_process').spawn;
