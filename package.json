@@ -49,7 +49,7 @@
   },
   "main": "./lib/forever",
   "scripts": {
-    "test": "vows test/*-test.js --spec"
+    "test": "vows --spec --isolate"
   },
   "engines": {
     "node": ">= 0.4.0"
