@@ -32,15 +32,15 @@
     "dnode": "0.8.x",
     "eyes": "0.1.x",
     "daemon": "0.3.x",
+    "minimatch": "0.0.x",
     "mkdirp": "0.x.x",
     "nconf": "0.x.x",
     "optimist": "0.2.x",
     "pkginfo": "0.x.x",
     "portfinder": "0.x.x",
+    "ps-tree": "0.0.x",
     "timespan": "2.0.x",
     "watch": "0.3.x",
-    "minimatch": "0.0.x",
-    "ps-tree": "0.0.x",
     "winston": "0.5.x"
   },
   "devDependencies": {
