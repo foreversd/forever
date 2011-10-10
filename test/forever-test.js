@@ -88,6 +88,25 @@ vows.describe('forever').addBatch({
         assert.isNotNull(err);
         assert.isTrue(err.message.indexOf('does not exist') !== -1);
       }
+    },
+    "checking if process exists": {
+      "if process process exists": {
+        topic: forever.checkProcess(process.pid),
+        "should return true": function (result) {
+          assert.isTrue(result);
+        }
+      },
+      "if process doesn't exist": {
+        topic: forever.checkProcess(255 * 255 * 255),
+        //
+        // This is insanely large value. On most systems there'll be no process
+        // with such PID. Also, there's no multiplatform way to check for
+        // PID limit.
+        //
+        "should return false": function (result) {
+          assert.isFalse(result);
+        }
+      }
     }
   }
 }).export(module);
