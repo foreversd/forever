@@ -27,7 +27,6 @@
     "cliff": "0.x.x",
     "clip": "0.x.x",
     "dnode": "0.8.x",
-    "eyes": "0.1.x",
     "daemon": "0.3.x >=0.3.2",
     "minimatch": "0.0.x",
     "mkdirp": "0.x.x",
