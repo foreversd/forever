@@ -64,7 +64,7 @@ vows.describe('forever/multiple-processes').addBatch({
       },
       "should spawn both processes appropriately": function (err, data) {
         assert.isNull(err);
-        assert.length(data.monitors, 2);
+        assert.lengthOf(data.monitors, 2);
         this.child1.stop();
         this.child2.stop();
       }
