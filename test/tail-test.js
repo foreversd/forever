@@ -43,7 +43,7 @@ vows.describe('forever/tail').addBatch({
       },
       "should stop the correct number of procs": function (err, procs) {
         assert.isArray(procs);
-        assert.length(procs, 1);
+        assert.lengthOf(procs, 1);
       }
     }
   }
