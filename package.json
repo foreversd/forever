@@ -34,10 +34,10 @@
     "optimist": "0.2.x",
     "pkginfo": "0.x.x",
     "portfinder": "0.x.x",
-    "ps-tree": "0.0.x",
     "timespan": "2.0.x",
     "watch": "0.3.x",
-    "winston": "0.5.x"
+    "winston": "0.5.x",
+    "parse-table": "0"
   },
   "devDependencies": {
     "vows": "0.5.x"
