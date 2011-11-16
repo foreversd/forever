@@ -4,6 +4,7 @@ var path = require('path'),
     fs = require('fs'),
     winston = require('winston'),
     util  = require('util'),
+    utile = require('utile'),
     forever = require('./../lib/forever');
 
 var action, accepts = [
@@ -181,7 +182,7 @@ if (!options.sourceDir) {
   options.sourceDir = file && file[0] !== '/' ? process.cwd() : '/';
 }
 
-var uid = forever.randomString(24);
+var uid = utile.randomString(4);
 options.uid = uid;
 options.pidFile = options.pidFile || uid + '.pid';
 options.logFile = argv.l || uid + '.log';
