@@ -28,6 +28,7 @@
     "clip": "0.x.x",
     "dnode": "0.8.x",
     "daemon": "0.3.x >=0.3.2",
+    "flatiron": "0.1.x",
     "minimatch": "0.0.x",
     "mkdirp": "0.x.x",
     "nconf": "0.x.x",
