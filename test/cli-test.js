@@ -48,5 +48,14 @@ vows.describe('forever/cli').addBatch({
       })
     })
   }
+}).addBatch({
+  'When testing forever CLI': {
+    'necessary cleanup': {
+      topic: function () {
+        forever.stopAll().on('stopAll', this.callback.bind({}, null));
+      },
+      'should take place': function () {}
+    }
+  }
 }).export(module);
 
