@@ -13,15 +13,15 @@ var fs = require('fs'),
     helpers = require('./helpers'),
     forever = require('../lib/forever');
 
-var script = path.join(__dirname, '..', 'examples', 'log-on-interval.js'),
-    options = ['--uid', 'itShouldNotGoToUIDField'];
+var script = path.join(__dirname, '..', 'examples', 'log-on-interval.js');
 
 vows.describe('forever/cli').addBatch({
   'When using forever CLI': {
     'and starting script using `forever start`': helpers.spawn(['start', script], {
       '`forever.list` result': helpers.list({
         'should contain spawned process': function (list) {
-          helpers.assertList(list);
+          assert.isNotNull(list);
+          assert.lengthOf(list, 1);
           assert.equal(list[0].command, 'node');
           assert.equal(fs.realpathSync(list[0].file), fs.realpathSync(script));
           helpers.assertStartsWith(list[0].logFile, forever.config.get('root'));
@@ -35,27 +35,6 @@ vows.describe('forever/cli').addBatch({
         })
       })
     })
-  }
-}).addBatch({
-  'When using forever CLI': {
-    'and starting script using `forever start` with arguments': helpers.spawn(['start', script].concat(options), {
-      '`forever.list` result': helpers.list({
-        'should contain spawned process with proper options': function (list) {
-          helpers.assertList(list);
-          assert.notEqual(list[0].uid, 'itShouldNotGoToUIDField');
-          assert.deepEqual(list[0].options, options);
-        }
-      })
-    })
-  }
-}).addBatch({
-  'When testing forever CLI': {
-    'necessary cleanup': {
-      topic: function () {
-        forever.stopAll().on('stopAll', this.callback.bind({}, null));
-      },
-      'should take place': function () {}
-    }
   }
 }).export(module);
 

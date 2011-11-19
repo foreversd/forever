@@ -7,6 +7,8 @@
  */
  
 var assert = require('assert'),
+    path = require('path'),
+    spawn = require('child_process').spawn,
     forever = require('../lib/forever');
  
 var helpers = exports;
@@ -65,10 +67,3 @@ helpers.list = function (options) {
 helpers.assertStartsWith = function (string, substring) {
   assert.equal(string.slice(0, substring.length), substring);
 };
-
-helpers.assertList = function (list) {
-  assert.isNotNull(list);
-  assert.lengthOf(list, 1);
-};
-
->>>>>>> d07b6dc... [test] Add test for option parsing
