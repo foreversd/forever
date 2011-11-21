@@ -37,8 +37,9 @@ vows.describe('forever').addBatch({
           });
           child.start();
         },
-        "should restart the child process": function (_, _, data) {
+        "should restart the child process": function (_, child, data) {
           assert.isObject(data);
+          child.kill(true);
         }
       }
     },
