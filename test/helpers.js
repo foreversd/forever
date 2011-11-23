@@ -67,3 +67,8 @@ helpers.list = function (options) {
 helpers.assertStartsWith = function (string, substring) {
   assert.equal(string.slice(0, substring.length), substring);
 };
+
+helpers.assertList = function (list) {
+  assert.isNotNull(list);
+  assert.lengthOf(list, 1);
+};
