@@ -2,7 +2,7 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "0.7.2",
+  "version": "0.7.4",
   "author": "Nodejitsu Inc <info@nodejitsu.com>",
   "contributors": [
     { "name": "Charlie Robbins", "email": "charlie@nodejitsu.com" },
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/indexzero/forever.git"
+    "url": "http://github.com/nodejitsu/forever.git"
   },
   "keywords": [
     "cli",
@@ -28,16 +28,17 @@
     "clip": "0.x.x",
     "dnode": "0.8.x",
     "daemon": "0.3.x >=0.3.2",
+    "flatiron": "0.1.x",
     "minimatch": "0.0.x",
     "mkdirp": "0.x.x",
-    "nconf": "0.x.x",
+    "nconf": "0.4.x",
     "optimist": "0.2.x",
     "pkginfo": "0.x.x",
     "portfinder": "0.x.x",
     "timespan": "2.0.x",
-    "watch": "0.3.x",
-    "winston": "0.5.x",
-    "parse-table": "0"
+    "watch": "0.4.x",
+    "utile": "0.0.x",
+    "winston": "0.5.x"
   },
   "devDependencies": {
     "vows": "0.5.x"
