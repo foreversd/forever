@@ -4,6 +4,6 @@ var Clip = require('clip');
 
 var app = new Clip();
 
-require('../lib/foreverd/cli')(app);
+require('../lib/forever/service/cli')(app);
 
 app.run();
