@@ -29,7 +29,7 @@ You can use forever to run any kind of script continuously (whether it is writte
 
 ```
   $ forever --help
-  usage: forever [action] [options] SCRIPT [script-options]
+  usage: forever [options] [action] SCRIPT [script-options]
 
   Monitors the script specified in the current process or as a daemon
 
@@ -83,7 +83,7 @@ You can use forever to run any kind of script continuously (whether it is writte
 There are several examples designed to test the fault tolerance of forever. Here's a simple usage example:
 
 ``` bash
-  $ forever examples/error-on-timer.js -m 5
+  $ forever -m 5 examples/error-on-timer.js
 ```
 
 ### Using an instance of Forever from node.js
