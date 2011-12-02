@@ -1,5 +1,5 @@
 var path = require('path'),
-    async = require('async'),
+    async = require('utile').async,
     forever = require('../lib/forever');
 
 function startServer (port, next) {

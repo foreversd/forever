@@ -50,7 +50,7 @@ helpers.spawn = function (args, options) {
       // doesn't wait for slave to start up after it's forked, it just quits)
       //
       setTimeout(function () {
-        self.callback(exitCode, stdout, stderr);
+        self.callback(null, exitCode, stdout, stderr);
       }, 200);
     });
   };

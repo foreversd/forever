@@ -1,6 +1,4 @@
 #!/usr/bin/env node
 
-var forever = require('./../lib/forever');
-
-forever.cli.startCLI();
+require('./../lib/forever').cli.start();
 
