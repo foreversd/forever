@@ -36,10 +36,12 @@
     "timespan": "2.0.x",
     "watch": "0.4.x",
     "utile": "0.0.x",
-    "winston": "0.5.x"
+    "winston": "0.5.x",
+    "broadway": "0.1.x"
   },
   "devDependencies": {
-    "vows": "0.5.x"
+    "vows": "0.5.x",
+    "eventemitter2": "0.4.x"
   },
   "bin": {
     "forever": "./bin/forever",
