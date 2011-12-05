@@ -237,4 +237,4 @@ Removes all log files from the root forever directory that do not belong to curr
 #### Contributors: [Fedor Indutny](http://github.com/donnerjack13589), [James Halliday](http://substack.net/)
 
 [0]: http://nodejitsu.com
-[1]: https://github.com/indexzero/forever/blob/master/lib/forever/cli.js
+[1]: https://github.com/nodejitsu/forever/blob/master/lib/forever/cli.js
