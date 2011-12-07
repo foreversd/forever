@@ -17,12 +17,18 @@ vows.describe('forever/worker').addBatch({
 
         worker.start(function () {
           reader.connect(path.join(SOCKET_PATH, 'worker.0.sock'), function () {
-            reader.data(['pong'], self.callback.bind(self, null));
-            reader.send(['ping']);
+            self.callback(null, reader);
           });
         });
       },
-      'it should respond with `pong`': function () {
+      'it should connect': {
+        'and respond to pings': {
+          topic: function (reader) {
+            reader.send(['ping']);
+            reader.data(['pong'], this.callback);
+          },
+          'with `pong`': function () {}
+        }
       }
     }
   }
