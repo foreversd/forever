@@ -2,6 +2,7 @@ var path = require('path'),
     assert = require('assert'),
     vows = require('vows'),
     nssocket = require('nssocket'),
+    MonitorMock = require('./helpers/mocks/monitor').MonitorMock,
     Worker = require('../lib/forever/worker').Worker;
 
 var SOCKET_PATH = path.join(__dirname, 'fixtures');
@@ -10,14 +11,15 @@ vows.describe('forever/worker').addBatch({
   'When using forever worker': {
     'and starting it and pinging it': {
       topic: function () {
-        var self = this;
+        var self = this,
+            monitor = new MonitorMock();
 
-        var worker = new Worker({ sockPath: SOCKET_PATH }),
+        var worker = new Worker({ sockPath: SOCKET_PATH, monitor: monitor }),
             reader = new nssocket.NsSocket();
 
         worker.start(function (err, sock) {
           reader.connect(sock, function () {
-            self.callback(null, reader);
+            self.callback(null, reader, worker, monitor);
           });
         });
       },
@@ -28,6 +30,20 @@ vows.describe('forever/worker').addBatch({
             reader.data(['pong'], this.callback);
           },
           'with `pong`': function () {}
+        },
+        'and when queried for data': {
+          topic: function (reader, _, monitor) {
+            var self = this;
+
+            reader.send(['data']);
+            reader.data(['data'], function (data) {
+              self.callback(null, { data: data, monitor: monitor });
+            });
+          },
+          'it should respond with data': function (obj) {
+            assert.isObject(obj.data);
+            assert.deepEqual(obj.data, obj.data);
+          }
         }
       }
     }
