@@ -9,3 +9,10 @@ var MonitorMock = exports.MonitorMock = function (options) {
 };
 util.inherits(MonitorMock, broadway.App);
 
+MonitorMock.prototype.__defineGetter__('data', function () {
+  return {
+    uid: '_uid',
+    command: 'node'
+  }
+});
+
