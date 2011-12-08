@@ -15,8 +15,8 @@ vows.describe('forever/worker').addBatch({
         var worker = new Worker({ sockPath: SOCKET_PATH }),
             reader = new nssocket.NsSocket();
 
-        worker.start(function () {
-          reader.connect(path.join(SOCKET_PATH, 'worker.0.sock'), function () {
+        worker.start(function (err, sock) {
+          reader.connect(sock, function () {
             self.callback(null, reader);
           });
         });
