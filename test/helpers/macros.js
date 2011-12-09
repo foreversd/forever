@@ -9,7 +9,9 @@
 var assert = require('assert'),
     path = require('path'),
     spawn = require('child_process').spawn,
-    forever = require('../../lib/forever');
+    nssocket = require('nssocket'),
+    forever = require('../../lib/forever'),
+    Worker = require('../../lib/forever/worker').Worker;
  
 var macros = exports;
 
@@ -71,5 +73,22 @@ macros.assertStartsWith = function (string, substring) {
 macros.assertList = function (list) {
   assert.isNotNull(list);
   assert.lengthOf(list, 1);
+};
+
+macros.assertWorkerConnected = function (workerOptions, batch) {
+  return {
+    topic: function () {
+      var self = this,
+          reader = new nssocket.NsSocket(),
+          worker = new Worker(workerOptions);
+
+      worker.start(function (err, sock) {
+        reader.connect(sock, function () {
+          self.callback(null, reader, worker, workerOptions);
+        });
+      });
+    },
+    'worker should connect': batch
+  };
 };
 

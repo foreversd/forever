@@ -2,51 +2,39 @@ var path = require('path'),
     assert = require('assert'),
     vows = require('vows'),
     nssocket = require('nssocket'),
-    MonitorMock = require('./helpers/mocks/monitor').MonitorMock,
-    Worker = require('../lib/forever/worker').Worker;
+    macros = require('./helpers/macros'),
+    MonitorMock = require('./helpers/mocks/monitor').MonitorMock;
 
 var SOCKET_PATH = path.join(__dirname, 'fixtures');
 
 vows.describe('forever/worker').addBatch({
   'When using forever worker': {
-    'and starting it and pinging it': {
-      topic: function () {
-        var self = this,
-            monitor = new MonitorMock();
-
-        var worker = new Worker({ sockPath: SOCKET_PATH, monitor: monitor }),
-            reader = new nssocket.NsSocket();
-
-        worker.start(function (err, sock) {
-          reader.connect(sock, function () {
-            self.callback(null, reader, worker, monitor);
-          });
-        });
-      },
-      'it should connect': {
-        'and respond to pings': {
-          topic: function (reader) {
-            reader.send(['ping']);
-            reader.data(['pong'], this.callback);
-          },
-          'with `pong`': function () {}
+    'and starting it and pinging it': macros.assertWorkerConnected({
+      monitor: new MonitorMock(),
+      sockPath: SOCKET_PATH
+    }, {
+      'and respond to pings': {
+        topic: function (reader) {
+          reader.send(['ping']);
+          reader.data(['pong'], this.callback);
         },
-        'and when queried for data': {
-          topic: function (reader, _, monitor) {
-            var self = this;
+        'with `pong`': function () {}
+      },
+      'and when queried for data': {
+        topic: function (reader, _, options) {
+          var self = this;
 
-            reader.send(['data']);
-            reader.data(['data'], function (data) {
-              self.callback(null, { data: data, monitor: monitor });
-            });
-          },
-          'it should respond with data': function (obj) {
-            assert.isObject(obj.data);
-            assert.deepEqual(obj.data, obj.data);
-          }
+          reader.send(['data']);
+          reader.data(['data'], function (data) {
+            self.callback(null, { data: data, monitor: options.monitor });
+          });
+        },
+        'it should respond with data': function (obj) {
+          assert.isObject(obj.data);
+          assert.deepEqual(obj.data, obj.monitor.data);
         }
       }
-    }
+    })
   }
 }).export(module);
 
