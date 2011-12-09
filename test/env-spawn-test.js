@@ -9,8 +9,7 @@
 var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    forever = require('../lib/forever'),
-    helpers = require('./helpers');
+    forever = require('../lib/forever');
 
 vows.describe('forever/spawn-options').addBatch({
   "When using forever": {

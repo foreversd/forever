@@ -10,7 +10,7 @@ var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
     forever = require('../lib/forever'),
-    helpers = require('./helpers');
+    macros = require('./helpers/macros');
 
 vows.describe('forever').addBatch({
   "When using forever": {
@@ -43,7 +43,7 @@ vows.describe('forever').addBatch({
         }
       }
     },
-    "running error-on-timer sample three times": helpers.assertTimes(
+    "running error-on-timer sample three times": macros.assertTimes(
       path.join(__dirname, '..', 'examples', 'error-on-timer.js'),
       3,
       {
@@ -54,7 +54,7 @@ vows.describe('forever').addBatch({
         options: []
       }
     ),
-    "running error-on-timer sample once": helpers.assertTimes(
+    "running error-on-timer sample once": macros.assertTimes(
       path.join(__dirname, '..', 'examples', 'error-on-timer.js'),
       1,
       {

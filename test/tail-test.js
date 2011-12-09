@@ -10,8 +10,7 @@ var assert = require('assert'),
     path = require('path'),
     spawn = require('child_process').spawn,
     vows = require('vows'),
-    forever = require('../lib/forever'),
-    helpers = require('./helpers');
+    forever = require('../lib/forever');
 
 vows.describe('forever/tail').addBatch({
   "When using forever": {

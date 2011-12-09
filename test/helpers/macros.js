@@ -1,5 +1,5 @@
 /*
- * helpers.js: Test helpers for the forever module
+ * macros.js: Test macros for the forever module
  *
  * (C) 2010 Nodejitsu Inc.
  * MIT LICENCE
@@ -9,11 +9,11 @@
 var assert = require('assert'),
     path = require('path'),
     spawn = require('child_process').spawn,
-    forever = require('../lib/forever');
+    forever = require('../../lib/forever');
  
-var helpers = exports;
+var macros = exports;
 
-helpers.assertTimes = function (script, times, options) {
+macros.assertTimes = function (script, times, options) {
   options.max = times;
   
   return {
@@ -28,7 +28,7 @@ helpers.assertTimes = function (script, times, options) {
   }
 };
 
-helpers.spawn = function (args, options) {
+macros.spawn = function (args, options) {
   options.topic = function () {
     var self = this;
 
@@ -57,18 +57,19 @@ helpers.spawn = function (args, options) {
   return options;
 };
 
-helpers.list = function (options) {
+macros.list = function (options) {
   options.topic = function () {
     forever.list(false, this.callback)
   };
   return options;
 };
 
-helpers.assertStartsWith = function (string, substring) {
+macros.assertStartsWith = function (string, substring) {
   assert.equal(string.slice(0, substring.length), substring);
 };
 
-helpers.assertList = function (list) {
+macros.assertList = function (list) {
   assert.isNotNull(list);
   assert.lengthOf(list, 1);
 };
+
