@@ -33,6 +33,20 @@ vows.describe('forever/worker').addBatch({
           assert.isObject(obj.data);
           assert.deepEqual(obj.data, obj.monitor.data);
         }
+      },
+      'and when asked to kill the process': {
+        topic: function (reader, _, options) {
+          var self = this;
+
+          options.monitor.running = true;
+          reader.send(['kill']);
+          reader.data(['kill', 'stop'], function () {
+            self.callback(null, options.monitor);
+          });
+        },
+        'it should kill the process': function (monitor) {
+          assert.isFalse(monitor.running);
+        }
       }
     })
   }
