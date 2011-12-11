@@ -6,6 +6,7 @@ var MonitorMock = exports.MonitorMock = function (options) {
   broadway.App.call(this, options);
 
   this.child = new ChildProcessMock();
+  this.running = false;
 };
 util.inherits(MonitorMock, broadway.App);
 
@@ -15,4 +16,10 @@ MonitorMock.prototype.__defineGetter__('data', function () {
     command: 'node'
   }
 });
+
+MonitorMock.prototype.kill = function (forceStop) {
+  this.running = false;
+
+  this.emit('stop');
+};
 
