@@ -57,7 +57,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     -p  PATH         Base path for all forever related files (pid files, etc.)
     -c  COMMAND      COMMAND to execute (defaults to node)
     -a, --append     Append logs
-    --pidfile        The pid file
+    --pidFile        The pid file
     --sourceDir      The source directory for which SCRIPT is relative to
     --minUptime      Minimum uptime (millis) for a script to not be considered "spinning"
     --spinSleepTime  Time to wait (millis) between launches of a spinning script.
