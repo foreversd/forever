@@ -32,7 +32,7 @@ macros.spawn = function (args, options) {
   options.topic = function () {
     var self = this;
 
-    args = [path.join(__dirname, '..', 'bin', 'forever')].concat(args);
+    args = [path.join(__dirname, '..', '..', 'bin', 'forever')].concat(args);
 
     var child = spawn(process.argv[0], args),
         stdout = '',
