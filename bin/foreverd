@@ -1,9 +1,4 @@
 #!/usr/bin/env node
 
-var Clip = require('clip');
+require('../lib/forever/service/cli').startCLI();
 
-var app = new Clip();
-
-require('../lib/forever/service/cli')(app);
-
-app.run();
