@@ -221,7 +221,7 @@ Returns a list of metadata objects about each process that is being run using fo
 ### forever.tail (target, [length,] callback)
 Responds with the logs from the target script(s) from `tail`. If `length` is provided it is used as the `-n` parameter to `tail`.
 
-### forever.cleanup ()
+### forever.cleanUp ()
 Cleans up any extraneous forever *.pid files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
 
 ### forever.cleanLogsSync (processes)
