@@ -53,6 +53,6 @@
     "test": "vows test/**/*-test.js --spec -i"
   },
   "engines": {
-    "node": "~0.4.0"
+    "node": ">= 0.4.8"
   }
 }
