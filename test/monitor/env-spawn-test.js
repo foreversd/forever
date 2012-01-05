@@ -9,9 +9,9 @@
 var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    forever = require('../lib/forever');
+    forever = require('../../lib/forever');
 
-vows.describe('forever/spawn-options').addBatch({
+vows.describe('forever/monitor/spawn-options').addBatch({
   "When using forever": {
     "an instance of forever.Monitor with valid options": {
       "passing environment variables to env-vars.js": {
@@ -23,7 +23,7 @@ vows.describe('forever/spawn-options').addBatch({
             BAR: 'bar'
           };
 
-          child = new (forever.Monitor)(path.join(__dirname, '..', 'examples', 'env-vars.js'), {
+          child = new (forever.Monitor)(path.join(__dirname, '..', '..', 'examples', 'env-vars.js'), {
             max: 1,
             silent: true,
             minUptime: 0,
@@ -48,7 +48,7 @@ vows.describe('forever/spawn-options').addBatch({
 
           this.cwd = path.join(__dirname, '..');
 
-          child = new (forever.Monitor)(path.join(__dirname, '..', 'examples', 'custom-cwd.js'), {
+          child = new (forever.Monitor)(path.join(__dirname, '..', '..', 'examples', 'custom-cwd.js'), {
             max: 1,
             silent: true,
             minUptime: 0,
@@ -76,7 +76,7 @@ vows.describe('forever/spawn-options').addBatch({
             'OLDPWD'
           ];
 
-          child = new (forever.Monitor)(path.join(__dirname, '..', 'examples', 'all-env-vars.js'), {
+          child = new (forever.Monitor)(path.join(__dirname, '..', '..', 'examples', 'all-env-vars.js'), {
             max: 1,
             silent: true,
             minUptime: 0,

@@ -41,7 +41,7 @@ vows.describe('forever/plugins/logger').addBatch({
         topic: function (mocks) {
           var self = this;
 
-          mocks.monitor.emit('exit');
+          mocks.monitor.child.emit('exit');
           process.nextTick(function () {
             self.callback(null, mocks);
           });

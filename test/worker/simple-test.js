@@ -2,12 +2,12 @@ var path = require('path'),
     assert = require('assert'),
     vows = require('vows'),
     nssocket = require('nssocket'),
-    macros = require('./helpers/macros'),
-    MonitorMock = require('./helpers/mocks/monitor').MonitorMock;
+    macros = require('../helpers/macros'),
+    MonitorMock = require('../helpers/mocks/monitor').MonitorMock;
 
-var SOCKET_PATH = path.join(__dirname, 'fixtures');
+var SOCKET_PATH = path.join(__dirname, '..', 'fixtures');
 
-vows.describe('forever/worker').addBatch({
+vows.describe('forever/worker/simple').addBatch({
   'When using forever worker': {
     'and starting it and pinging it': macros.assertWorkerConnected({
       monitor: new MonitorMock(),

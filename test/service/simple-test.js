@@ -9,9 +9,9 @@
 var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    forever = require('../lib/forever');
+    forever = require('../../lib/forever');
 
-vows.describe('forever/service').addBatch({
+vows.describe('forever/service/simple').addBatch({
   "When using forever": {
     "the service module": {
       "should have the correct exports": function () {

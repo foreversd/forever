@@ -1,5 +1,5 @@
 /*
- * forever-test.js: Tests for forever module
+ * simple-test.js: Simple tests for using forever.Monitor instances.
  *
  * (C) 2010 Nodejitsu Inc.
  * MIT LICENCE
@@ -9,19 +9,21 @@
 var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    forever = require('../lib/forever'),
-    macros = require('./helpers/macros');
+    forever = require('../../lib/forever'),
+    macros = require('../helpers/macros');
 
-vows.describe('forever').addBatch({
+var examplesDir = path.join(__dirname, '..', '..', 'examples');
+
+vows.describe('forever/monitor/simple').addBatch({
   "When using forever": {
     "an instance of forever.Monitor with valid options": {
-      topic: new (forever.Monitor)(path.join(__dirname, '..', 'examples', 'server.js'), {
+      topic: new (forever.Monitor)(path.join(examplesDir, 'server.js'), {
         max: 10,
         silent: true,
         options: ['-p', 8090]
       }),
       "should have correct properties set": function (child) {
-        assert.isArray(child.options);
+        assert.isArray(child.args);
         assert.equal(child.max, 10);
         assert.isTrue(child.silent);
         assert.isFunction(child.start);
@@ -44,24 +46,24 @@ vows.describe('forever').addBatch({
       }
     },
     "running error-on-timer sample three times": macros.assertTimes(
-      path.join(__dirname, '..', 'examples', 'error-on-timer.js'),
+      path.join(examplesDir, 'error-on-timer.js'),
       3,
       {
         minUptime: 200,
         silent: true,
-        outFile: 'test/stdout.log',
-        errFile: 'test/stderr.log',
+        outFile: 'test/fixtures/stdout.log',
+        errFile: 'test/fixtures/stderr.log',
         options: []
       }
     ),
     "running error-on-timer sample once": macros.assertTimes(
-      path.join(__dirname, '..', 'examples', 'error-on-timer.js'),
+      path.join(examplesDir, 'error-on-timer.js'),
       1,
       {
         minUptime: 200,
         silent: true,
-        outFile: 'test/stdout.log',
-        errFile: 'test/stderr.log',
+        outFile: 'test/fixtures/stdout.log',
+        errFile: 'test/fixtures/stderr.log',
         options: []
       }
     ),
@@ -88,25 +90,6 @@ vows.describe('forever').addBatch({
       "should throw an error about the invalid file": function (err) {
         assert.isNotNull(err);
         assert.isTrue(err.message.indexOf('does not exist') !== -1);
-      }
-    },
-    "checking if process exists": {
-      "if process process exists": {
-        topic: forever.checkProcess(process.pid),
-        "should return true": function (result) {
-          assert.isTrue(result);
-        }
-      },
-      "if process doesn't exist": {
-        topic: forever.checkProcess(255 * 255 * 255),
-        //
-        // This is insanely large value. On most systems there'll be no process
-        // with such PID. Also, there's no multiplatform way to check for
-        // PID limit.
-        //
-        "should return false": function (result) {
-          assert.isFalse(result);
-        }
       }
     }
   }

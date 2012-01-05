@@ -13,7 +13,7 @@ StreamMock.prototype.write = function (data) {
   this.contents.push(data);
 };
 
-StreamMock.prototype.close = function () {
+StreamMock.prototype.close = StreamMock.prototype.end = function () {
   this.closed = true;
 };
 
