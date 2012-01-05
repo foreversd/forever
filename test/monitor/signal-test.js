@@ -9,14 +9,14 @@
 var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    forever = require('../lib/forever');
+    forever = require('../../lib/forever');
 
-vows.describe('forever/signal').addBatch({
+vows.describe('forever/monitor/signal').addBatch({
   "When using forever": {
     "and spawning a script that ignores signals SIGINT and SIGTERM": {
       "with killTTL defined": {
         topic: function () {
-          var script = path.join(__dirname, '..', 'examples', 'signal-ignore.js'),
+          var script = path.join(__dirname, '..', '..', 'examples', 'signal-ignore.js'),
               child = new (forever.Monitor)(script, { silent: true, killTTL: 1000 }),
               callback = this.callback,
               timer;

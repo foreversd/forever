@@ -22,11 +22,13 @@
     "tools"
   ],
   "dependencies": {
+    "broadway": "0.1.x",
     "cliff": "0.x.x",
-    "dnode": "0.8.x",
+    "daemon": "0.4.x",
     "flatiron": "0.1.x",
     "minimatch": "0.0.x",
     "nconf": "0.5.x",
+    "nssocket": "0.3.x",
     "optimist": "0.2.x",
     "pkginfo": "0.x.x",
     "portfinder": "0.x.x",
@@ -37,7 +39,8 @@
     "winston": "0.5.x"
   },
   "devDependencies": {
-    "daemon": "0.3.x >=0.3.2",
+    "eventemitter2": "0.4.x",
+    "request": "2.x.x",
     "vows": "0.5.x"
   },
   "bin": {
@@ -46,7 +49,7 @@
   },
   "main": "./lib/forever",
   "scripts": {
-    "test": "vows --spec --isolate"
+    "test": "vows test/**/*-test.js --spec -i"
   },
   "engines": {
     "node": "~0.4.0"

@@ -9,14 +9,14 @@
 var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    forever = require('../lib/forever');
+    forever = require('../../lib/forever');
 
-vows.describe('forever/spin-restart').addBatch({
+vows.describe('forever/monitor/spin-restart').addBatch({
   "When using forever": {
     "and spawning a script that spin restarts": {
       "with no spinSleepTime specified": {
         topic: function () {
-          var script = path.join(__dirname, '..', 'examples', 'always-throw.js'),
+          var script = path.join(__dirname, '..', '..', 'examples', 'always-throw.js'),
               child = new (forever.Monitor)(script, { silent: true, minUptime: 2000, max: 3 });
 
           child.on('exit', this.callback.bind({}, null));
@@ -31,7 +31,7 @@ vows.describe('forever/spin-restart').addBatch({
       },
       "with a spinSleepTime specified": {
         topic: function () {
-          var script = path.join(__dirname, '..', 'examples', 'always-throw.js'),
+          var script = path.join(__dirname, '..', '..', 'examples', 'always-throw.js'),
               child = new (forever.Monitor)(script, { silent: true, max: 3, spinSleepTime: 1 });
 
           child.on('exit', this.callback.bind({}, null));

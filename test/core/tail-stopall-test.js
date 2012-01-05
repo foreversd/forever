@@ -1,5 +1,5 @@
 /*
- * forever-test.js: Tests for forever module
+ * tail-stopall-test.js: Tests for forever.tail() and forever.stopAll()
  *
  * (C) 2010 Nodejitsu Inc.
  * MIT LICENCE
@@ -10,15 +10,15 @@ var assert = require('assert'),
     path = require('path'),
     spawn = require('child_process').spawn,
     vows = require('vows'),
-    forever = require('../lib/forever');
+    forever = require('../../lib/forever');
 
-vows.describe('forever/tail').addBatch({
+vows.describe('forever/core/tail').addBatch({
   "When using forever": {
     "the tail() method": {
       topic: function () {
         var that = this;
         
-        that.child = spawn('node', [path.join(__dirname, 'fixtures', 'start-daemon.js')]);
+        that.child = spawn('node', [path.join(__dirname, '..', 'fixtures', 'start-daemon.js')]);
         setTimeout(function () {
           forever.tail(0, that.callback);
         }, 2000);
@@ -30,7 +30,10 @@ vows.describe('forever/tail').addBatch({
           assert.isArray(proc.logs);
           assert.isTrue(!!proc.logs.length);
           assert.isTrue(proc.logs.length > 10);
-        })
+          proc.logs.forEach(function (line) {
+            assert.match(line, /^Logging at/);
+          });
+        });
       }
     }
   }
