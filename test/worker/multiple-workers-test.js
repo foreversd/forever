@@ -68,6 +68,9 @@ vows.describe('forever/workers/multiple').addBatch({
       },
       "requests against the first child": assertRunning(8080),
       "requests against the second child": assertRunning(8081)
+      //
+      // TODO: We should cleanup these processes.
+      //
     }
   },
 }).export(module);

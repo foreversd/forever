@@ -17,7 +17,7 @@ MonitorMock.prototype.__defineGetter__('data', function () {
   }
 });
 
-MonitorMock.prototype.kill = function (forceStop) {
+MonitorMock.prototype.kill = MonitorMock.prototype.stop = function (forceStop) {
   this.running = false;
 
   this.emit('stop');

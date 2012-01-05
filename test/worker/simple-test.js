@@ -39,8 +39,8 @@ vows.describe('forever/worker/simple').addBatch({
           var self = this;
 
           options.monitor.running = true;
-          reader.send(['kill']);
-          reader.data(['kill', 'stop'], function () {
+          reader.send(['stop']);
+          reader.data(['stop', 'ok'], function () {
             self.callback(null, options.monitor);
           });
         },
