@@ -24,6 +24,7 @@
   "dependencies": {
     "broadway": "0.1.x",
     "cliff": "0.x.x",
+    "daemon": "0.4.x",
     "flatiron": "0.1.x",
     "minimatch": "0.0.x",
     "nconf": "0.5.x",
@@ -38,7 +39,6 @@
     "winston": "0.5.x"
   },
   "devDependencies": {
-    "daemon": "0.3.x >=0.3.2",
     "eventemitter2": "0.4.x",
     "request": "2.x.x",
     "vows": "0.5.x"
