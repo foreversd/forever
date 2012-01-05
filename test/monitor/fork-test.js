@@ -9,13 +9,13 @@
 var assert = require('assert'),
     path = require('path'),
     vows = require('vows'),
-    forever = require('../lib/forever');
+    forever = require('../../lib/forever');
 
-vows.describe('forever/fork').addBatch({
+vows.describe('forever/monitor/fork').addBatch({
   "When using forever": {
     "and spawning a script that uses `process.send()`": {
       topic: function () {
-        var script = path.join(__dirname, '..', 'examples', 'process-send.js'),
+        var script = path.join(__dirname, '..', '..', 'examples', 'process-send.js'),
             child = new (forever.Monitor)(script, { silent: false, minUptime: 2000, max: 1, fork: true });
 
         child.on('message', this.callback.bind(null, null));
