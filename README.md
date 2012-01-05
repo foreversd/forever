@@ -38,6 +38,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     stop                Stop the daemon SCRIPT
     stopall             Stop all running forever scripts
     restart             Restart the daemon SCRIPT
+    restartall          Restart all running forever scripts
     list                List all running forever scripts
     config              Lists all forever user configuration
     set <key> <val>     Sets the specified forever config <key>
