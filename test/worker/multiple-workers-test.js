@@ -13,7 +13,13 @@ var assert = require('assert'),
     vows = require('vows'),
     forever = require('../../lib/forever');
 
-function assertRunning(port) {
+var children = [],
+    pids;
+
+//
+// Helper function test requests against children.
+//
+function assertRunning(port, i) {
   return {
     topic: function () {
       request('http://127.0.0.1:' + port, this.callback);
@@ -22,6 +28,9 @@ function assertRunning(port) {
       assert.isNull(err);
       assert.equal(res.statusCode, 200);
       assert.equal(body, 'hello, i know nodejitsu.');
+    },
+    "stop the child process": function () {
+      children[i].stop();
     }
   }
 }
@@ -33,44 +42,57 @@ vows.describe('forever/workers/multiple').addBatch({
         var that = this,
             script = path.join(__dirname, '..', '..', 'examples', 'server.js');
 
-        this.child1 = new (forever.Monitor)(script, {
+        children[0] = new (forever.Monitor)(script, {
           silent: true,
           maxRestart: 1,
           options: [ "--port=8080"]
         });
         
-        this.child2 = new (forever.Monitor)(script, {
+        children[1] = new (forever.Monitor)(script, {
           silent: true,
           maxRestart: 1,
           options: [ "--port=8081"]
         });
         
-        this.child1.on('start', function () {
-          that.child2.on('start', function () {
+        children[0].on('start', function () {
+          children[1].on('start', function () {
+            pids = children.map(function (child) {
+              return child.child.pid;
+            });
+            
             setTimeout(function () {
-              forever.startServer(that.child1, that.child2, that.callback);
+              forever.startServer(children[0], children[1], that.callback);
             }, 1000);
           });
           
-          that.child2.start()
+          children[1].start();
         });
 
-        this.child1.start();
+        children[0].start();
       },
       "should respond with no error": function (err, workers) {
-        assert.isTrue(!err);
         assert.lengthOf(workers, 2);
-        assert.equal(workers[0].monitor, this.child1);
-        assert.equal(workers[1].monitor, this.child2);
+        assert.equal(workers[0].monitor, children[0]);
+        assert.equal(workers[1].monitor, children[1]);
         workers.forEach(function (worker) {
           assert.instanceOf(worker, forever.Worker);
         });
       },
-      "requests against the first child": assertRunning(8080),
-      "requests against the second child": assertRunning(8081)
+      "requests against the first child": assertRunning(8080, 0),
+      "requests against the second child": assertRunning(8081, 1)
       //
       // TODO: We should cleanup these processes.
       //
     }
   },
+}).addBatch({
+  "Once the stop attempt has been made": {
+    topic: function () {
+      setTimeout(this.callback, 200);
+    },
+    "the processes should be dead": function () {
+      assert.isFalse(forever.checkProcess(pids[0]));
+      assert.isFalse(forever.checkProcess(pids[1]));
+    }
+  }
 }).export(module);
