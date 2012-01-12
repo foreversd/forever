@@ -30,7 +30,7 @@
     "minimatch": "0.0.x",
     "nconf": "0.5.x",
     "nssocket": "0.3.x",
-    "node-fork": "git://github.com/bmeck/node-fork.git",
+    "node-fork": "http://github.com/bmeck/node-fork.git",
     "optimist": "0.2.x",
     "pkginfo": "0.x.x",
     "portfinder": "0.x.x",
