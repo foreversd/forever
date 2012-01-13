@@ -49,7 +49,8 @@ vows.describe('forever/monitor/watch').addBatch({
       'when file is removed': {
         topic: function (child) {
           child.once('restart', this.callback);
-          fs.unlinkSync(path.join(__dirname, '..', 'fixtures', 'watch', 'removeMe'));
+          try { fs.unlinkSync(path.join(__dirname, '..', 'fixtures', 'watch', 'removeMe')) }
+          catch (ex) { }
         },
         'restart the script': function (child, _) {
           fs.writeFileSync(path.join(__dirname, '..', 'fixtures', 'watch', 'removeMe'), '');
@@ -69,4 +70,3 @@ vows.describe('forever/monitor/watch').addBatch({
     }
   }
 }).export(module);
-
