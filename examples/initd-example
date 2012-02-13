@@ -40,7 +40,7 @@ start() {
 
         # Launch the application
         start_daemon
-            $forever start -p $forever_dir --pidfile $pidfile -l $logfile -a -d $INSTANCE_DIR $SOURCE_NAME
+            $forever start -p $forever_dir --pidFile $pidfile -l $logfile -a -d $INSTANCE_DIR $SOURCE_NAME
         RETVAL=$?
     else
         echo "Instance already running"
