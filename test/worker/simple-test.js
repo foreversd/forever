@@ -47,6 +47,25 @@ vows.describe('forever/worker/simple').addBatch({
         'it should kill the process': function (monitor) {
           assert.isFalse(monitor.running);
         }
+      },
+      'and when quickly sending data and disconnecting': {
+        topic: function(reader) {
+          var self = this;
+
+          // Need to connect second reader, otherwise it breaks the other
+          // tests as the reader is shared with them.
+          var reader2 = new nssocket.NsSocket();
+          reader2.connect(reader.host, function() {
+            reader2.send(['data']);
+            reader2.destroy();
+
+            setTimeout(self.callback, 100);
+          });
+        },
+        'it should not crash the worker': function(worker) {
+          // no asserition, everything is good if the test does not cause
+          // a worker crash.
+        }
       }
     })
   }
