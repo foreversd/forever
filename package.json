@@ -25,7 +25,7 @@
   "dependencies": {
     "broadway": "0.1.x",
     "cliff": "0.x.x",
-    "daemon": "0.4.x",
+    "daemon": "https://github.com/AvianFlu/daemon.node/tarball/master",
     "flatiron": "0.1.x",
     "microtime": "0.2.x",
     "minimatch": "0.0.x",
