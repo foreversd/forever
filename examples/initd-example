@@ -40,7 +40,7 @@ start() {
 
         # Launch the application
         start_daemon
-            $forever start -p $forever_dir --pidfile $pidfile -l $logfile -a -d $INSTANCE_DIR $SOURCE_NAME
+            $forever start -p $forever_dir --pidFile $pidfile -l $logfile -a -d --sourceDir $INSTANCE_DIR $SOURCE_NAME
         RETVAL=$?
     else
         echo "Instance already running"
@@ -70,7 +70,7 @@ stop() {
 
 getForeverId() {
     local pid=$(pidofproc -p $pidfile)
-    $forever list -p $forever_dir | $sed -e 's/\x1b\[[0-9; ]*m//g' | $awk "\$4 == \"$pid]\" { gsub(/[\[\]]/, \"\", \$1); print \$1; }"
+    $forever list -p $forever_dir | $sed -e 's/\x1b\[[0-9; ]*m//g' | $awk "\$6 && \$6 == \"$pid\" { gsub(/[\[\]]/, \"\", \$2); print \$2; }";
 }
 id=$(getForeverId)
 
