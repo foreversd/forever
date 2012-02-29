@@ -130,7 +130,6 @@ There are several options that you should be aware of when using forever. Most o
     // Basic configuration options
     //
     'silent': false,            // Silences the output from stdout and stderr in the parent process
-    'forever': true,            // Indicates that this script should run forever
     'uid': 'your-UID'           // Custom uid for this forever process. (default: autogen)
     'pidFile': 'path/to/a.pid', // Path to put pid information for the process(es) started
     'max': 10,                  // Sets the maximum number of times a given script should run
