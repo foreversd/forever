@@ -15,7 +15,7 @@ var assert = require('assert'),
 vows.describe('forever/core/check-process').addBatch({
   "When using forever": {
     "checking if process exists": {
-      "if process process exists": {
+      "if process exists": {
         topic: forever.checkProcess(process.pid),
         "should return true": function (result) {
           assert.isTrue(result);
