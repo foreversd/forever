@@ -1,55 +1,75 @@
 var assert = require('assert'),
-    vows = require('vows')
-    StreamMock = require('../helpers/mocks/stream').StreamMock,
-    MonitorMock = require('../helpers/mocks/monitor').MonitorMock,
-    logger = require('../../lib/forever/plugins/logger');
+    fs = require('fs'),
+    path = require('path'),
+    vows = require('vows'),
+    forever = require('../../lib/forever');
+
+var fixturesDir = path.join(__dirname, '..', 'fixtures');
+
+function checkLogOutput(file, stream, expectedLength) {
+  var output = fs.readFileSync(path.join(fixturesDir, file), 'utf8'),
+      lines = output.split('\n').slice(0, -1);
+
+  assert.equal(lines.length, expectedLength);
+  lines.forEach(function (line, i) {
+    assert.equal(lines[i], stream + ' ' + (i % 10));
+  });
+}
 
 vows.describe('forever/plugins/logger').addBatch({
-  'When using `logger` plugin': {
-    'with a custom stream': {
+  'When using the logger plugin': {
+    'with custom log files': {
       topic: function () {
-        var stdoutMock = new StreamMock();
-        var stderrMock = new StreamMock();
+        var outlogs, errlogs, monitor;
 
-        var monitorMock = new MonitorMock();
-        monitorMock.use(logger, { stdout: stdoutMock, stderr: stderrMock });
-
-        monitorMock.emit('start');
-
-        for (var i = 0; i < 4; i++) {
-          monitorMock.child.stdout.emit('data', 'stdout ' + i);
-          monitorMock.child.stderr.emit('data', 'stderr ' + i);
-        }
-
-        this.callback(null, {
-          monitor: monitorMock,
-          stdout: stdoutMock,
-          stderr: stderrMock
+        monitor = new forever.Monitor(path.join(fixturesDir, 'logs.js'), {
+          max: 1,
+          silent: true,
+          outFile: path.join(fixturesDir, 'logs-stdout.log'),
+          errFile: path.join(fixturesDir, 'logs-stderr.log')
         });
-      },
-      'should output correct number of lines': function (mocks) {
-        assert.deepEqual(
-          mocks.stdout.contents,
-          ['stdout 0', 'stdout 1', 'stdout 2', 'stdout 3']
-        );
-        assert.deepEqual(
-          mocks.stderr.contents,
-          ['stderr 0', 'stderr 1', 'stderr 2', 'stderr 3']
-        );
-      },
-      "after `exit` event": {
-        topic: function (mocks) {
-          var self = this;
 
-          mocks.monitor.child.emit('exit');
-          process.nextTick(function () {
-            self.callback(null, mocks);
-          });
-        },
-        "stream shouldn't be closed": function (mocks) {
-          assert.isFalse(mocks.stdout.closed);
-          assert.isFalse(mocks.stderr.closed);
-        }
+        monitor.on('exit', this.callback.bind({}, null));
+        monitor.start();
+      },
+      'log files should contain correct output': function (err) {
+        checkLogOutput('logs-stdout.log', 'stdout', 10);
+        checkLogOutput('logs-stderr.log', 'stderr', 10);
+      }
+    },
+    'with custom log files and a process that exits': {
+      topic: function () {
+        var monitor = new forever.Monitor(path.join(fixturesDir, 'logs.js'), {
+          max: 5,
+          silent: true,
+          outFile: path.join(fixturesDir, 'logs-stdout-2.log'),
+          errFile: path.join(fixturesDir, 'logs-stderr-2.log')
+        });
+
+        monitor.on('exit', this.callback.bind({}, null));
+        monitor.start();
+      },
+      'logging should continue through process restarts': function (err) {
+        checkLogOutput('logs-stdout-2.log', 'stdout', 50);
+        checkLogOutput('logs-stderr-2.log', 'stderr', 50);
+      }
+    },
+    'with custom log files and the append option set': {
+      topic: function () {
+        var monitor = new forever.Monitor(path.join(fixturesDir, 'logs.js'), {
+          max: 3,
+          silent: true,
+          append: true,
+          outFile: path.join(fixturesDir, 'logs-stdout.log'),
+          errFile: path.join(fixturesDir, 'logs-stderr.log')
+        });
+
+        monitor.on('exit', this.callback.bind({}, null));
+        monitor.start();
+      },
+      'log files should not be truncated': function (err) {
+        checkLogOutput('logs-stdout.log', 'stdout', 40);
+        checkLogOutput('logs-stderr.log', 'stderr', 40);
       }
     }
   }
