@@ -54,6 +54,9 @@ vows.describe('forever/plugins/logger').addBatch({
         checkLogOutput('logs-stderr-2.log', 'stderr', 50);
       }
     },
+  }
+}).addBatch({
+  'When using the logger plugin': {
     'with custom log files and the append option set': {
       topic: function () {
         var monitor = new forever.Monitor(path.join(fixturesDir, 'logs.js'), {
