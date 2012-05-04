@@ -2,7 +2,7 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "author": "Nodejitsu Inc <info@nodejitsu.com>",
   "contributors": [
     { "name": "Charlie Robbins", "email": "charlie@nodejitsu.com" },
@@ -28,7 +28,7 @@
     "daemon": "https://github.com/AvianFlu/daemon.node/tarball/master",
     "flatiron": "0.1.x",
     "microtime": "0.2.x",
-    "minimatch": "0.0.x",
+    "minimatch": "0.2.x",
     "nconf": "0.5.x",
     "nssocket": "0.3.x",
     "node-fork": "0.4.x",
