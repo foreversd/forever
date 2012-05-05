@@ -28,7 +28,6 @@
     "minimatch": "0.2.x",
     "nconf": "0.5.x",
     "nssocket": "0.3.x",
-    "node-fork": "0.4.x",
     "optimist": "0.3.x",
     "pkginfo": "0.x.x",
     "portfinder": "0.x.x",
