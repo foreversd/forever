@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+var spawn = require('child_process').spawn;
+spawn(process.argv[2], process.argv.slice(3), {
+  customFds: [0, 1, 2]
+});
