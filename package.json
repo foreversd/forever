@@ -3,14 +3,10 @@
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
   "version": "0.9.1",
-  "author": "Nodejitsu Inc <info@nodejitsu.com>",
-  "contributors": [
-    { "name": "Charlie Robbins", "email": "charlie@nodejitsu.com" },
-    { "name": "Fedor Indutny", "email": "fedor.indutny@gmail.com" },
-    { "name": "James Halliday", "email": "mail@substack.net" },
-    { "name": "Bradley Meck", "email": "bradley@nodejitsu.com" },
-    { "name": "Dominic Tarr", "email": "dominic@nodejitsu.com" },
-    { "name": "Maciej Małecki", "email": "maciej@nodejitsu.com" }
+  "author": "Nodejitsu Inc. <info@nodejitsu.com>",
+  "maintainers": [
+    "indexzero <charlie@nodejitsu.com>",
+    "mmalecki <maciej@nodejitsu.com>"
   ],
   "repository": {
     "type": "git",
@@ -58,3 +54,4 @@
     "node": ">= 0.4.8"
   }
 }
+
