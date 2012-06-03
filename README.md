@@ -67,6 +67,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     -v, --verbose    Turns on the verbose messages from Forever
     -s, --silent     Run the child script silencing stdout and stderr
     -w, --watch      Watch for file changes
+    --watchDirectory Top-level directory to watch from
     -h, --help       You're staring at it
 
   [Long Running Process]
