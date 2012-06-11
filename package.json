@@ -2,11 +2,12 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "author": "Nodejitsu Inc. <info@nodejitsu.com>",
   "maintainers": [
     "indexzero <charlie@nodejitsu.com>",
-    "mmalecki <maciej@nodejitsu.com>"
+    "mmalecki <maciej@nodejitsu.com>",
+    "avianflu <charlie@charlieistheman.com>"
   ],
   "repository": {
     "type": "git",
