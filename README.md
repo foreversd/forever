@@ -1,4 +1,4 @@
-# forever
+# forever [![Build Status](https://secure.travis-ci.org/nodejitsu/forever.png)](http://travis-ci.org/nodejitsu/forever)
 
 A simple CLI tool for ensuring that a given script runs continuously (i.e. forever).
 
