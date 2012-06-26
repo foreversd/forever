@@ -24,7 +24,6 @@
     "cliff": "0.x.x",
     "daemon": "0.5.x",
     "flatiron": "0.1.x",
-    "microtime": "0.2.x",
     "minimatch": "0.2.x",
     "nconf": "0.5.x",
     "nssocket": "0.3.x",
@@ -51,7 +50,7 @@
     "test": "vows test/**/*-test.js --spec -i"
   },
   "engines": {
-    "node": ">= 0.4.8"
+    "node": ">= 0.6.0"
   }
 }
 
