@@ -22,7 +22,6 @@
   "dependencies": {
     "broadway": "0.1.x",
     "cliff": "0.x.x",
-    "daemon": "0.5.x",
     "flatiron": "0.1.x",
     "minimatch": "0.2.x",
     "nconf": "0.5.x",
@@ -50,7 +49,7 @@
     "test": "vows test/**/*-test.js --spec -i"
   },
   "engines": {
-    "node": ">= 0.6.0"
+    "node": ">= 0.7.11"
   }
 }
 

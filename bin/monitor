@@ -1,0 +1,34 @@
+#! /usr/bin/env node
+
+var path = require('path'),
+    forever = require(path.resolve(__dirname, '..', 'lib', 'forever')),
+    started;
+
+
+
+process.on('message', function (data) {
+  // TODO: Find out if this data will ever get split into two message events.
+  var options = JSON.parse(data.toString());
+  if (!started) {
+    started = true;
+    start(options);
+  }
+});
+
+function start(options) {
+  var script = process.argv[2],
+      monitor = new forever.Monitor(script, options);
+
+  monitor.start();
+
+  monitor.on('start', function () {
+    // This starts an nssocket server, which the forever CLI uses to
+    // communicate with this monitor process after it's detached.
+    // Without this, `forever list` won't show the process, even though it
+    // would still be running in the background unaffected.
+    forever.startServer(monitor);
+    // Disconnect the IPC channel, letting this monitor's parent process know
+    // that the child has started successfully.
+    process.disconnect();
+  });
+}
