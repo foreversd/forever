@@ -1,5 +1,3 @@
-#! /usr/bin/env node
-
 var path = require('path'),
     forever = require(path.resolve(__dirname, '..', 'lib', 'forever')),
     started;
