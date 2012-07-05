@@ -9,7 +9,7 @@
 var path = require('path'),
     forever = require('../../lib/forever');
 
-var monitor = forever.startDaemon(path.join(__dirname, '..', '..', 'examples', 'log-on-interval.js'));
+var monitor = forever.startDaemon(path.join(__dirname, 'log-on-interval.js'));
 
 monitor.on('start', function () {
   forever.startServer(monitor);

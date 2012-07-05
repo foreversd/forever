@@ -2,8 +2,6 @@ var path = require('path'),
     forever = require(path.resolve(__dirname, '..', 'lib', 'forever')),
     started;
 
-
-
 process.on('message', function (data) {
   // TODO: Find out if this data will ever get split into two message events.
   var options = JSON.parse(data.toString());

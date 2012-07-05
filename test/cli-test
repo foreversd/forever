@@ -10,7 +10,7 @@
 # Yes, we have tests in bash. How mad science is that?
 
 alias forever=bin/forever
-script="examples/log-on-interval.js"
+script="test/fixtures/log-on-interval.js"
 
 function fail {
   echo "\033[31m  ✘ $1\033[0m"

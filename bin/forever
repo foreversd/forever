@@ -1,20 +1,3 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-
-if (process.send) {
-  //
-  // Supress `stdout` and `stderr` when `forever` is being run as a fork.
-  // We use `child_process.fork` to daemonize `forever` processes, so
-  // outputting anything isn't a desired situation.
-  //
-  var nullStream = fs.createWriteStream('/dev/null');
-  var returner = function () {
-    return nullStream;
-  };
-  process.__defineGetter__('stdout', returner);
-  process.__defineGetter__('stderr', returner);
-}
-
-var forever = require('../lib/forever');
-forever.cli.start();
+require('../lib/forever').cli.start();

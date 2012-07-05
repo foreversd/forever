@@ -20,22 +20,20 @@
     "tools"
   ],
   "dependencies": {
-    "broadway": "0.1.x",
     "cliff": "0.x.x",
     "flatiron": "0.2.x",
     "forever-monitor": "x.x.x",
-    "minimatch": "0.2.x",
     "nconf": "0.5.x",
     "nssocket": "0.3.x",
     "optimist": "0.3.x",
     "pkginfo": "0.x.x",
-    "ps-tree": "0.0.x",
     "timespan": "2.0.x",
     "watch": "0.5.x",
     "utile": "0.1.x",
     "winston": "0.6.x"
   },
   "devDependencies": {
+    "broadway": "0.2.x",
     "eventemitter2": "0.4.x",
     "request": "2.x.x",
     "vows": "0.6.x"
