@@ -20,17 +20,17 @@
     "tools"
   ],
   "dependencies": {
-    "cliff": "0.x.x",
-    "flatiron": "0.2.x",
+    "cliff": "0.1.8",
+    "flatiron": "0.2.3",
     "forever-monitor": "1.0.1",
-    "nconf": "0.5.x",
-    "nssocket": "0.3.x",
-    "optimist": "0.3.x",
-    "pkginfo": "0.x.x",
-    "timespan": "2.0.x",
-    "watch": "0.5.x",
-    "utile": "0.1.x",
-    "winston": "0.6.x"
+    "nconf": "0.6.1",
+    "nssocket": "0.3.8",
+    "optimist": "0.3.4",
+    "pkginfo": "0.2.3",
+    "timespan": "2.0.1",
+    "watch": "0.5.1",
+    "utile": "0.1.2",
+    "winston": "0.6.2"
   },
   "devDependencies": {
     "broadway": "0.2.x",
