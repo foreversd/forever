@@ -40,7 +40,7 @@ vows.describe('forever/workers/multiple').addBatch({
     "and spawning two processes using the same script": {
       topic: function () {
         var that = this,
-            script = path.join(__dirname, '..', '..', 'examples', 'server.js');
+            script = path.join(__dirname, '..', 'fixtures', 'server.js');
 
         children[0] = new (forever.Monitor)(script, {
           silent: true,

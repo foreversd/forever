@@ -20,28 +20,23 @@
     "tools"
   ],
   "dependencies": {
-    "broadway": "0.1.x",
-    "cliff": "0.x.x",
-    "daemon": "0.5.x",
-    "flatiron": "0.1.x",
-    "microtime": "0.2.x",
-    "minimatch": "0.2.x",
-    "nconf": "0.5.x",
-    "nssocket": "0.3.x",
-    "node-fork": "0.4.x",
-    "optimist": "0.3.x",
-    "pkginfo": "0.x.x",
-    "portfinder": "0.x.x",
-    "ps-tree": "0.0.x",
-    "timespan": "2.0.x",
-    "watch": "0.5.x",
-    "utile": "0.0.x",
-    "winston": "0.5.x"
+    "cliff": "0.1.8",
+    "flatiron": "0.2.3",
+    "forever-monitor": "1.0.1",
+    "nconf": "0.6.1",
+    "nssocket": "0.3.8",
+    "optimist": "0.3.4",
+    "pkginfo": "0.2.3",
+    "timespan": "2.0.1",
+    "watch": "0.5.1",
+    "utile": "0.1.2",
+    "winston": "0.6.2"
   },
   "devDependencies": {
+    "broadway": "0.2.x",
     "eventemitter2": "0.4.x",
     "request": "2.x.x",
-    "vows": "0.5.x"
+    "vows": "0.6.x"
   },
   "bin": {
     "forever": "./bin/forever",
@@ -52,7 +47,7 @@
     "test": "vows test/**/*-test.js --spec -i"
   },
   "engines": {
-    "node": ">= 0.4.8"
+    "node": "0.8.x"
   }
 }
 
