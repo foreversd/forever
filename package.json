@@ -22,7 +22,7 @@
   "dependencies": {
     "cliff": "0.1.8",
     "flatiron": "0.2.3",
-    "forever-monitor": "1.0.1",
+    "forever-monitor": "1.0.2",
     "nconf": "0.6.1",
     "nssocket": "0.3.8",
     "optimist": "0.3.4",
