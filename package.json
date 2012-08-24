@@ -30,7 +30,8 @@
     "timespan": "2.0.1",
     "watch": "0.5.1",
     "utile": "0.1.2",
-    "winston": "0.6.2"
+    "winston": "0.6.2",
+    "event-stream": "3.0.2"
   },
   "devDependencies": {
     "broadway": "0.2.x",
