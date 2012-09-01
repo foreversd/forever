@@ -8,7 +8,7 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
   $ [sudo] npm install forever -g
 ```
 
-**Note:** If you are using forever _programatically_ you should install [forever-monitor][0]. 
+**Note:** If you are using forever _programatically_ you should install [forever-monitor][0].
 
 ``` bash
   $ cd /path/to/your/project
@@ -16,14 +16,14 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
 ```
 
 ## Usage
-There are two distinct ways to use forever: through the command line interface, or by requiring the forever module in your own code. **Note:** If you are using forever _programatically_ you should install [forever-monitor][0]. 
+There are two distinct ways to use forever: through the command line interface, or by requiring the forever module in your own code. **Note:** If you are using forever _programatically_ you should install [forever-monitor][0].
 
 ### Using forever from the command line
 You can use forever to run any kind of script continuously (whether it is written in node.js or not). The usage options are simple:
 
 ```
   $ forever --help
-  usage: forever [options] [action] SCRIPT [script-options]
+  usage: forever [action] [options] SCRIPT [script-options]
 
   Monitors the script specified in the current process or as a daemon
 
@@ -52,6 +52,8 @@ You can use forever to run any kind of script continuously (whether it is writte
     -p  PATH         Base path for all forever related files (pid files, etc.)
     -c  COMMAND      COMMAND to execute (defaults to node)
     -a, --append     Append logs
+    -f, --fifo       Stream logs to stdout
+    -n, --number     Number of log lines to print
     --pidFile        The pid file
     --sourceDir      The source directory for which SCRIPT is relative to
     --minUptime      Minimum uptime (millis) for a script to not be considered "spinning"
@@ -112,8 +114,11 @@ Stops all forever scripts currently running. This method returns an EventEmitter
 ### forever.list (format, callback)
 Returns a list of metadata objects about each process that is being run using forever. This method is synchronous and will return the list of metadata as such. Only processes which have invoked `forever.startServer()` will be available from `forever.list()`
 
-### forever.tail (target, [length,] callback)
-Responds with the logs from the target script(s) from `tail`. If `length` is provided it is used as the `-n` parameter to `tail`.
+### forever.tail (target, options, callback)
+Responds with the logs from the target script(s) from `tail`. There are two important options:
+
+* `length` (numeric): is is used as the `-n` parameter to `tail`.
+* `stream` (boolean): is is used as the `-f` parameter to `tail`.
 
 ### forever.cleanUp ()
 Cleans up any extraneous forever *.pid files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
@@ -129,7 +134,7 @@ Removes all log files from the root forever directory that do not belong to curr
 
 #### License: MIT
 #### Author: [Charlie Robbins](http://github.com/indexzero)
-#### Contributors: [Fedor Indutny](http://github.com/indutny), [James Halliday](http://substack.net/), [Charlie McConnell](http://github.com/avianflu), [Maciej Malecki](http://github.com/mmalecki)
+#### Contributors: [Fedor Indutny](http://github.com/indutny), [James Halliday](http://substack.net/), [Charlie McConnell](http://github.com/avianflu), [Maciej Malecki](http://github.com/mmalecki), [John Lancaster](http://jlank.com)
 
 [0]: http://github.com/nodejitsu/forever-monitor
 [1]: http://github.com/nodejitsu/forever-monitor/tree/master/examples
