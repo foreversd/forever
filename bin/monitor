@@ -58,7 +58,10 @@ function start(options) {
   // When the monitor stops or exits, remove the pid and log files
   //
   function cleanUp(){
-    fs.unlinkSync(options.pidFile);
+    try {
+      fs.unlinkSync(options.pidFile);
+    }
+    catch(e){}
   }
   monitor.on('stop', cleanUp);
   monitor.on('exit', cleanUp);
