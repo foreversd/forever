@@ -52,6 +52,19 @@ function start(options) {
   monitor.on('restart', function () {
     writePid(options.pidFile, monitor.child.pid);
   });
+
+
+  //
+  // When the monitor stops or exits, remove the pid and log files
+  //
+  function cleanUp(){
+    try {
+      fs.unlinkSync(options.pidFile);
+    }
+    catch(e){}
+  }
+  monitor.on('stop', cleanUp);
+  monitor.on('exit', cleanUp);
 }
 
 //
