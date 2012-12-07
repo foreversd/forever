@@ -1,6 +1,7 @@
 var fs = require('fs'),
     path = require('path'),
     forever = require(path.resolve(__dirname, '..', 'lib', 'forever')),
+    LogRotateStream = require(path.resolve(__dirname, '..', 'lib/forever', 'log_rotate')),
     started;
 
 //
@@ -11,6 +12,22 @@ var fs = require('fs'),
 //
 function writePid(file, pid) {
   fs.writeFileSync(file, pid, 'utf8');
+}
+
+
+//
+// ### @function setUpLogs (options)
+// #### @options {Object} Options for the `forever.Monitor` instance.
+// Starts the self rotating log stream
+//
+function setUpLogs(options) {
+  var rotate_stream = new LogRotateStream(options.logFile, options.rotateCheck);
+  process.__defineGetter__('stdout', function() {
+    return rotate_stream;
+  });
+  process.__defineGetter__('stderr', function() {
+    return rotate_stream;
+  });
 }
 
 //
@@ -65,6 +82,7 @@ process.on('message', function (data) {
   var options = JSON.parse(data.toString());
   if (!started) {
     started = true;
+    setUpLogs(options);
     start(options);
   }
 });
