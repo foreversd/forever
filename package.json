@@ -22,7 +22,7 @@
   "dependencies": {
     "cliff": "0.1.8",
     "flatiron": "0.2.8",
-    "forever-monitor": "1.0.2",
+    "forever-monitor": "https://github.com/brettpaden/forever-monitor/tarball/brettpaden-add-log-rotation",
     "nconf": "0.6.1",
     "nssocket": "0.3.8",
     "optimist": "0.3.4",
