@@ -1,7 +1,7 @@
 {
-  "name": "forever",
+  "name": "forkever",
   "preferGlobal": "true",
-  "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
+  "description": "A fork of forever - a simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
   "version": "0.10.1",
   "author": "Nodejitsu Inc. <info@nodejitsu.com>",
   "maintainers": [
