@@ -2,7 +2,7 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "0.10.5",
+  "version": "0.10.6",
   "author": "Nodejitsu Inc. <info@nodejitsu.com>",
   "maintainers": [
     "indexzero <charlie@nodejitsu.com>",
@@ -31,7 +31,7 @@
     "timespan": "2.0.1",
     "watch": "0.7.0",
     "utile": "0.1.7",
-    "winston": "0.7.0"
+    "winston": "0.7.1"
   },
   "devDependencies": {
     "broadway": "0.2.x",
