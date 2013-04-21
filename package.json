@@ -2,7 +2,7 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "0.10.1",
+  "version": "0.10.5",
   "author": "Nodejitsu Inc. <info@nodejitsu.com>",
   "maintainers": [
     "indexzero <charlie@nodejitsu.com>",
@@ -48,7 +48,7 @@
     "test": "vows test/**/*-test.js --spec -i"
   },
   "engines": {
-    "node": "0.8.x"
+    "node": ">= 0.8.x"
   }
 }
 
