@@ -20,23 +20,24 @@
     "tools"
   ],
   "dependencies": {
+    "colors": "0.6.0-1",
     "cliff": "0.1.8",
-    "flatiron": "0.2.8",
+    "flatiron": "0.3.5",
     "forever-monitor": "1.2.1",
-    "nconf": "0.6.1",
+    "nconf": "0.6.7",
     "nssocket": "0.3.8",
-    "optimist": "0.3.4",
-    "pkginfo": "0.2.3",
+    "optimist": "0.4.0",
+    "pkginfo": "0.3.0",
     "timespan": "2.0.1",
-    "watch": "0.5.1",
-    "utile": "0.1.2",
-    "winston": "0.6.2"
+    "watch": "0.7.0",
+    "utile": "0.1.7",
+    "winston": "0.7.0"
   },
   "devDependencies": {
     "broadway": "0.2.x",
     "eventemitter2": "0.4.x",
     "request": "2.x.x",
-    "vows": "0.6.x"
+    "vows": "0.7.x"
   },
   "bin": {
     "forever": "./bin/forever",
