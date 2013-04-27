@@ -2,7 +2,7 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "0.10.6",
+  "version": "0.10.7",
   "author": "Nodejitsu Inc. <info@nodejitsu.com>",
   "maintainers": [
     "indexzero <charlie@nodejitsu.com>",
@@ -25,7 +25,7 @@
     "flatiron": "0.3.5",
     "forever-monitor": "1.2.1",
     "nconf": "0.6.7",
-    "nssocket": "0.5.0",
+    "nssocket": "~0.5.1",
     "optimist": "0.4.0",
     "pkginfo": "0.3.0",
     "timespan": "2.0.1",
