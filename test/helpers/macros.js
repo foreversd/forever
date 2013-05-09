@@ -27,7 +27,7 @@ macros.assertTimes = function (script, times, options) {
     "should emit 'exit' when completed": function (err, child) {
       assert.equal(child.times, times);
     }
-  }
+  };
 };
 
 macros.spawn = function (args, options) {
@@ -61,7 +61,7 @@ macros.spawn = function (args, options) {
 
 macros.list = function (options) {
   options.topic = function () {
-    forever.list(false, this.callback)
+    forever.list(false, this.callback);
   };
   return options;
 };

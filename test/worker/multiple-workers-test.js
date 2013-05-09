@@ -32,7 +32,7 @@ function assertRunning(port, i) {
     "stop the child process": function () {
       children[i].stop();
     }
-  }
+  };
 }
 
 vows.describe('forever/workers/multiple').addBatch({
@@ -84,7 +84,7 @@ vows.describe('forever/workers/multiple').addBatch({
       // TODO: We should cleanup these processes.
       //
     }
-  },
+  }
 }).addBatch({
   "Once the stop attempt has been made": {
     topic: function () {
