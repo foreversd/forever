@@ -64,6 +64,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     -s, --silent     Run the child script silencing stdout and stderr
     -w, --watch      Watch for file changes
     --watchDirectory Top-level directory to watch from
+    -u, --uid        Custom uid for this forever process. (default: autogen)
     -h, --help       You're staring at it
 
   [Long Running Process]
