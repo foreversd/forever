@@ -51,6 +51,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     -e  ERRFILE      Logs stderr from child script to ERRFILE
     -p  PATH         Base path for all forever related files (pid files, etc.)
     -c  COMMAND      COMMAND to execute (defaults to node)
+    --killSignal SIG Signal to use in stop action (default to SIGKILL)
     -a, --append     Append logs
     -f, --fifo       Stream logs to stdout
     -n, --number     Number of log lines to print
