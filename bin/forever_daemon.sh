@@ -62,6 +62,12 @@ if [ ! -d "/var/log/$DAEMON_NAME" ]; then
     chmod 0750 "/var/log/$DAEMON_NAME"
 fi
 
+if [ ! -f "$FOREVER_PIDFILE" ]; then
+    touch $FOREVER_PIDFILE
+    chown $DAEMON_USER:$DAEMON_USER $FOREVER_PIDFILE
+    chmod 0750 $FOREVER_PIDFILE
+fi
+
 start() {
 	echo "Starting $DAEMON_NAME as user: $DAEMON_USER"
  
