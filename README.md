@@ -29,6 +29,7 @@ You can use forever to run any kind of script continuously (whether it is writte
 
   actions:
     start               Start SCRIPT as a daemon
+    startall            Start all pre-configured scripts from config.apps
     stop                Stop the daemon SCRIPT
     stopall             Stop all running forever scripts
     restart             Restart the daemon SCRIPT
@@ -40,8 +41,10 @@ You can use forever to run any kind of script continuously (whether it is writte
     logs                Lists log files for all forever processes
     logs <script|index> Tails the logs for <script|index>
     columns add <col>   Adds the specified column to the output in `forever list`
-    columns rm <col>    Removed the specified column from the output in `forever list`
+    columns rm <col>    Removes the specified column from the output in `forever list`
     columns set <cols>  Set all columns for the output in `forever list`
+    apps add <script>   Adds the specified script to config.apps
+    apps rm <script>    Removes the specified script from config.apps
     cleanlogs           [CAREFUL] Deletes all historical forever log files
 
   options:
@@ -64,6 +67,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     -s, --silent     Run the child script silencing stdout and stderr
     -w, --watch      Watch for file changes
     --watchDirectory Top-level directory to watch from
+    -r, --remember   Save the specified script to config.apps (only work with `start` action)
     -h, --help       You're staring at it
 
   [Long Running Process]
