@@ -4,16 +4,18 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
 
 ## Installation
 
-``` bash
-  $ [sudo] npm install forever -g
-```
+`npm install -g forever`
 
-**Note:** If you are using forever _programatically_ you should install [forever-monitor][0].
+Installing forks from git:
 
-``` bash
-  $ cd /path/to/your/project
-  $ [sudo] npm install forever-monitor
-```
+`$ git clone https://github.com/JacksonGariety/forever-monitor.git`
+`$ cd forever-monitor`
+`$ npm link`
+`$ cd ..`
+`$ git clone https://github.com/JacksonGariety/forever.git`
+`$ cd forever`
+`$ npm link forever-monitor`
+`$ npm link`
 
 ## Usage
 There are two distinct ways to use forever: through the command line interface, or by requiring the forever module in your own code. **Note:** If you are using forever _programatically_ you should install [forever-monitor][0].
