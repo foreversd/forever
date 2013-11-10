@@ -31,6 +31,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     start               Start SCRIPT as a daemon
     stop                Stop the daemon SCRIPT
     stopall             Stop all running forever scripts
+    stoppid             Stop running forever script by pid
     restart             Restart the daemon SCRIPT
     restartall          Restart all running forever scripts
     list                List all running forever scripts
