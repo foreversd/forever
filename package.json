@@ -28,7 +28,7 @@
     "nssocket": "~0.5.1",
     "optimist": "0.4.0",
     "pkginfo": "0.3.0",
-    "timespan": "2.0.1",
+    "timespan": "2.1.0",
     "watch": "0.7.0",
     "utile": "0.1.7",
     "winston": "0.7.1"
