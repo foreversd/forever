@@ -66,7 +66,8 @@ You can use forever to run any kind of script continuously (whether it is writte
     -w, --watch      Watch for file changes
     --watchDirectory Top-level directory to watch from
     --watchIgnore    To ignore pattern when watch is enabled (multiple option is allowed)
-    --killSignal     Support exit signal customization (default is SIGKILL), used for restarting script gracefully eg. --killSignal=SIGTERM
+    --killSignal     Support exit signal customization (default is SIGKILL), 
+                     used for restarting script gracefully eg. --killSignal=SIGTERM
     -h, --help       You're staring at it
 
   [Long Running Process]
