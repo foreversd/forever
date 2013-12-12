@@ -66,8 +66,8 @@ You can use forever to run any kind of script continuously (whether it is writte
     -w, --watch      Watch for file changes
     --watchDirectory Top-level directory to watch from
     --watchIgnore    To ignore pattern when watch is enabled (multiple option is allowed)
-    -h, --help       You're staring at it
     --killSignal     Support exit signal customization (default is SIGKILL), used for restarting script gracefully eg. --killSignal=SIGTERM
+    -h, --help       You're staring at it
 
   [Long Running Process]
     The forever process will continue to run outputting log messages to the console.
