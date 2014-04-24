@@ -59,7 +59,7 @@ vows.describe('forever/worker/simple').addBatch({
             reader2.send(['data']);
             reader2.destroy();
 
-            setTimeout(self.callback, 100);
+            self.callback();
           });
         },
         'it should not crash the worker': function(worker) {
