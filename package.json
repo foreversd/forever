@@ -31,7 +31,8 @@
     "timespan": "~2.3.0",
     "watch": "~0.8.0",
     "utile": "~0.2.1",
-    "winston": "~0.7.2"
+    "winston": "~0.7.2",
+    "portfinder": "~0.2.1"
   },
   "devDependencies": {
     "broadway": "0.2.x",
