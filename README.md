@@ -56,7 +56,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     -n, --number     Number of log lines to print
     --pidFile        The pid file
     --uid            Process uid, useful as a namespace for processes (must wrap in a string)
-                     eg. forever start "production" app.js
+                     eg. forever start --uid "production" app.js
                          forever stop production
     --sourceDir      The source directory for which SCRIPT is relative to
     --minUptime      Minimum uptime (millis) for a script to not be considered "spinning"
