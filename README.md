@@ -91,6 +91,16 @@ There are [several examples][1] designed to test the fault tolerance of forever.
   $ forever -m 5 examples/error-on-timer.js
 ```
 
+### Changing where forever writes files
+
+By default `forever` places all of the files it needs into `/$HOME/.forever`. If you would like to change that location just set the `FOREVER_ROOT` environment variable when you are running forever:
+
+```
+FOREVER_ROOT=/etc/forever forever start index.js
+```
+
+Make sure that the user running the process has the appropriate privileges to read & write to this directory.
+
 ## Using forever module from node.js
 In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever cli commands][2] for sample usage.
 
