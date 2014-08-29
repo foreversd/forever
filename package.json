@@ -40,8 +40,7 @@
     "vows": "0.7.x"
   },
   "bin": {
-    "forever": "./bin/forever",
-    "foreverd": "./bin/foreverd"
+    "forever": "./bin/forever"
   },
   "main": "./lib/forever",
   "scripts": {
