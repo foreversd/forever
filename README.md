@@ -120,7 +120,7 @@ _Synchronously_ sets the specified configuration (config) for the forever module
 Starts a script with forever.
 
 ### forever.startDaemon (file, options)
-Starts a script with forever as a daemon. WARNING: Will daemonize the current process.
+Starts a script with forever as a daemon. WARNING: Will daemonize the current process. `file` field can be ommited when `options.command` is set.
 
 ### forever.stop (index)
 Stops the forever daemon script at the specified index. These indices are the same as those returned by forever.list(). This method returns an EventEmitter that raises the 'stop' event when complete.
