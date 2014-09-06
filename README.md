@@ -113,14 +113,21 @@ In addition to using a Forever object, the forever module also exposes some usef
 ### forever.load (config)
 _Synchronously_ sets the specified configuration (config) for the forever module. There are two important options:
 
-* root:    Directory to put all default forever log files
-* pidPath: Directory to put all forever *.pid files
+Option    | Description                                       | Default
+-------   | ------------------------------------------------- | ---------
+root      | Directory to put all default forever log files    | `forever.root`
+pidPath   | Directory to put all forever *.pid files          | `[root]/pids`
+sockPath  | Directory for sockets for IPC between workers     | `[root]/sock`
+loglength | Number of logs to return in `forever tail`        | 100
+columns   | Array of columns to display when `format` is true | `forever.config.get('columns')`
+debug     | Boolean value indicating to run in debug mode     | false
+stream    | Boolean value indicating if logs will be streamed | false
 
 ### forever.start (file, options)
-Starts a script with forever.
+Starts a script with forever. The `options` object is what is expected by the `Monitor` of `forever-monitor`.
 
 ### forever.startDaemon (file, options)
-Starts a script with forever as a daemon. WARNING: Will daemonize the current process.
+Starts a script with forever as a daemon. WARNING: Will daemonize the current process. The `options` object is what is expected by the `Monitor` of `forever-monitor`.
 
 ### forever.stop (index)
 Stops the forever daemon script at the specified index. These indices are the same as those returned by forever.list(). This method returns an EventEmitter that raises the 'stop' event when complete.
@@ -128,11 +135,15 @@ Stops the forever daemon script at the specified index. These indices are the sa
 ### forever.stopAll (format)
 Stops all forever scripts currently running. This method returns an EventEmitter that raises the 'stopAll' event when complete.
 
+The `format` parameter is a boolean value indicating whether the returned values should be formatted according to the configured columns which can set with `forever columns` or programmatically `forever.config.set('columns')`.
+
 ### forever.list (format, callback)
 Returns a list of metadata objects about each process that is being run using forever. This method will return the list of metadata as such. Only processes which have invoked `forever.startServer()` will be available from `forever.list()`
 
+The `format` parameter is a boolean value indicating whether the returned values should be formatted according to the configured columns which can set with `forever columns` or programmatically `forever.config.set('columns')`.
+
 ### forever.tail (target, options, callback)
-Responds with the logs from the target script(s) from `tail`. There are two important options:
+Responds with the logs from the target script(s) from `tail`. There are two options:
 
 * `length` (numeric): is is used as the `-n` parameter to `tail`.
 * `stream` (boolean): is is used as the `-f` parameter to `tail`.
@@ -141,7 +152,7 @@ Responds with the logs from the target script(s) from `tail`. There are two impo
 Cleans up any extraneous forever *.pid files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
 
 ### forever.cleanLogsSync (processes)
-Removes all log files from the root forever directory that do not belong to current running forever processes.
+Removes all log files from the root forever directory that do not belong to current running forever processes. Processes are the value returned from `Monitor.data` in `forever-monitor`.
 
 ## Run Tests
 
