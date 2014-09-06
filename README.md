@@ -129,7 +129,7 @@ Stops the forever daemon script at the specified index. These indices are the sa
 Stops all forever scripts currently running. This method returns an EventEmitter that raises the 'stopAll' event when complete.
 
 ### forever.list (format, callback)
-Returns a list of metadata objects about each process that is being run using forever. This method is synchronous and will return the list of metadata as such. Only processes which have invoked `forever.startServer()` will be available from `forever.list()`
+Returns a list of metadata objects about each process that is being run using forever. This method will return the list of metadata as such. Only processes which have invoked `forever.startServer()` will be available from `forever.list()`
 
 ### forever.tail (target, options, callback)
 Responds with the logs from the target script(s) from `tail`. There are two important options:
