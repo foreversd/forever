@@ -110,6 +110,8 @@ In addition to using a Forever object, the forever module also exposes some usef
   forever.startServer(child);
 ```
 
+This method takes multiple `forever.Monitor` instances which are defined in the `forever-monitor` dependency.
+
 ### forever.load (config)
 _Synchronously_ sets the specified configuration (config) for the forever module. There are two important options:
 
@@ -153,6 +155,9 @@ Cleans up any extraneous forever *.pid files that are on the target system. This
 
 ### forever.cleanLogsSync (processes)
 Removes all log files from the root forever directory that do not belong to current running forever processes. Processes are the value returned from `Monitor.data` in `forever-monitor`.
+
+### forever.startServer (monitor0, monitor1, ..., monitorN)
+Starts the `forever` HTTP server for communication with the forever CLI. **NOTE:** This will change your `process.title`. This method takes multiple `forever.Monitor` instances which are defined in the `forever-monitor` dependency.
 
 ## Run Tests
 
