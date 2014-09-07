@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+
+var resolve = require('path').resolve
+
+var forever = require('..')
+
+
+// Get path of configuration file. By default, search on the user's $HOME
+var servicesPath;
+if(process.argv.length > 2)
+  servicesPath = process.argv[2]
+else
+  servicesPath = resolve(process.env.HOME, 'etc', 'forever-starter.json')
+
+
+// Load configuration file
+var services;
+try
+{
+  services = require(servicesPath)
+}
+catch(exception)
+{
+  console.error(exception)
+  process.exit(-1)
+}
+
+
+// Start services
+services.forEach(function(service)
+{
+  if(typeof service == 'string')
+    service =
+    {
+      command: service,
+      enabled: true
+    };
+
+  if(service.enabled)
+  {
+    // Service has a environment defined, override current process.env with them
+    if(service.env)
+    {
+      var keys = Object.keys(service.env)
+
+      for(var key in process.env)
+        if(keys.indexOf(key) == -1)
+          service.env[key] = process.env[key];
+    }
+
+    // Service has not defined an environment, use current process.env
+    else
+      service.env = process.env;
+
+    // Start service
+    forever.startDaemon(service)
+  }
+})
