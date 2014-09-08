@@ -8,7 +8,7 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
   $ [sudo] npm install forever -g
 ```
 
-**Note:** If you are using forever _programatically_ you should install [forever-monitor][0].
+**Note:** If you are using forever _programatically_ and don't need to daemonize scripts you should use [forever-monitor][0] instead.
 
 ``` bash
   $ cd /path/to/your/project
