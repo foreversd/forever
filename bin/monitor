@@ -33,19 +33,19 @@ function start(options) {
     // would still be running in the background unaffected.
     //
     forever.startServer(monitor);
-    
+
     //
     // Disconnect the IPC channel, letting this monitor's parent process know
     // that the child has started successfully.
     //
     process.disconnect();
-    
+
     //
     // Write the pidFile to disk
     //
     writePid(options.pidFile, monitor.child.pid);
   });
-  
+
   //
   // When the monitor restarts update the pid in the pidFile
   //
@@ -64,7 +64,36 @@ function start(options) {
     catch(e){}
   }
   monitor.on('stop', cleanUp);
-  monitor.on('exit', cleanUp);
+  monitor.on('exit', function()
+  {
+    cleanUp()
+
+    // Start fallback command
+    var onexit = options.onexit
+    if(onexit)
+    {
+      var env = options.env || {}
+
+      // Service has a environment defined, override current process.env
+      if(onexit.env)
+        onexit.env.__proto__ = env
+
+      // Service has not defined an environment, use current process.env
+      else
+        onexit.env = env;
+
+      onexit.stdio = onexit.stdio || options.stdio
+
+      onexit.uid     = onexit.uid     || options.uid
+      onexit.logFile = onexit.logFile || options.logFile
+      onexit.pidFile = onexit.pidFile || options.pidFile
+
+      // Start service
+      console.log(onexit)
+      var child = forever.startDaemon(onexit)
+      console.log(child)
+    }
+  });
 }
 
 //

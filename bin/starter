@@ -38,15 +38,9 @@ services.forEach(function(service)
 
   if(service.enabled)
   {
-    // Service has a environment defined, override current process.env with them
+    // Service has a environment defined, override current process.env
     if(service.env)
-    {
-      var keys = Object.keys(service.env)
-
-      for(var key in process.env)
-        if(keys.indexOf(key) == -1)
-          service.env[key] = process.env[key];
-    }
+      service.env.__proto__ = process.env
 
     // Service has not defined an environment, use current process.env
     else
