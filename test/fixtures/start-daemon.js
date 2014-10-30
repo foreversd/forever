@@ -1,11 +1,11 @@
 /*
  * start-daemon.js: Simple test fixture for spawning log-on-interval.js as a daemon
  *
- * (C) 2010 Nodejitsu Inc.
+ * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
  *
  */
- 
+
 var path = require('path'),
     forever = require('../../lib/forever');
 

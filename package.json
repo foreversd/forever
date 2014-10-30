@@ -2,11 +2,10 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "0.11.1",
-  "author": "Nodejitsu Inc. <info@nodejitsu.com>",
+  "version": "0.12.0",
+  "author": "Charlie Robbins <charlie.robbins@gmail.com>",
   "maintainers": [
-    "indexzero <charlie@nodejitsu.com>",
-    "mmalecki <maciej@nodejitsu.com>",
+    "mmalecki <me@mmalecki.com>",
     "avianflu <charlie@charlieistheman.com>"
   ],
   "repository": {
@@ -23,7 +22,7 @@
     "colors": "~0.6.2",
     "cliff": "0.1.8",
     "flatiron": "~0.3.11",
-    "forever-monitor": "1.3.0",
+    "forever-monitor": "1.4.0",
     "nconf": "~0.6.9",
     "nssocket": "~0.5.1",
     "optimist": "~0.6.0",

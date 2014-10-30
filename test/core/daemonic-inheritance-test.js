@@ -1,7 +1,7 @@
 /*
  * daemonic-inheritance-test.js: Tests for configuration inheritance of forever.startDaemon()
  *
- * (C) 2010 Nodejitsu Inc.
+ * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
  *
  */
@@ -13,6 +13,10 @@ var assert = require('assert'),
   vows = require('vows'),
   forever = require('../../lib/forever');
 
+//
+// n.b. (indexzero): The default root is `~/.forever` so this
+// actually is a valid, non-default test path.
+//
 var myRoot = path.resolve(process.env.HOME, '.forever_root');
 
 vows.describe('forever/core/startDaemon').addBatch({

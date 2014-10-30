@@ -1,7 +1,7 @@
 /*
  * multiple-workers-test.js: Tests for spawning multiple workers with forever
  *
- * (C) 2010 Nodejitsu Inc.
+ * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
  *
  */
@@ -45,26 +45,26 @@ vows.describe('forever/workers/multiple').addBatch({
         children[0] = new (forever.Monitor)(script, {
           silent: true,
           maxRestart: 1,
-          options: [ "--port=8080"]
+          args: [ "--port=8080"]
         });
-        
+
         children[1] = new (forever.Monitor)(script, {
           silent: true,
           maxRestart: 1,
-          options: [ "--port=8081"]
+          args: [ "--port=8081"]
         });
-        
+
         children[0].on('start', function () {
           children[1].on('start', function () {
             pids = children.map(function (child) {
               return child.child.pid;
             });
-            
+
             setTimeout(function () {
               forever.startServer(children[0], children[1], that.callback);
             }, 1000);
           });
-          
+
           children[1].start();
         });
 
