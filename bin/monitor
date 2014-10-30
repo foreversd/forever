@@ -76,6 +76,10 @@ process.on('message', function (data) {
   // TODO: Find out if this data will ever get split into two message events.
   //
   var options = JSON.parse(data.toString());
+
+  // inherits configuration from parent process if exists.
+  options && options.__loaded_options && (forever.load(options.__loaded_options), delete options.__loaded_options);
+
   if (!started) {
     started = true;
     start(options);
