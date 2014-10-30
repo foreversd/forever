@@ -78,7 +78,7 @@ process.on('message', function (data) {
   var options = JSON.parse(data.toString());
 
   // inherits configuration from parent process if exists.
-  options && options.__loaded_options && (forever.load(options.__loaded_options), delete options.__loaded_options);
+  options && options._loadedOptions && (forever.load(options._loadedOptions), delete options._loadedOptions);
 
   if (!started) {
     started = true;
