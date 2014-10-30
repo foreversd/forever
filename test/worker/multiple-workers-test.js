@@ -1,7 +1,7 @@
 /*
  * multiple-workers-test.js: Tests for spawning multiple workers with forever
  *
- * (C) 2010 Nodejitsu Inc.
+ * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
  *
  */

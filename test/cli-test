@@ -3,7 +3,7 @@
 #
 # cli-test: Tests for forever CLI
 #
-# (C) 2012 Nodejitsu Inc.
+# (C) 2012 Charlie Robbins & the Contributors
 # MIT LICENSE
 #
 
@@ -28,7 +28,7 @@ function spec {
 
 echo "\033[1mRunning tests:\033[0m"
 
-# First kill all processes and remove forever directory to ensure clean 
+# First kill all processes and remove forever directory to ensure clean
 # environment
 forever stopall
 rm -rf ~/.forever

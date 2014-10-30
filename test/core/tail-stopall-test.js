@@ -1,7 +1,7 @@
 /*
  * tail-stopall-test.js: Tests for forever.tail() and forever.stopAll()
  *
- * (C) 2010 Nodejitsu Inc.
+ * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
  *
  */

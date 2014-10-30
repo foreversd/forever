@@ -1,7 +1,7 @@
 /*
  * daemonic-inheritance-test.js: Tests for configuration inheritance of forever.startDaemon()
  *
- * (C) 2010 Nodejitsu Inc.
+ * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
  *
  */

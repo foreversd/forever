@@ -1,23 +1,23 @@
 /*
  * macros.js: Test macros for the forever module
  *
- * (C) 2010 Nodejitsu Inc.
+ * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
  *
  */
- 
+
 var assert = require('assert'),
     path = require('path'),
     spawn = require('child_process').spawn,
     nssocket = require('nssocket'),
     forever = require('../../lib/forever'),
     Worker = require('../../lib/forever/worker').Worker;
- 
+
 var macros = exports;
 
 macros.assertTimes = function (script, times, options) {
   options.max = times;
-  
+
   return {
     topic: function () {
       var child = new (forever.Monitor)(script, options);
