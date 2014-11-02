@@ -31,7 +31,7 @@ vows.describe('forever/core/start-stop-peaceful').addBatch({
         ]);
         setTimeout(function (that) {
           forever.list(false, that.callback);
-        }, 1000, this)
+        }, 2000, this)
       },
       "the startup should works fine":function (err, procs) {
         assert.isNull(err);
@@ -49,7 +49,7 @@ vows.describe('forever/core/start-stop-peaceful').addBatch({
           ]);
           setTimeout(function (that) {
             forever.list(false, that.callback);
-          }, 1000, this)
+          }, 2000, this)
         },
         "the shut down should works fine":function (err, procs) {
           assert.isNull(err);
