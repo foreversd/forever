@@ -59,6 +59,7 @@ You can use forever to run any kind of script continuously (whether it is writte
                      eg. forever start --uid "production" app.js
                          forever stop production
     --sourceDir      The source directory for which SCRIPT is relative to
+    --workingDir     The working directory in which SCRIPT will execute
     --minUptime      Minimum uptime (millis) for a script to not be considered "spinning"
     --spinSleepTime  Time to wait (millis) between launches of a spinning script.
     --colors         --no-colors will disable output coloring
