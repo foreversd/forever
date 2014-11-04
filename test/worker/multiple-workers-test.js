@@ -32,7 +32,7 @@ function assertRunning(port, i) {
     "stop the child process": function () {
       children[i].stop();
     }
-  }
+  };
 }
 
 vows.describe('forever/workers/multiple').addBatch({

@@ -23,15 +23,16 @@ vows.describe('forever/core/startDaemon').addBatch({
   "When using forever" : {
     "the startDaemon() method with customized configuration" : {
       topic: function () {
-        !fs.existsSync(myRoot) && fs.mkdirSync(myRoot);
+        if (!fs.existsSync(myRoot)) {
+          fs.mkdirSync(myRoot);
+        }
 
         forever.load({root:myRoot});
 
         forever.startDaemon(path.join(__dirname, '..', 'fixtures', 'log-on-interval.js'));
         setTimeout(function (that) {
           forever.list(false, that.callback);
-        }, 2000, this)
-        //forever.tail(0, { length: 1 },  that.callback);
+        }, 2000, this);
       },
       "should respond with 1 process": function (err, procs) {
         assert.isNull(err);
