@@ -1,5 +1,5 @@
 /*
- * daemonic-inheritance-test.js: start or stop forever peaceful, the script path could be start with './', '../' ...
+ * start-stop-relative.js: start or stop forever using relative paths, the script path could be start with './', '../' ...
  *
  * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
@@ -7,11 +7,11 @@
  */
 
 var assert = require('assert'),
-  path = require('path'),
-  fs = require('fs'),
-  spawn = require('child_process').spawn,
-  vows = require('vows'),
-  forever = require('../../lib/forever');
+    path = require('path'),
+    fs = require('fs'),
+    spawn = require('child_process').spawn,
+    vows = require('vows'),
+    forever = require('../../lib/forever');
 
 function runCmd(cmd, args) {
   var proc = spawn(process.execPath, [
@@ -23,9 +23,9 @@ function runCmd(cmd, args) {
 }
 
 vows.describe('forever/core/start-stop-peaceful').addBatch({
-  "When using forever":{
-    "to run script with relative script path":{
-      topic:function () {
+  "When using forever" : {
+    "to run script with relative script path" : {
+      topic: function () {
         runCmd('start', [
           './test/fixtures/log-on-interval.js'
         ]);
@@ -33,7 +33,7 @@ vows.describe('forever/core/start-stop-peaceful').addBatch({
           forever.list(false, that.callback);
         }, 2000, this)
       },
-      "the startup should works fine":function (err, procs) {
+      "the startup should works fine": function (err, procs) {
         assert.isNull(err);
         assert.isArray(procs);
         assert.equal(procs.length, 1);
@@ -41,9 +41,9 @@ vows.describe('forever/core/start-stop-peaceful').addBatch({
     }
   }
 }).addBatch({
-    "When the script is running":{
-      "try to stop with relative script path":{
-        topic:function () {
+    "When the script is running" : {
+      "try to stop with relative script path" : {
+        topic: function () {
           runCmd('stop', [
             './test/fixtures/log-on-interval.js'
           ]);
@@ -51,7 +51,7 @@ vows.describe('forever/core/start-stop-peaceful').addBatch({
             forever.list(false, that.callback);
           }, 2000, this)
         },
-        "the shut down should works fine":function (err, procs) {
+        "the shut down should works fine": function (err, procs) {
           assert.isNull(err);
           assert.isNull(procs);
         }
