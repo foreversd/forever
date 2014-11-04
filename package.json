@@ -20,20 +20,18 @@
   ],
   "dependencies": {
     "colors": "~0.6.2",
-    "cliff": "0.1.8",
-    "flatiron": "~0.3.11",
-    "forever-monitor": "1.4.0",
+    "cliff": "~0.1.9",
+    "flatiron": "~0.4.2",
+    "forever-monitor": "~1.5.1",
     "nconf": "~0.6.9",
     "nssocket": "~0.5.1",
     "optimist": "~0.6.0",
-    "pkginfo": "0.3.0",
     "timespan": "~2.3.0",
-    "watch": "~0.8.0",
     "utile": "~0.2.1",
-    "winston": "~0.7.2"
+    "winston": "~0.8.1"
   },
   "devDependencies": {
-    "broadway": "0.2.x",
+    "broadway": "~0.3.6",
     "eventemitter2": "0.4.x",
     "request": "2.x.x",
     "vows": "0.7.x"
