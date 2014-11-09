@@ -29,9 +29,8 @@ You can use forever to run any kind of script continuously (whether it is writte
 
   actions:
     start               Start SCRIPT as a daemon
-    stop                Stop the daemon SCRIPT
+    stop                Stop the daemon SCRIPT by Id|Uid|Pid|Index|Script
     stopall             Stop all running forever scripts
-    stopbypid           Stop running forever script by pid
     restart             Restart the daemon SCRIPT
     restartall          Restart all running forever scripts
     list                List all running forever scripts
