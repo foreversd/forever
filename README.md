@@ -118,13 +118,22 @@ _Synchronously_ sets the specified configuration (config) for the forever module
 
 Option    | Description                                       | Default
 -------   | ------------------------------------------------- | ---------
-root      | Directory to put all default forever log files    | `forever.root`
+root      | Directory to put all default forever log files    | `~/.forever`
 pidPath   | Directory to put all forever *.pid files          | `[root]/pids`
 sockPath  | Directory for sockets for IPC between workers     | `[root]/sock`
 loglength | Number of logs to return in `forever tail`        | 100
 columns   | Array of columns to display when `format` is true | `forever.config.get('columns')`
 debug     | Boolean value indicating to run in debug mode     | false
 stream    | Boolean value indicating if logs will be streamed | false
+interval  | Interval of events (restartall/stopall)           | 500 (milliseconds)
+
+**Notes**
+- **root** The root is based on `per-user` (UNIX system), when you logging on with `someuser`, it should be `/User/someuser/.forever`, if you wanna make a sharing `forever` which every user can catch sight of it, try to change the `export FOREVER_ROOT` to a specific directory:
+  - 1. `$ vi /etc/profile`
+  - 2. Add a new line: `export FOREVER_ROOT=/opt/local/.forever`
+  - 3. `$ chmod -R 777 /opt/local/.forever`
+- **columns** Including *uid*, *command*, *script*, *forever*, *pid*, *id*, *logfile*, *uptime*
+- **interval** If your process needs warm up, this option helps a lot, e.g.:`$ forever set interval 5000`, the `interval` has been set to 5 seconds, when you using `forever restartall`, if the first process has been restarted, the next will wait for 5 seconds before restarting.
 
 ### forever.start (file, options)
 Starts a script with forever. The `options` object is what is expected by the `Monitor` of `forever-monitor`.
