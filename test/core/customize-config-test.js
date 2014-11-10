@@ -21,22 +21,30 @@ function runCmd(cmd, args) {
   proc.unref();
   return proc;
 }
+function grepConfig(that){
+  setTimeout(function(that){
+    var chunk = '';
+    runCmd('config', []).stdout.on('data', function(data){
+      // remove colors and `data` prefix
+      line = data.toString().replace(/[\r\t\n\s]/g, '').replace(/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/g, '').replace(/data:/g, '');
+      chunk += line;
+    });
+    setTimeout(function(that){
+      that.callback(null, chunk);
+    }, 2000, that);
+  }, 500, that)
+}
 
 vows.describe('forever/core/config').addBatch({
   "When using forever set" : {
     "to change root" : {
       topic: function () {
-        runCmd('set', ['root /usr/src/.forever_clone']);
-        setTimeout(function(that){
-          that.callback();
-        }, 2000, this);
+        runCmd('set', ['root /usr/src/.forever_clone', '--no-colors']);
+        grepConfig(this);
       },
-      "the pidPath/logPath/sockPath should be automatic changed too": function () {
-        var root = forever.config.get('root');
-        assert.equal(root, '/usr/src/.forever_clone');
-        console.log(forever.config.get('pidPath').indexOf(root), 0);
-        console.log(forever.config.get('sockPath').indexOf(root), 0);
-        console.log(forever.config.get('logPath').indexOf(root), 0);
+      "the pidPath/logPath/sockPath should be automatic changed too": function (err, result) {
+        // root, pids, logs, sock
+        assert.equal(result.match(/\/usr\/src\/\.forever_clone/g).length, 4);
       }
     }
   }
@@ -45,13 +53,11 @@ vows.describe('forever/core/config').addBatch({
     "to list processes" : {
       topic: function () {
         runCmd('list', []);
-        setTimeout(function (that) {
-          that.callback();
-        }, 2000, this);
+        grepConfig(this);
       },
-      "the configured root should not be changed": function () {
-        var root = forever.config.get('root');
-        assert.equal(root, '/usr/src/.forever_clone');
+      "the configured root should not be changed": function (err, result) {
+        // root, pids, logs, sock
+        assert.equal(result.match(/\/usr\/src\/\.forever_clone/g).length, 4);
       }
     }
   }
@@ -60,14 +66,13 @@ vows.describe('forever/core/config').addBatch({
     "to change logstream" : {
       topic: function () {
         runCmd('set', ['logstream false']);
-        setTimeout(function (that) {
-          that.callback();
-        }, 2000, this);
+        grepConfig(this);
       },
-      "the configured logstream should be a typeof Boolean": function () {
-        var logstream = forever.config.get('logstream');
-        assert.equal(typeof logstream, 'boolean');
-        assert.equal(logstream, false);
+      "the configured logstream should be a typeof Boolean": function (err, result) {
+        var boolResult = (result.match(/logstream:([\s\S]{4,5})[,}]+/));
+        assert.equal(boolResult.length, 2);
+        // should equals `false` (Boolean), but not `'false'` or `"false"` (String)
+        assert.equal(boolResult[1], 'false');
       }
     }
   }
@@ -76,14 +81,13 @@ vows.describe('forever/core/config').addBatch({
     "to change loglength" : {
       topic: function () {
         runCmd('set', ['loglength 200']);
-        setTimeout(function (that) {
-          that.callback();
-        }, 2000, this);
+        grepConfig(this);
       },
-      "the configured logstream should be a typeof Number": function () {
-        var loglength = forever.config.get('loglength');
-        assert.equal(typeof loglength, 'number');
-        assert.equal(loglength, 200);
+      "the configured logstream should be a typeof Number": function (err, result) {
+        var numResult = (result.match(/loglength:(\d{3})/));
+        assert.equal(numResult.length, 2);
+        // should equals `200` (Number), but not `'200'` or `"200"` (String)
+        assert.equal(numResult[1], '200');
       }
     }
   }
@@ -97,6 +101,7 @@ vows.describe('forever/core/config').addBatch({
         }, 2000, this);
       },
       "correctly": function () {
+
       }
     }
   }
