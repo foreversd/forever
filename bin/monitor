@@ -33,19 +33,19 @@ function start(options) {
     // would still be running in the background unaffected.
     //
     forever.startServer(monitor);
-    
+
     //
     // Disconnect the IPC channel, letting this monitor's parent process know
     // that the child has started successfully.
     //
     process.disconnect();
-    
+
     //
     // Write the pidFile to disk
     //
     writePid(options.pidFile, monitor.child.pid);
   });
-  
+
   //
   // When the monitor restarts update the pid in the pidFile
   //
@@ -57,11 +57,11 @@ function start(options) {
   //
   // When the monitor stops or exits, remove the pid and log files
   //
-  function cleanUp(){
+  function cleanUp() {
     try {
       fs.unlinkSync(options.pidFile);
     }
-    catch(e){}
+    catch(e) {}
   }
   monitor.on('stop', cleanUp);
   monitor.on('exit', cleanUp);

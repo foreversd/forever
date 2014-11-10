@@ -47,16 +47,16 @@ vows.describe('forever/core/startDaemon').addBatch({
     }
   }
 }).addBatch({
-    "When the tests are over" : {
-      "stop all forever processes" : {
-        topic: function () {
-          forever.load({root:myRoot});
-          forever.stopAll().on('stopAll', this.callback.bind(null, null));
-        },
-        "should stop the correct number of procs": function (err, procs) {
-          assert.isArray(procs);
-          assert.lengthOf(procs, 1);
-        }
+  "When the tests are over" : {
+    "stop all forever processes" : {
+      topic: function () {
+        forever.load({root:myRoot});
+        forever.stopAll().on('stopAll', this.callback.bind(null, null));
+      },
+      "should stop the correct number of procs": function (err, procs) {
+        assert.isArray(procs);
+        assert.lengthOf(procs, 1);
       }
     }
-  }).export(module);
+  }
+}).export(module);

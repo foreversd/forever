@@ -1,5 +1,5 @@
 /*
- * start-stop-relative.js: start or stop forever using relative paths, the script path could be start with './', '../' ...
+ * stopall-peaceful-test.js: tests if `forever start` followed by `forever stopall` works.
  *
  * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
@@ -46,7 +46,7 @@ vows.describe('forever/core/stopall-peaceful').addBatch({
     "try to stop all" : {
       topic: function () {
         var that = this;
-        forever.list(false, function(err, procs){
+        forever.list(false, function(err, procs) {
           assert.isNull(err);
           assert.isArray(procs);
           assert.equal(procs.length, 1);
@@ -56,10 +56,10 @@ vows.describe('forever/core/stopall-peaceful').addBatch({
           var cmd = runCmd('stopall', []);
           cmd.stdout.on('data', onData);
           //listen on the `data` event.
-          function onData(data){
+          function onData(data) {
             // check whether pid exists or not.
             var line = data.toString().replace (/[\n\r\t\s]+/g, ' ');
-            if(line && line.search(new RegExp(pid)) > 0){
+            if (line && line.search(new RegExp(pid)) > 0) {
               that.callback(null, true);
               cmd.stdout.removeListener('data', onData);
             }

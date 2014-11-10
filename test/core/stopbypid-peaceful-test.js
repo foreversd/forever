@@ -1,5 +1,5 @@
 /*
- * start-stop-relative.js: start or stop forever using relative paths, the script path could be start with './', '../' ...
+ * stopbypid-peaceful-test.js: tests if `forever start` followed by `forever stop <pid>` works.
  *
  * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
@@ -27,17 +27,17 @@ vows.describe('forever/core/stopbypid-peaceful').addBatch({
     "to run script with 100% exit" : {
       topic: function () {
         runCmd('start', [
-          './test/fixtures/cluster-fork-mode.js'
+          './test/fixtures/log-on-interval.js'
         ]);
         setTimeout(function (that) {
           forever.list(false, that.callback);
         }, 2000, this);
       },
-      "the script should be marked as `STOPPED`": function (err, procs) {
+      "the script should be running": function (err, procs) {
         assert.isNull(err);
         assert.isArray(procs);
         assert.equal(procs.length, 1);
-        assert.ok(!procs[0].running);
+        assert.ok(procs[0].running);
       }
     }
   }
@@ -46,7 +46,7 @@ vows.describe('forever/core/stopbypid-peaceful').addBatch({
     "try to stop by pid" : {
       topic: function () {
         var that = this;
-        forever.list(false, function(err, procs){
+        forever.list(false, function(err, procs) {
           assert.isNull(err);
           assert.isArray(procs);
           assert.equal(procs.length, 1);
@@ -55,11 +55,12 @@ vows.describe('forever/core/stopbypid-peaceful').addBatch({
           // run command
           var cmd = runCmd('stop', [pid]);
           cmd.stdout.on('data', onData);
+          cmd.stderr.pipe(process.stderr);
           //listen on the `data` event.
-          function onData(data){
+          function onData(data) {
             // check whether pid exists or not.
             var line = data.toString().replace (/[\n\r\t\s]+/g, ' ');
-            if(line && line.search(new RegExp(pid)) > 0){
+            if (line && line.search(new RegExp(pid)) > 0) {
               that.callback(null, true);
               cmd.stdout.removeListener('data', onData);
             }
