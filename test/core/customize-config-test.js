@@ -34,6 +34,10 @@ function grepConfig(that){
     }, 2000, that);
   }, 500, that)
 }
+function home(dir){
+  var baseDir = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+  return (dir) ? path.join(baseDir, dir) : baseDir;
+}
 
 vows.describe('forever/core/config').addBatch({
   "When using forever set" : {
@@ -95,7 +99,7 @@ vows.describe('forever/core/config').addBatch({
   "Reset configuration" : {
     "after all" : {
       topic: function () {
-        runCmd('set', ['root ~/.forever']);
+        runCmd('set', ['root ' + home('.forever')]);
         setTimeout(function(that){
           that.callback();
         }, 2000, this);
