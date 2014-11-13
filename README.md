@@ -118,13 +118,22 @@ _Synchronously_ sets the specified configuration (config) for the forever module
 
 Option    | Description                                       | Default
 -------   | ------------------------------------------------- | ---------
-root      | Directory to put all default forever log files    | `forever.root`
+root      | Directory to put all default forever log files    | `~/.forever`
 pidPath   | Directory to put all forever *.pid files          | `[root]/pids`
 sockPath  | Directory for sockets for IPC between workers     | `[root]/sock`
 loglength | Number of logs to return in `forever tail`        | 100
 columns   | Array of columns to display when `format` is true | `forever.config.get('columns')`
 debug     | Boolean value indicating to run in debug mode     | false
 stream    | Boolean value indicating if logs will be streamed | false
+interval  | Interval of events (restartall/stopall)           | 500 (milliseconds)
+
+**Notes**
+- **root** The root is based on `per-user` (UNIX system), when you logging on with `someuser`, it should be `/User/someuser/.forever`, if you wanna make a sharing `forever` which every user can catch sight of it, try to change the `export FOREVER_ROOT` to a specific directory:
+  - 1. `$ vi /etc/profile`
+  - 2. Add a new line: `export FOREVER_ROOT=/opt/local/.forever`
+  - 3. `$ chmod -R 777 /opt/local/.forever`
+- **columns** Including *uid*, *command*, *script*, *forever*, *pid*, *id*, *logfile*, *uptime*
+- **interval** If your process needs warm up, this option helps a lot, e.g.:`$ forever set interval 5000`, the `interval` has been set to 5 seconds, when you using `forever restartall`, if the first process has been restarted, the next will wait for 5 seconds before restarting.
 
 ### forever.start (file, options)
 Starts a script with forever. The `options` object is what is expected by the `Monitor` of `forever-monitor`.
@@ -167,8 +176,78 @@ Starts the `forever` HTTP server for communication with the forever CLI. **NOTE:
 ```
 
 #### License: MIT
-#### Author: [Charlie Robbins](http://github.com/indexzero)
-#### Contributors: [Fedor Indutny](http://github.com/indutny), [James Halliday](http://substack.net/), [Charlie McConnell](http://github.com/avianflu), [Maciej Malecki](http://github.com/mmalecki), [John Lancaster](http://jlank.com)
+#### Author:
+  [Charlie Robbins](http://github.com/indexzero)
+#### Contributors:
+```
+269 indexzero
+ 102 Maciej Małecki
+  34 Charlie McConnell
+  21 Julian Duque
+  15 Tjatse
+  12 kpdecker
+  12 bradleymeck
+  10 Charlie Robbins
+   9 Bradley Meck
+   5 Jarrett Cruger
+   4 James Halliday
+   4 Felix Böhm
+   4 Anthony Akentiev
+   3 Marak Squires
+   3 Joshua Holbrook
+   3 Fedor Indutny
+   3 Arnout Kazemier
+   2 Kevin "Schmidty" Smith
+   2 John Lancaster
+   2 Ignat Kolesnichenko
+   2 Fedot Praslov
+   2 Christian Howe
+   2 Andrew Radev
+   2 Andrew Martin
+   1 srossross
+   1 smoodiver
+   1 skyisle
+   1 peecky
+   1 nlco
+   1 lulurun
+   1 kbackowski
+   1 jeromew
+   1 ingmr
+   1 filipovskii_off
+   1 brianmarco
+   1 Thomas Tourlourat
+   1 Thomas
+   1 Stéphane Gully
+   1 Ryan Angilly
+   1 Patrick Hogan
+   1 Oleg Slobodskoi
+   1 Noah H. Smith
+   1 Nathan Zadoks
+   1 Myk Willis
+   1 Mithgol
+   1 Miroslav Mocek
+   1 Maurycy Damian Wasilewski
+   1 Mariusz Nowak
+   1 Louis Galipeau
+   1 Kevin Hill
+   1 Jure
+   1 Jazz
+   1 Jackson Gariety
+   1 Ian Babrou
+   1 Gabriel Petrovay
+   1 Felix Geisendörfer
+   1 Fabian Jakobs
+   1 Evan You
+   1 Dusty Leary
+   1 Dustin Diaz
+   1 Dominic Tarr
+   1 Dan Dascalescu
+   1 Brian Mount
+   1 Bram Stein
+   1 Alexey Simonenko
+   1 Alexander Makarenko
+   1 Adrien Friggeri
+```
 
 [0]: http://github.com/nodejitsu/forever-monitor
 [1]: http://github.com/nodejitsu/forever-monitor/tree/master/examples
