@@ -1,0 +1,2 @@
+#!/bin/bash
+git log --pretty='%aN' | sort | uniq -c | sort -k1 -n -r | head -n 100
