@@ -8,7 +8,7 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
   $ [sudo] npm install forever -g
 ```
 
-**Note:** If you are using forever _programatically_ you should install [forever-monitor][0].
+**Note:** If you are using forever _programmatically_ you should install [forever-monitor][0].
 
 ``` bash
   $ cd /path/to/your/project
@@ -56,7 +56,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     -n, --number     Number of log lines to print
     --pidFile        The pid file
     --uid            Process uid, useful as a namespace for processes (must wrap in a string)
-                     eg. forever start --uid "production" app.js
+                     e.g. forever start --uid "production" app.js
                          forever stop production
     --sourceDir      The source directory for which SCRIPT is relative to
     --workingDir     The working directory in which SCRIPT will execute
@@ -71,7 +71,7 @@ You can use forever to run any kind of script continuously (whether it is writte
     --watchDirectory Top-level directory to watch from
     --watchIgnore    To ignore pattern when watch is enabled (multiple option is allowed)
     --killSignal     Support exit signal customization (default is SIGKILL),
-                     used for restarting script gracefully eg. --killSignal=SIGTERM
+                     used for restarting script gracefully e.g. --killSignal=SIGTERM
     -h, --help       You're staring at it
 
   [Long Running Process]
