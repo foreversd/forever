@@ -1,4 +1,4 @@
-# forever [![Build Status](https://api.travis-ci.org/nodejitsu/forever.svg)](http://travis-ci.org/nodejitsu/forever)
+# forever [![Build Status](https://api.travis-ci.org/foreverjs/forever.svg)](https://travis-ci.org/foreverjs/forever)
 
 A simple CLI tool for ensuring that a given script runs continuously (i.e. forever).
 
@@ -167,9 +167,9 @@ Starts the `forever` HTTP server for communication with the forever CLI. **NOTE:
 ```
 
 #### License: MIT
-#### Author: [Charlie Robbins](http://github.com/indexzero)
-#### Contributors: [Fedor Indutny](http://github.com/indutny), [James Halliday](http://substack.net/), [Charlie McConnell](http://github.com/avianflu), [Maciej Malecki](http://github.com/mmalecki), [John Lancaster](http://jlank.com)
+#### Author: [Charlie Robbins](https://github.com/indexzero)
+#### Contributors: [Fedor Indutny](https://github.com/indutny), [James Halliday](http://substack.net/), [Charlie McConnell](https://github.com/avianflu), [Maciej Malecki](https://github.com/mmalecki), [John Lancaster](http://jlank.com)
 
-[0]: http://github.com/nodejitsu/forever-monitor
-[1]: http://github.com/nodejitsu/forever-monitor/tree/master/examples
-[2]: https://github.com/nodejitsu/forever/blob/master/lib/forever/cli.js
+[0]: https://github.com/foreverjs/forever-monitor
+[1]: https://github.com/foreverjs/forever-monitor/tree/master/examples
+[2]: https://github.com/foreverjs/forever/blob/master/lib/forever/cli.js
