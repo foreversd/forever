@@ -1,4 +1,4 @@
-# forever [![Build Status](https://api.travis-ci.org/foreverjs/forever.svg)](https://travis-ci.org/foreverjs/forever)
+# forever [![Build Status](https://api.travis-ci.org/foreverjs/forever.svg)](https://travis-ci.org/foreverjs/forever) [![Inline docs](http://inch-ci.org/github/foreverjs/forever.svg?branch=master)](http://inch-ci.org/github/foreverjs/forever)
 
 A simple CLI tool for ensuring that a given script runs continuously (i.e. forever).
 
