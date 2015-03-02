@@ -64,7 +64,7 @@ v0.11.0 / Thu, 10 Apr 2014
   * [09d8403] [dist] Version bump. 0.11.0 (`Jarrett Cruger`)
   * [dd08616] Merge pull request #531 from jeromew/patch-1 (`Jarrett Cruger`)
   * [5e15626] FIX: added FOREVER_ROOT variable (`srossross`)
-  * [3cbabf4] "forever start" hangs with node 0.11.9 (`jeromew`)
+  * [3cbabf4] `forever start` hangs with node 0.11.9 (`jeromew`)
   * [b873164] Merge pull request #516 from meritt/patch-1 (`Julian Duque`)
   * [7ff651b] Delete CHANGELOG.md (`Alexey Simonenko`)
   * [786271f] [dist] v0.10.11 (`Julian Duque`)
@@ -225,7 +225,7 @@ v0.9.1 / Sat, 5 May 2012
   * [a0c9ac5] [fix] Restore self.warn method on monitor instance. (`Charlie McConnell`)
   * [114e378] [dist] Update package.json to use fork of daemon.node. (`Charlie McConnell`)
   * [8186994] [fix] Alter logging paths to reduce memory leakage and prevent stdio issues. (`Charlie McConnell`)
-  * [5c8fcc5] [fix] Update forever.startDaemon to use adjusted daemon.node api. (`Charlie McConnell`)
+  * [5c8fcc5] [fix] Update `forever.startDaemon` to use adjusted `daemon.node` api. (`Charlie McConnell`)
   * [f44d5f4] Fix worker crash from bad socket client (`Felix Geisendörfer`)
   * [b093bfc] [fix api] Expose `checkFile` and fix logical condition (`Maciej Małecki`)
   * [e154a50] [fix] Pass options.argv instead of options (cli.js, line 188) (`Joshua Holbrook`)
@@ -259,7 +259,7 @@ v0.8.2 / Fri, 6 Jan 2012
   * [82e2a7d] [api refactor] Remove fork hack since we are now using `node-fork` (`indexzero`)
   * [a2c4313] [test fix] Fix test/worker/multiple-workers-test.js to pass on node@0.4.x and be idempotent (`indexzero`)
   * [63676ed] [minor] Whitespace update (`indexzero`)
-  * [a987826] [fix] Attempt to listen again if EADDRINUSE in forever.Worker (`indexzero`)
+  * [a987826] [fix] Attempt to listen again if `EADDRINUSE` in forever.Worker (`indexzero`)
   * [d711ab8] [minor] Whitespace update (`indexzero`)
 
 v0.8.1 / Thu, 5 Jan 2012
@@ -428,7 +428,7 @@ v0.7.0 / Sat, 8 Oct 2011
   * [a83a1e1] kill all children of a monitored process. (`Dominic Tarr`)
   * [89be252] [refactor test dist] Refactor /lib/foreverd/ into /lib/forever/service/ (`indexzero`)
   * [36e0b9b] [minor] Updated foreverd for JSHint (`indexzero`)
-  * [3525130] [minor] Update lib/forever* for JSHint (`indexzero`)
+  * [3525130] [minor] Update `lib/forever*` for JSHint (`indexzero`)
   * [1390910] [fix] forgot to add adapters (`bradleymeck`)
   * [bad47f6] [fix][WIP] basic working order, starting CLI cleanup (`bradleymeck`)
   * [6f68823] [API][WIP] Moved service manager out to its own system (`bradleymeck`)
@@ -511,7 +511,7 @@ v0.6.0 / Mon, 11 Jul 2011
   * [df54bc0] [dist] Version bump. 0.6.0 (`indexzero`)
   * [8a50cf6] [doc] Minor updates to README.md (`indexzero`)
   * [1dac9f4] [doc] Updated README.md (`indexzero`)
-  * [9d35315] [fix minor] Update how forever._debug works. Use updated CLI options in `forever restart` (`indexzero`)
+  * [9d35315] [fix minor] Update how `forever._debug` works. Use updated CLI options in `forever restart` (`indexzero`)
   * [da86724] [doc] Regenerate docco docs (`indexzero`)
   * [ad40a95] [doc] Added some code docs (`indexzero`)
   * [221c170] [doc] Update help in bin/forever (`indexzero`)
@@ -521,9 +521,9 @@ v0.6.0 / Mon, 11 Jul 2011
   * [381ecaf] [api] Expose `forever.columns` and update `forever.format` to generate results dynamically (`indexzero`)
   * [bc8153a] [minor] Trim whitespace in lib/* (`indexzero`)
   * [2a163d3] [dist] Add `portfinder` dependency to package.json (`indexzero`)
-  * [57a5600] [doc] Remove references to *.fvr files in README.md (`indexzero`)
+  * [57a5600] [doc] Remove references to \*.fvr files in README.md (`indexzero`)
   * [ef59672] [test] Updated tests for refactor in previous commit (`indexzero`)
-  * [7ae870e] [refactor] **Major awesome breaking changes** Forever no longer uses *.fvr files in-favor of a TCP server in each forever process started by the CLI. Programmatic usage will require an additional call to `forever.createServer()` explicitally in order for your application to be available in `forever list` or `forever.list()` (`indexzero`)
+  * [7ae870e] [refactor] **Major awesome breaking changes** Forever no longer uses \*.fvr files in-favor of a TCP server in each forever process started by the CLI. Programmatic usage will require an additional call to `forever.createServer()` explicitally in order for your application to be available in `forever list` or `forever.list()` (`indexzero`)
   * [a26cf9d] [minor] Catch `uncaughtException` slightly more intelligently (`indexzero`)
   * [4446215] [api] Include uids in `forever list` (`indexzero`)
   * [57bc396] [minor] Create `options.uid` by default in `.startDaemon()` if it is already not provided (`indexzero`)
@@ -581,8 +581,8 @@ v0.5.2 / Fri, 13 May 2011
 =========================
   * [2c99741] [dist] Version bump. 0.5.2 (`indexzero`)
   * [eab1c04] [fix] Check if processes exist before returning in `.findByScript()`. Fixes #50 (`indexzero`)
-  * [e18a256] [fix] Batch the cleaning of *.fvr and *.pid files to avoid file descriptor overload. Fixes #53 (`indexzero`)
-  * [828cd48] [minor] *print help when a valid action isn't given (`nlco`)
+  * [e18a256] [fix] Batch the cleaning of \*.fvr and \*.pid files to avoid file descriptor overload. Fixes #53 (`indexzero`)
+  * [828cd48] [minor] \*print help when a valid action isn't given (`nlco`)
 
 v0.5.1 / Sun, 1 May 2011
 ========================
@@ -594,7 +594,7 @@ v0.5.0 / Sun, 1 May 2011
   * [1511179] [doc] Regenerated docco docs (`indexzero`)
   * [0fb8abe] [minor] Small require formatting updates. Try to be more future-proof. (`indexzero`)
   * [3112380] [fix] Small fixes found from some upstream integrations (`indexzero`)
-  * [9788748] [fix] Better handling of bookkeeping of *.fvr and *.pid files. Closes #47 (`indexzero`)
+  * [9788748] [fix] Better handling of bookkeeping of \*.fvr and \*.pid files. Closes #47 (`indexzero`)
   * [864b1d1] [minor] Small fixes (`indexzero`)
   * [9b56c41] [api] Allow for forced exit if scripts restart in less than `minUptime` (`indexzero`)
   * [650f874] [minor] Add docs for `forever clear <key>` (`indexzero`)
@@ -672,7 +672,7 @@ v0.3.0 / Tue, 23 Nov 2010
 =========================
   * [5d6f8da] [dist] Version bump. 0.3.0 (`indexzero`)
   * [29bff87] [doc] Updated formatting in README.md (`indexzero`)
-  * [00fc643] [api bin doc test] Added stop, stopall, and list command line functionality. Forever now tracks all daemons running on the system using *.fvr files (`indexzero`)
+  * [00fc643] [api bin doc test] Added stop, stopall, and list command line functionality. Forever now tracks all daemons running on the system using \*.fvr files (`indexzero`)
   * [d084ad1] [minor] Make samples/server.js listen on 8000 (`indexzero`)
 
 v0.2.7 / Tue, 16 Nov 2010
