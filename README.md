@@ -16,11 +16,17 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
 ```
 
 ## Usage
-There are two distinct ways to use forever: through the command line interface, or by requiring the forever module in your own code. **Note:** If you are using forever _programatically_ you should install [forever-monitor][0].
+There are two ways to use forever: through the command line or by using forever in your code. **Note:** If you are using forever _programatically_ you should install [forever-monitor][0].
 
-### Using forever from the command line
-You can use forever to run any kind of script continuously (whether it is written in node.js or not). The usage options are simple:
+### Command Line Usage
+You can use forever to run scripts continuously (whether it is written in node.js or not).
 
+**Example**
+```
+forever start app.js
+```
+
+**Options**
 ```
   $ forever --help
   usage: forever [action] [options] SCRIPT [script-options]
@@ -92,18 +98,8 @@ There are [several examples][1] designed to test the fault tolerance of forever.
   $ forever -m 5 examples/error-on-timer.js
 ```
 
-### Changing where forever writes files
-
-By default `forever` places all of the files it needs into `/$HOME/.forever`. If you would like to change that location just set the `FOREVER_ROOT` environment variable when you are running forever:
-
-```
-FOREVER_ROOT=/etc/forever forever start index.js
-```
-
-Make sure that the user running the process has the appropriate privileges to read & write to this directory.
-
-## Using forever module from node.js
-In addition to using a Forever object, the forever module also exposes some useful methods. Each method returns an instance of an EventEmitter which emits when complete. See the [forever cli commands][2] for sample usage.
+### Using In Your Code
+The forever module exposes some useful methods to use in your code. Each method returns an instance of an EventEmitter which emits when complete. See the [forever cli commands][2] for sample usage.
 
 **Remark:** As of `forever@0.6.0` processes will not automatically be available in `forever.list()`. In order to get your processes into `forever.list()` or `forever list` you must instantiate the `forever` socket server:
 
@@ -113,7 +109,7 @@ In addition to using a Forever object, the forever module also exposes some usef
 
 This method takes multiple `forever.Monitor` instances which are defined in the `forever-monitor` dependency.
 
-### forever.load (config)
+#### forever.load (config)
 _Synchronously_ sets the specified configuration (config) for the forever module. There are two important options:
 
 Option    | Description                                       | Default
@@ -126,39 +122,49 @@ columns   | Array of columns to display when `format` is true | `forever.config.
 debug     | Boolean value indicating to run in debug mode     | false
 stream    | Boolean value indicating if logs will be streamed | false
 
-### forever.start (file, options)
+#### forever.start (file, options)
 Starts a script with forever. The `options` object is what is expected by the `Monitor` of `forever-monitor`.
 
-### forever.startDaemon (file, options)
+#### forever.startDaemon (file, options)
 Starts a script with forever as a daemon. WARNING: Will daemonize the current process. The `options` object is what is expected by the `Monitor` of `forever-monitor`.
 
-### forever.stop (index)
+#### forever.stop (index)
 Stops the forever daemon script at the specified index. These indices are the same as those returned by forever.list(). This method returns an EventEmitter that raises the 'stop' event when complete.
 
-### forever.stopAll (format)
+#### forever.stopAll (format)
 Stops all forever scripts currently running. This method returns an EventEmitter that raises the 'stopAll' event when complete.
 
 The `format` parameter is a boolean value indicating whether the returned values should be formatted according to the configured columns which can set with `forever columns` or programmatically `forever.config.set('columns')`.
 
-### forever.list (format, callback)
+#### forever.list (format, callback)
 Returns a list of metadata objects about each process that is being run using forever. This method will return the list of metadata as such. Only processes which have invoked `forever.startServer()` will be available from `forever.list()`
 
 The `format` parameter is a boolean value indicating whether the returned values should be formatted according to the configured columns which can set with `forever columns` or programmatically `forever.config.set('columns')`.
 
-### forever.tail (target, options, callback)
+#### forever.tail (target, options, callback)
 Responds with the logs from the target script(s) from `tail`. There are two options:
 
 * `length` (numeric): is is used as the `-n` parameter to `tail`.
 * `stream` (boolean): is is used as the `-f` parameter to `tail`.
 
-### forever.cleanUp ()
+#### forever.cleanUp ()
 Cleans up any extraneous forever *.pid files that are on the target system. This method returns an EventEmitter that raises the 'cleanUp' event when complete.
 
-### forever.cleanLogsSync (processes)
+#### forever.cleanLogsSync (processes)
 Removes all log files from the root forever directory that do not belong to current running forever processes. Processes are the value returned from `Monitor.data` in `forever-monitor`.
 
-### forever.startServer (monitor0, monitor1, ..., monitorN)
+#### forever.startServer (monitor0, monitor1, ..., monitorN)
 Starts the `forever` HTTP server for communication with the forever CLI. **NOTE:** This will change your `process.title`. This method takes multiple `forever.Monitor` instances which are defined in the `forever-monitor` dependency.
+
+### Logging and output file locations
+
+By default `forever` places all of the files it needs into `/$HOME/.forever`. If you would like to change that location just set the `FOREVER_ROOT` environment variable when you are running forever:
+
+```
+FOREVER_ROOT=/etc/forever forever start index.js
+```
+
+Make sure that the user running the process has the appropriate privileges to read & write to this directory.
 
 ## Run Tests
 
