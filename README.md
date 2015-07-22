@@ -110,6 +110,7 @@ In addition to passing forever the path to a script (along with accompanying opt
 
 // forever/development.json
 {
+	// Comments are supported
     "uid": "app",
     "append": true,
     "watch": true,
@@ -129,6 +130,8 @@ Absolute paths to such configuration files are also supported:
 ``` bash
 $ forever start /home/myuser/app/forever/development.json
 ```
+
+**Note:** Forever parses JSON configuration files using [shush](https://github.com/krakenjs/shush), allowing the use of in-line comments within such files.
 
 ### Using In Your Code
 The forever module exposes some useful methods to use in your code. Each method returns an instance of an EventEmitter which emits when complete. See the [forever cli commands][2] for sample usage.
