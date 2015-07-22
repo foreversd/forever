@@ -1,5 +1,5 @@
 /*
- * start-stop-relative-test.js: start or stop forever using relative paths, the script path could be start with './', '../' ...
+ * start-stop-json-test.js: start or stop forever using relative paths, the script path could be start with './', '../' ...
  *
  * (C) 2010 Charlie Robbins & the Contributors
  * MIT LICENCE
@@ -22,12 +22,12 @@ function runCmd(cmd, args) {
   proc.unref();
 }
 
-vows.describe('forever/core/start-stop-relative').addBatch({
+vows.describe('forever/core/start-stop-json').addBatch({
   "When using forever" : {
-    "to run script with relative script path" : {
+    "to start process using JSON configuration file" : {
       topic: function () {
         runCmd('start', [
-          './test/fixtures/log-on-interval.js'
+          './test/fixtures/server.json'
         ]);
         setTimeout(function (that) {
           forever.list(false, that.callback);
@@ -42,10 +42,10 @@ vows.describe('forever/core/start-stop-relative').addBatch({
   }
 }).addBatch({
     "When the script is running" : {
-      "try to stop with relative script path" : {
+      "try to stop by name" : {
         topic: function () {
           runCmd('stop', [
-            './test/fixtures/log-on-interval.js'
+            'server'
           ]);
           setTimeout(function (that) {
             forever.list(false, that.callback);
