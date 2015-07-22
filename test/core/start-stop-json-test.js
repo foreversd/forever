@@ -42,7 +42,7 @@ vows.describe('forever/core/start-stop-json').addBatch({
   }
 }).addBatch({
     "When the script is running" : {
-      "try to stop by name" : {
+      "try to stop by uid" : {
         topic: function () {
           runCmd('stop', [
             'server'
