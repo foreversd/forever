@@ -22,12 +22,12 @@ function runCmd(cmd, args) {
   proc.unref();
 }
 
-vows.describe('forever/core/start-stop-json').addBatch({
+vows.describe('forever/core/start-stop-json-array').addBatch({
   "When using forever" : {
-    "to start process using JSON configuration file" : {
+    "to start process using JSON configuration file containing an array" : {
       topic: function () {
         runCmd('start', [
-          './test/fixtures/server.json'
+          './test/fixtures/servers.json'
         ]);
         setTimeout(function (that) {
           forever.list(false, that.callback);
@@ -36,17 +36,15 @@ vows.describe('forever/core/start-stop-json').addBatch({
       "the startup should works fine": function (err, procs) {
         assert.isNull(err);
         assert.isArray(procs);
-        assert.equal(procs.length, 1);
+        assert.equal(procs.length, 2);
       }
     }
   }
 }).addBatch({
     "When the script is running" : {
-      "try to stop by uid" : {
+      "try to stopall" : {
         topic: function () {
-          runCmd('stop', [
-            'server'
-          ]);
+          runCmd('stopall', []);
           setTimeout(function (that) {
             forever.list(false, that.callback);
           }, 2000, this);

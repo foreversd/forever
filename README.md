@@ -100,7 +100,7 @@ There are [several examples][1] designed to test the fault tolerance of forever.
 
 ### JSON Configuration Files
 
-In addition to passing forever the path to a script (along with accompanying options, described above), you may also pass forever the path to a JSON file, in which these options are defined. For example, consider an application with the following file structure:
+In addition to passing forever the path to a script (along with accompanying options, described above), you may also pass forever the path to a JSON file containing these options. For example, consider an application with the following file structure:
 
 ```
 .
@@ -132,6 +132,31 @@ $ forever start /home/myuser/app/forever/development.json
 ```
 
 **Note:** Forever parses JSON configuration files using [shush](https://github.com/krakenjs/shush), allowing the use of in-line comments within such files.
+
+#### Multi-App Configuration Files
+
+JSON configuration files can also be used to define the startup options for *multiple* applications, as shown below.
+
+```
+[
+    {
+	    // App1
+        "uid": "app1",
+        "append": true,
+        "watch": true,
+        "script": "index.js",
+        "sourceDir": "/home/myuser/app1"
+    },
+    {
+	    // App2
+        "uid": "app2",
+        "append": true,
+        "watch": true,
+        "script": "index.js",
+        "sourceDir": "/home/myuser/app2"
+    }
+]
+```
 
 ### Using In Your Code
 The forever module exposes some useful methods to use in your code. Each method returns an instance of an EventEmitter which emits when complete. See the [forever cli commands][2] for sample usage.
