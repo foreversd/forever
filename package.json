@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "cliff": "~0.1.9",
+    "clone": "^1.0.2",
     "colors": "~0.6.2",
     "flatiron": "~0.4.2",
     "forever-monitor": "~1.5.1",
@@ -27,6 +28,7 @@
     "nssocket": "~0.5.1",
     "object-assign": "^3.0.0",
     "optimist": "~0.6.0",
+    "prettyjson": "^1.1.2",
     "shush": "^1.0.0",
     "timespan": "~2.3.0",
     "utile": "~0.2.1",
