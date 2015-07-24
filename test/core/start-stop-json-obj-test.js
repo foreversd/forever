@@ -9,18 +9,9 @@
 var assert = require('assert'),
     path = require('path'),
     fs = require('fs'),
-    spawn = require('child_process').spawn,
     vows = require('vows'),
-    forever = require('../../lib/forever');
-
-function runCmd(cmd, args) {
-  var proc = spawn(process.execPath, [
-    path.resolve(__dirname, '../../', 'bin/forever'),
-    cmd
-  ].concat(args), {detached: true});
-
-  proc.unref();
-}
+    forever = require('../../lib/forever'),
+    runCmd = require('../helpers').runCmd;
 
 vows.describe('forever/core/start-stop-json-obj').addBatch({
   "When using forever" : {

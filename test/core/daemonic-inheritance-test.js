@@ -9,7 +9,6 @@
 var assert = require('assert'),
     path = require('path'),
     fs = require('fs'),
-    spawn = require('child_process').spawn,
     vows = require('vows'),
     forever = require('../../lib/forever');
 
