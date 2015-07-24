@@ -28,6 +28,7 @@
     "nssocket": "~0.5.1",
     "object-assign": "^3.0.0",
     "optimist": "~0.6.0",
+    "path-is-absolute": "~1.0.0",
     "prettyjson": "^1.1.2",
     "shush": "^1.0.0",
     "timespan": "~2.3.0",
