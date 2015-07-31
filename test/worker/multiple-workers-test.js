@@ -22,12 +22,12 @@ var children = [],
 function assertRunning(port, i) {
   return {
     topic: function () {
-      request('http://127.0.0.1:' + port, this.callback);
+      request({ uri: 'http://127.0.0.1:' + port, json: true }, this.callback);
     },
     "should respond with `i know nodejitsu`": function (err, res, body) {
       assert.isNull(err);
       assert.equal(res.statusCode, 200);
-      assert.equal(body, 'hello, i know nodejitsu.');
+      assert.equal(body.port, port);
     },
     "stop the child process": function () {
       children[i].stop();
