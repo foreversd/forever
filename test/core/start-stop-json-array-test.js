@@ -10,6 +10,8 @@ var assert = require('assert'),
     path = require('path'),
     fs = require('fs'),
     vows = require('vows'),
+    async = require('utile').async,
+    request = require('request'),
     forever = require('../../lib/forever'),
     runCmd = require('../helpers').runCmd;
 
@@ -28,6 +30,22 @@ vows.describe('forever/core/start-stop-json-array').addBatch({
         assert.isNull(err);
         assert.isArray(procs);
         assert.equal(procs.length, 2);
+      }
+    }
+  }
+}).addBatch({
+  "When the script is running": {
+    "request to both ports": {
+      topic: function () {
+        async.parallel({
+          one: async.apply(request, { uri: 'http://localhost:8080', json: true }),
+          two: async.apply(request, { uri: 'http://localhost:8081', json: true })
+        }, this.callback);
+      },
+      "should respond correctly": function (err, results) {
+        assert.isNull(err);
+        assert.isTrue(!results.one[1].p);
+        assert.equal(results.two[1].p, 8081);
       }
     }
   }
