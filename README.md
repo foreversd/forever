@@ -1,5 +1,7 @@
 # forever
 
+[![Join the chat at https://gitter.im/foreverjs/forever](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/foreverjs/forever?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Version npm](https://img.shields.io/npm/v/forever.svg?style=flat-square)](https://www.npmjs.com/package/forever)[![npm Downloads](https://img.shields.io/npm/dm/forever.svg?style=flat-square)](https://www.npmjs.com/package/forever)[![Build Status](https://img.shields.io/travis/foreverjs/forever/master.svg?style=flat-square)](https://travis-ci.org/foreverjs/forever)[![Dependencies](https://img.shields.io/david/foreverjs/forever.svg?style=flat-square)](https://david-dm.org/foreverjs/forever)[![Inline docs](http://inch-ci.org/github/foreverjs/forever.svg?branch=master)](http://inch-ci.org/github/foreverjs/forever)
 
 [![NPM](https://nodei.co/npm/forever.png?downloads=true&downloadRank=true)](https://nodei.co/npm/forever/)
