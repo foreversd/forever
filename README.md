@@ -83,6 +83,7 @@ forever start app.js
     -w, --watch      Watch for file changes
     --watchDirectory Top-level directory to watch from
     --watchIgnore    To ignore pattern when watch is enabled (multiple option is allowed)
+    -t, --killTree   Kills the entire child process tree on `stop`
     --killSignal     Support exit signal customization (default is SIGKILL),
                      used for restarting script gracefully e.g. --killSignal=SIGTERM
     -h, --help       You're staring at it
