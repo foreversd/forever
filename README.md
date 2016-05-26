@@ -68,9 +68,12 @@ forever start app.js
     -f, --fifo       Stream logs to stdout
     -n, --number     Number of log lines to print
     --pidFile        The pid file
-    --uid            Process uid, useful as a namespace for processes (must wrap in a string)
+    --uid            DEPRECATED. Process uid, useful as a namespace for processes (must wrap in a string)
                      e.g. forever start --uid "production" app.js
                          forever stop production
+    --id             DEPRECATED. Process id, similar to uid, useful as a namespace for processes (must wrap in a string)
+                     e.g. forever start --id "test" app.js
+                         forever stop test
     --sourceDir      The source directory for which SCRIPT is relative to
     --workingDir     The working directory in which SCRIPT will execute
     --minUptime      Minimum uptime (millis) for a script to not be considered "spinning"
