@@ -19,7 +19,7 @@ A simple CLI tool for ensuring that a given script runs continuously (i.e. forev
 
 ``` bash
   $ cd /path/to/your/project
-  $ [sudo] npm install forever-monitor
+  $ npm install forever-monitor
 ```
 
 ## Usage
