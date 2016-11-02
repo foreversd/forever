@@ -12,5 +12,5 @@ http.createServer(function (req, res) {
 }).listen(port);
 
 /* server started */
-util.puts('> hello world running on port ' + port);
+console.log('> hello world running on port ' + port);
 
