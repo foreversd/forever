@@ -1,6 +1,8 @@
 {
-  "name": "forever",
-  "preferGlobal": "true",
+  "name": "@packetloop/forever",
+  "publishConfig": {
+    "registry": "https://api.bintray.com/npm/arbornetworks/packetloop"
+  },
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
   "version": "0.15.3",
   "author": "Charlie Robbins <charlie.robbins@gmail.com>",
