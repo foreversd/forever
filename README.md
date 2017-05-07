@@ -167,7 +167,7 @@ JSON configuration files can also be used to define the startup options for *mul
     "watch": true,
     "script": "index.js",
     "sourceDir": "/home/myuser/app2",
-    "args": ["--port", "8081"],
+    "args": ["--port", "8081"]
   }
 ]
 ```
