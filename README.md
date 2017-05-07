@@ -126,7 +126,8 @@ In addition to passing forever the path to a script (along with accompanying opt
     "append": true,
     "watch": true,
     "script": "index.js",
-    "sourceDir": "/home/myuser/app"
+    "sourceDir": "/home/myuser/app",
+    "env": {Object}
 }
 ```
 
@@ -156,7 +157,8 @@ JSON configuration files can also be used to define the startup options for *mul
     "append": true,
     "watch": true,
     "script": "index.js",
-    "sourceDir": "/home/myuser/app1"
+    "sourceDir": "/home/myuser/app1",
+    "env": {Object}
   },
   {
     // App2
@@ -165,7 +167,7 @@ JSON configuration files can also be used to define the startup options for *mul
     "watch": true,
     "script": "index.js",
     "sourceDir": "/home/myuser/app2",
-    "args": ["--port", "8081"]
+    "args": ["--port", "8081"],
   }
 ]
 ```
