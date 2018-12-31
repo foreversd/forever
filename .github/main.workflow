@@ -4,5 +4,5 @@ workflow "MyDemoWorkFlow" {
 }
 
 action "Debug" {
-  uses = "actions/bin/debug"
+  uses = "actions/bin/debug@master"
 }
