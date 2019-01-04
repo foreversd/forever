@@ -9,6 +9,6 @@ action "Debug" {
 
 action "GitHub Action for npm" {
   uses = "actions/npm@e7aaefe"
-  args = "install"
+  args = "ls"
   secrets = ["GITHUB_TOKEN"]
 }
