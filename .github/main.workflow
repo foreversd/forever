@@ -28,7 +28,7 @@ action "actions/bin/sh@5968b3a61ecdca99746eddfdc3b3aab7dc39ea31" {
 }
 
 action "actions/bin/sh" {
-  uses = "actions/bin/sh"
+  uses = "actions/bin/sh@5968b3a61ecdca99746eddfdc3b3aab7dc39ea31"
   needs = ["actions/bin/sh@5968b3a61ecdca99746eddfdc3b3aab7dc39ea31"]
   args = "ls $HOME"
 }
