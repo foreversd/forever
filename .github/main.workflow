@@ -18,11 +18,17 @@ action "GitHub Action for npm-1" {
 
 workflow "DummyFlow" {
   on = "push"
-  resolves = ["actions/bin/sh@5968b3a61ecdca99746eddfdc3b3aab7dc39ea31"]
+  resolves = ["actions/bin/sh"]
 }
 
 action "actions/bin/sh@5968b3a61ecdca99746eddfdc3b3aab7dc39ea31" {
   uses = "actions/bin/sh@5968b3a61ecdca99746eddfdc3b3aab7dc39ea31"
   args = "ls"
   secrets = ["GITHUB_TOKEN"]
+}
+
+action "actions/bin/sh" {
+  uses = "actions/bin/sh"
+  needs = ["actions/bin/sh@5968b3a61ecdca99746eddfdc3b3aab7dc39ea31"]
+  args = "ls $HOME"
 }
