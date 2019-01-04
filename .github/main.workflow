@@ -1,6 +1,6 @@
 workflow "MyDemoWorkFlow" {
   on = "push"
-  resolves = ["GitHub Action for npm"]
+  resolves = ["Debug", "GitHub Action for npm"]
 }
 
 action "Debug" {
@@ -9,7 +9,6 @@ action "Debug" {
 
 action "GitHub Action for npm" {
   uses = "actions/npm@e7aaefe"
-  needs = ["Debug"]
   args = "install"
   secrets = ["GITHUB_TOKEN"]
 }
