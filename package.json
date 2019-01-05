@@ -31,13 +31,13 @@
     "path-is-absolute": "~1.0.0",
     "prettyjson": "^1.1.2",
     "shush": "^1.0.0",
-    "timespan": "~2.3.0",
     "utile": "~0.2.1",
     "winston": "~0.8.1"
   },
   "devDependencies": {
     "broadway": "~0.3.6",
     "eventemitter2": "0.4.x",
+    "moment": "^2.23.0",
     "request": "2.x.x",
     "vows": "0.7.x"
   },
