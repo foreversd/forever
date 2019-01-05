@@ -126,7 +126,10 @@ In addition to passing forever the path to a script (along with accompanying opt
     "append": true,
     "watch": true,
     "script": "index.js",
-    "sourceDir": "/home/myuser/app"
+    "sourceDir": "/home/myuser/app",
+    "logFile": "/home/myuser/logs/forever.log",
+    "outFile": "/home/myuser/logs/out.log",
+    "errFile": "/home/myuser/logs/error.log"
 }
 ```
 
