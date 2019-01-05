@@ -9,7 +9,7 @@ vows.describe('forever/core/uptime').addBatch({
       "for not running process correctly": function (err, procs) {
         assert.equal(forever.columns.uptime.get({}), 'STOPPED'.red);
       },
-      "calculates uptime for running process correctly": function (err, procs) {
+      "for running process correctly": function (err, procs) {
         var launchTime = moment.utc()
           .subtract(4000, 'days')
           .subtract(6, 'hours')
