@@ -89,6 +89,7 @@ forever start app.js
     -t, --killTree   Kills the entire child process tree on `stop`
     --killSignal     Support exit signal customization (default is SIGKILL),
                      used for restarting script gracefully e.g. --killSignal=SIGTERM
+                     Any console output generated after calling `forever stop/stopall` will not appear in the logs
     -h, --help       You're staring at it
 
   [Long Running Process]
