@@ -11,6 +11,7 @@
   "prototypejs": false,
   "mootools": false,
   "dojo": false,
+  "esversion": 5,
 
   "devel": true,
 
