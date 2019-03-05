@@ -19,12 +19,14 @@
     "tools"
   ],
   "dependencies": {
+    "async": "~0.2.9",
     "cliff": "~0.1.9",
     "clone": "^1.0.2",
     "colors": "~0.6.2",
     "flatiron": "~0.4.2",
     "forever-monitor": "~1.7.0",
     "nconf": "~0.6.9",
+    "mkdirp": "0.x.x",
     "nssocket": "~0.5.1",
     "object-assign": "^3.0.0",
     "optimist": "~0.6.0",
