@@ -1,4 +1,9 @@
 
+1.0.0 / Web, 03 Apr 2019
+=========================
+
+- [major] 1.0.0 due to breaking change introduced in [#1017].
+
 0.14.2 / Tue, 30 Jun 2015
 =========================
   * [804b5b1](https://github.com/foreverjs/forever/commit/804b5b1) [dist] Version bump. 0.14.2 (`indexzero`)
