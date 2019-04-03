@@ -3,6 +3,11 @@
 =========================
 
 - [major] 1.0.0 due to breaking change introduced in [#1017].
+- [security] Update utile to get rid of security warning [#1022]
+- [security] Remove dependency on timespan [#1014]
+- [fix] Fix support for Node 10+ [#979]
+- [change] Propagate error when failing to create directories on startup [#1017]
+- [doc] Add example for referencing -l -o and -e parameters from within a JSON config file [#869]
 
 0.14.2 / Tue, 30 Jun 2015
 =========================
