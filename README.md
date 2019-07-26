@@ -52,9 +52,12 @@ forever start app.js
     clear <key>         Clears the specified forever config <key>
     logs                Lists log files for all forever processes
     logs <script|index> Tails the logs for <script|index>
-    columns add <col>   Adds the specified column to the output in `forever list`. Supported columns: 'uid', 'command', 'script', 'forever', 'pid', 'id', 'logfile', 'uptime'
+    columns add <col>   Adds the specified column to the output in `forever list`
     columns rm <col>    Removed the specified column from the output in `forever list`
     columns set <cols>  Set all columns for the output in `forever list`
+                        Default columns: `uid`, `command`, `script`, `forever`, `pid`,
+                                         `logfile`, `uptime`
+                        Other supported columns: `id`, `dir`
     cleanlogs           [CAREFUL] Deletes all historical forever log files
 
   options:
