@@ -2,7 +2,7 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Charlie Robbins <charlie.robbins@gmail.com>",
   "maintainers": [
     "Igor Savin <iselwin@gmail.com>"

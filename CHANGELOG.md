@@ -1,5 +1,11 @@
+1.0.1 / Sun, 05 Jan 2020
+=========================
 
-1.0.0 / Web, 03 Apr 2019
+- [security] Update forever-monitor [#1047]
+- [doc] Add information about the fact that no output is appended to the logs  after forever stop/stopall is called [#1015]
+- [doc] Add list of supported columns [#1029]
+
+1.0.0 / Wed, 03 Apr 2019
 =========================
 
 - [major] 1.0.0 due to breaking change introduced in [#1017].
