@@ -250,6 +250,7 @@ Make sure that the user running the process has the appropriate privileges to re
 
 #### License: MIT
 #### Author: [Charlie Robbins](https://github.com/indexzero)
+#### Maintainer: [Igor Savin](https://github.com/kibertoad)
 #### Contributors: [Fedor Indutny](https://github.com/indutny), [James Halliday](http://substack.net/), [Charlie McConnell](https://github.com/avianflu), [Maciej Malecki](https://github.com/mmalecki), [John Lancaster](http://jlank.com)
 
 [0]: https://github.com/foreverjs/forever-monitor

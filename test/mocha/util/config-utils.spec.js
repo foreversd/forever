@@ -1,5 +1,5 @@
 var fs = require('fs');
-var configUtils = require('../../lib/util/config-utils');
+var configUtils = require('../../../lib/util/config-utils');
 var expect = require('chai').expect;
 
 describe('config-utils', () => {
