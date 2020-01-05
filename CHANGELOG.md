@@ -1,3 +1,10 @@
+2.0.0 / Sun, 05 Jan 2020
+=========================
+
+- [security] Update dependencies [#1050][#1051][#1052]
+- [major] Drop support for Node.js versions < 6 [#1049]
+- [doc] add '--version' to help text [#1041]
+
 1.0.1 / Sun, 05 Jan 2020
 =========================
 
