@@ -42,11 +42,6 @@ commands:
           paths:
             - ~/.npm/_cacache
 jobs:
-  node-v4:
-    docker:
-      - image: node:4
-    steps:
-      - test-nodejs-old
   node-v6:
     docker:
       - image: node:6
@@ -72,7 +67,6 @@ workflows:
   version: 2
   node-multi-build:
     jobs:
-      - node-v4
       - node-v6
       - node-v8
       - node-v10

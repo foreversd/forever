@@ -2,7 +2,7 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "author": "Charlie Robbins <charlie.robbins@gmail.com>",
   "maintainers": [
     "Igor Savin <iselwin@gmail.com>"
@@ -23,7 +23,7 @@
     "clone": "^1.0.2",
     "colors": "~0.6.2",
     "flatiron": "~0.4.2",
-    "forever-monitor": "^1.7.2",
+    "forever-monitor": "^2.0.0",
     "nconf": "~0.6.9",
     "mkdirp": "0.x.x",
     "nssocket": "~0.5.1",
@@ -39,9 +39,9 @@
     "broadway": "~0.3.6",
     "chai": "^4.2.0",
     "eventemitter2": "0.4.x",
-    "mocha": "^3.5.3",
+    "mocha": "^5.2.0",
     "moment": "^2.23.0",
-    "request": "2.x.x",
+    "request": "2.88.0",
     "vows": "0.7.x"
   },
   "bin": {
@@ -52,7 +52,7 @@
     "test": "vows test/**/*-test.js --dot-matrix -i"
   },
   "engines": {
-    "node": ">= 0.8.x"
+    "node": ">=6"
   },
   "files": [
     "LICENSE",
