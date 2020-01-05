@@ -38,9 +38,13 @@
   "devDependencies": {
     "broadway": "~0.3.6",
     "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-config-prettier": "^6.5.0",
     "eventemitter2": "^6.0.0",
     "mocha": "^6.2.2",
     "moment": "^2.24.0",
+    "prettier": "^1.19.1",
     "request": "2.88.0",
     "vows": "0.7.x"
   },
@@ -49,8 +53,10 @@
   },
   "main": "./lib/forever",
   "scripts": {
+    "lint": "eslint \"lib/**/*.js\" \"test/**/*.js\"",
     "test:vows": "vows test/**/*-test.js --dot-matrix -i",
-    "test:ci": "vows test/**/*-test.js --dot-matrix -i"
+    "test:ci": "npm run lint && npm run test:vows",
+    "prettier": "prettier --write \"{lib,examples,test}/**/*.js\""
   },
   "engines": {
     "node": ">=6"
