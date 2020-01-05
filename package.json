@@ -23,7 +23,7 @@
     "clone": "^1.0.2",
     "colors": "~0.6.2",
     "flatiron": "~0.4.2",
-    "forever-monitor": "~1.7.0",
+    "forever-monitor": "^1.7.2",
     "nconf": "~0.6.9",
     "mkdirp": "0.x.x",
     "nssocket": "~0.5.1",
