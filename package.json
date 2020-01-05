@@ -54,5 +54,12 @@
   "engines": {
     "node": ">= 0.8.x"
   },
+  "files": [
+    "LICENSE",
+    "CHANGELOG.md",
+    "README.md",
+    "bin/*",
+    "lib/*"
+  ],
   "license": "MIT"
 }
