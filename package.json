@@ -18,7 +18,7 @@
     "tools"
   ],
   "dependencies": {
-    "async": "~0.2.9",
+    "async": "~0.5.0",
     "cliff": "^0.1.10",
     "clone": "^2.1.2",
     "colors": "^0.6.2",
