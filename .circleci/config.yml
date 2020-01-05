@@ -1,6 +1,23 @@
 version: 2.1
 
 commands:
+  test-nodejs-old:
+    steps:
+      - run:
+          name: Versions
+          command: npm version
+      - checkout
+      - restore_cache:
+          keys:
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-master-{{ .Environment.CIRCLE_JOB }}
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Test
+          command: npm test
+      - save-npm-cache
   test-nodejs:
     steps:
       - run:
@@ -29,12 +46,12 @@ jobs:
     docker:
       - image: node:4
     steps:
-      - test-nodejs
+      - test-nodejs-old
   node-v6:
     docker:
       - image: node:6
     steps:
-      - test-nodejs
+      - test-nodejs-old
   node-v8:
     docker:
       - image: node:8
