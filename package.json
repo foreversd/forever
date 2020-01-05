@@ -38,7 +38,7 @@
   "devDependencies": {
     "broadway": "~0.3.6",
     "chai": "^4.2.0",
-    "eventemitter2": "^0.4.14",
+    "eventemitter2": "^6.0.0",
     "mocha": "^6.2.2",
     "moment": "^2.24.0",
     "request": "2.88.0",
