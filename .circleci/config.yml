@@ -16,7 +16,7 @@ commands:
           command: npm install
       - run:
           name: Test
-          command: npm test
+          command: npm run test:ci
       - save-npm-cache
   test-nodejs:
     steps:
@@ -33,7 +33,7 @@ commands:
           command: npm ci
       - run:
           name: Test
-          command: npm test
+          command: npm run test:ci
       - save-npm-cache
   save-npm-cache:
     steps:

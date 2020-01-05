@@ -19,18 +19,18 @@
   ],
   "dependencies": {
     "async": "~0.2.9",
-    "cliff": "~0.1.9",
-    "clone": "^1.0.2",
-    "colors": "~0.6.2",
+    "cliff": "^0.1.10",
+    "clone": "^2.1.2",
+    "colors": "^0.6.2",
     "flatiron": "~0.4.2",
     "forever-monitor": "^2.0.0",
-    "nconf": "~0.6.9",
-    "mkdirp": "0.x.x",
-    "nssocket": "~0.5.1",
-    "object-assign": "^3.0.0",
-    "optimist": "~0.6.0",
-    "path-is-absolute": "~1.0.0",
-    "prettyjson": "^1.1.2",
+    "nconf": "^0.10.0",
+    "mkdirp": "^0.5.1",
+    "nssocket": "^0.6.0",
+    "object-assign": "^4.1.1",
+    "optimist": "^0.6.1",
+    "path-is-absolute": "^2.0.0",
+    "prettyjson": "^1.2.1",
     "shush": "^1.0.0",
     "utile": "~0.3.0",
     "winston": "~0.8.1"
@@ -38,9 +38,9 @@
   "devDependencies": {
     "broadway": "~0.3.6",
     "chai": "^4.2.0",
-    "eventemitter2": "0.4.x",
-    "mocha": "^5.2.0",
-    "moment": "^2.23.0",
+    "eventemitter2": "^6.0.0",
+    "mocha": "^6.2.2",
+    "moment": "^2.24.0",
     "request": "2.88.0",
     "vows": "0.7.x"
   },
@@ -49,7 +49,8 @@
   },
   "main": "./lib/forever",
   "scripts": {
-    "test": "vows test/**/*-test.js --dot-matrix -i"
+    "test:vows": "vows test/**/*-test.js --dot-matrix -i",
+    "test:ci": "vows test/**/*-test.js --dot-matrix -i"
   },
   "engines": {
     "node": ">=6"
