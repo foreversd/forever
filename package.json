@@ -54,6 +54,8 @@
   "main": "./lib/forever",
   "scripts": {
     "lint": "eslint \"lib/**/*.js\" \"test/**/*.js\"",
+    "test": "npm run test:vows && npm run test:mocha",
+    "test:mocha": "mocha test/mocha/**/*.spec.js",
     "test:vows": "vows test/**/*-test.js --dot-matrix -i",
     "test:ci": "npm run lint && npm run test:vows",
     "prettier": "prettier --write \"{lib,examples,test}/**/*.js\""
