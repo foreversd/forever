@@ -1,6 +1,6 @@
-var fs = require('fs');
-var configUtils = require('../../../lib/util/config-utils');
-var expect = require('chai').expect;
+const configUtils = require('../../../lib/util/config-utils');
+const fs = require('fs');
+const { expect } = require('chai');
 
 describe('config-utils', () => {
   describe('tryCreateDir', () => {
@@ -16,7 +16,9 @@ describe('config-utils', () => {
     it('throws an error on invalid directory', () => {
       expect(() => {
         configUtils.tryCreateDir('');
-      }).to.throw(/Failed to create directory :ENOENT: no such file or directory, mkdir/);
+      }).to.throw(
+        /Failed to create directory :ENOENT: no such file or directory, mkdir/
+      );
     });
 
     it('does not fail when creating directory that already exists', () => {
