@@ -16,7 +16,9 @@ describe('config-utils', () => {
     it('throws an error on invalid directory', () => {
       expect(() => {
         configUtils.tryCreateDir('');
-      }).to.throw(/Failed to create directory :ENOENT: no such file or directory, mkdir/);
+      }).to.throw(
+        /Failed to create directory :ENOENT: no such file or directory, mkdir/
+      );
     });
 
     it('does not fail when creating directory that already exists', () => {

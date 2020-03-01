@@ -13,7 +13,7 @@ describe('cli', () => {
       )
         .then(() => {
           return execCommand(`node ../../../../../bin/forever stopall`, {
-            expectedOutput: 'dir with spaces\\script_name.js',
+            expectedOutput: ['Forever stopped processes', 'script_name.js'],
           });
         })
         .then(() => {
