@@ -1,6 +1,6 @@
-var fs = require('fs');
-var configUtils = require('../../../lib/util/config-utils');
-var expect = require('chai').expect;
+const configUtils = require('../../../lib/util/config-utils');
+const fs = require('fs');
+const { expect } = require('chai');
 
 describe('config-utils', () => {
   describe('tryCreateDir', () => {

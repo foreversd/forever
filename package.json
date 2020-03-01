@@ -37,6 +37,7 @@
   "devDependencies": {
     "broadway": "~0.3.6",
     "chai": "^4.2.0",
+    "cli-testlab": "^1.10.0",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-config-prettier": "^6.5.0",
