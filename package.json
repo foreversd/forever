@@ -18,7 +18,8 @@
     "sysadmin",
     "tools"
   ],
-  "dependencies": {
+  "dependencies": 
+    "node-sass": "4.13.1", 
     "cliff": "~0.1.9",
     "clone": "^1.0.2",
     "colors": "~0.6.2",
