@@ -2,7 +2,7 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "author": "Charlie Robbins <charlie.robbins@gmail.com>",
   "maintainers": [
     "Igor Savin <iselwin@gmail.com>"
@@ -24,7 +24,7 @@
     "colors": "^0.6.2",
     "deep-equal": "^1.1.1",
     "flatiron": "~0.4.3",
-    "forever-monitor": "^2.0.0",
+    "forever-monitor": "^3.0.0",
     "mkdirp": "^0.5.5",
     "nconf": "^0.10.0",
     "nssocket": "^0.6.0",
