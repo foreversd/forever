@@ -1,3 +1,5 @@
+const { delayPromise } = require('../../helpers/utils');
+
 const { execCommand } = require('cli-testlab');
 
 describe('cli', () => {
@@ -11,6 +13,9 @@ describe('cli', () => {
           expectedOutput: ['Forever processing file:', 'script_name.js'],
         }
       )
+        .then(() => {
+          return delayPromise(1000);
+        })
         .then(() => {
           return execCommand(`node ../../../../../bin/forever stopall`, {
             expectedOutput: ['Forever stopped processes', 'script_name.js'],

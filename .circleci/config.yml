@@ -62,6 +62,11 @@ jobs:
       - image: node:12
     steps:
       - test-nodejs
+  node-v14:
+    docker:
+      - image: node:14
+    steps:
+      - test-nodejs
 
 workflows:
   version: 2
@@ -71,3 +76,4 @@ workflows:
       - node-v8
       - node-v10
       - node-v12
+      - node-v14
