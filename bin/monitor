@@ -10,7 +10,7 @@ var fs = require('fs'),
 // Write the pidFile to disk for later use
 //
 function writePid(file, pid) {
-  fs.writeFileSync(file, pid, 'utf8');
+  fs.writeFileSync(file, String(pid), 'utf8');
 }
 
 //
