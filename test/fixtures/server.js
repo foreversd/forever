@@ -1,6 +1,6 @@
 var util = require('util'),
     http = require('http'),
-    argv = require('optimist').argv;
+    argv = require('yargs').argv;
 
 var port = argv.p || argv.port || 8080;
 
