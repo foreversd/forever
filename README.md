@@ -8,6 +8,7 @@
 
 
 A simple CLI tool for ensuring that a given script runs continuously (i.e. forever).
+Note that this project currently fully depends on the community for implementing fixes and new features. For new installations we encourage you to use [pm2](https://pm2.keymetrics.io/) or [nodemon](https://nodemon.io/)
 
 ## Installation
 
