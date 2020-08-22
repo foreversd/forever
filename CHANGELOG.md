@@ -1,3 +1,13 @@
+3.0.1 / Sun, 22 Aug 2020
+=========================
+
+- [security] Replaced optimist with yargs [#1093]
+
+3.0.0 / Fri, 22 May 2020
+=========================
+
+- [security] Update forever-monitor [#1081]
+
 2.0.0 / Sun, 05 Jan 2020
 =========================
 
