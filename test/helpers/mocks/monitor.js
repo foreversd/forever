@@ -1,14 +1,12 @@
 var util = require('util'),
-    broadway = require('broadway'),
+    events = require('eventemitter2'),
     ChildProcessMock = require('./child-process').ChildProcessMock;
 
-var MonitorMock = exports.MonitorMock = function (options) {
-  broadway.App.call(this, options);
-
+var MonitorMock = exports.MonitorMock = function () {
   this.child = new ChildProcessMock();
   this.running = false;
 };
-util.inherits(MonitorMock, broadway.App);
+util.inherits(MonitorMock, events.EventEmitter2);
 
 MonitorMock.prototype.__defineGetter__('data', function () {
   return {
