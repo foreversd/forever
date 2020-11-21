@@ -1,3 +1,13 @@
+3.0.3 / Sat, 21 Nov 2020
+=========================
+
+- [security] Update forever-monitor and remove broadway to get rid of vulnerable minimist version [#1098]
+
+3.0.2 / Sat, 21 Nov 2020
+=========================
+
+- [doc] Add project deprecation warning
+
 3.0.1 / Sun, 22 Aug 2020
 =========================
 
