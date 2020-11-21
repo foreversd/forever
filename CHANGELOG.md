@@ -1,3 +1,8 @@
+3.0.4 / Sat, 21 Nov 2020
+=========================
+
+- [security] Update forever-monitor and remove utile to get rid of vulnerabilities
+
 3.0.3 / Sat, 21 Nov 2020
 =========================
 
