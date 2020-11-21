@@ -2,7 +2,7 @@
   "name": "forever",
   "preferGlobal": "true",
   "description": "A simple CLI tool for ensuring that a given node script runs continuously (i.e. forever)",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "author": "Charlie Robbins <charlie.robbins@gmail.com>",
   "maintainers": [
     "Igor Savin <iselwin@gmail.com>"
@@ -25,14 +25,13 @@
     "deep-equal": "^1.1.1",
     "eventemitter2": "6.4.3",
     "flatiron": "~0.4.3",
-    "forever-monitor": "^3.0.2",
+    "forever-monitor": "^3.0.3",
     "mkdirp": "^0.5.5",
     "nconf": "^0.10.0",
     "nssocket": "^0.6.0",
     "object-assign": "^4.1.1",
     "prettyjson": "^1.2.1",
     "shush": "^1.0.0",
-    "utile": "~0.3.0",
     "winston": "~0.8.1",
     "yargs": "^3.32.0"
   },
