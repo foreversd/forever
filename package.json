@@ -22,7 +22,6 @@
     "cliff": "^0.1.10",
     "clone": "^2.1.2",
     "colors": "^0.6.2",
-    "deep-equal": "^1.1.1",
     "eventemitter2": "6.4.3",
     "flatiron": "~0.4.3",
     "forever-monitor": "^3.0.3",
