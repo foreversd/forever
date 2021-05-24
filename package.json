@@ -33,7 +33,7 @@
     "prettyjson": "^1.2.1",
     "shush": "^1.0.0",
     "winston": "~0.8.1",
-    "yargs": "^17.0.1"
+    "yargs": "^v16.1.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
