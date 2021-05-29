@@ -25,14 +25,14 @@
     "eventemitter2": "6.4.3",
     "flatiron": "~0.4.3",
     "forever-monitor": "^3.0.3",
+    "getopts": "2.3.0",
     "mkdirp": "^0.5.5",
     "nconf": "^0.10.0",
     "nssocket": "^0.6.0",
     "object-assign": "^4.1.1",
     "prettyjson": "^1.2.1",
     "shush": "^1.0.0",
-    "winston": "~0.8.1",
-    "yargs": "^3.32.0"
+    "winston": "~0.8.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
