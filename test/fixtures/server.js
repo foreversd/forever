@@ -1,7 +1,8 @@
 var util = require('util'),
     http = require('http'),
-    argv = require('yargs').argv;
+    getopts = require('getopts');
 
+var argv = getopts(process.argv.slice(2));
 var port = argv.p || argv.port || 8080;
 
 http.createServer(function (req, res) {
