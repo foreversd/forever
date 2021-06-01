@@ -1,3 +1,9 @@
+4.0.0 / Tue, 06 May 2021
+=========================
+
+- [security] Replace nconf with configstore [#1112]
+- [security] Replace yargs with getopts [#1110]
+
 3.0.4 / Sat, 21 Nov 2020
 =========================
 
