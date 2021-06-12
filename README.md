@@ -56,6 +56,7 @@ forever start app.js
     columns add <col>   Adds the specified column to the output in `forever list`. Supported columns: 'uid', 'command', 'script', 'forever', 'pid', 'id', 'logfile', 'uptime'
     columns rm <col>    Removed the specified column from the output in `forever list`
     columns set <cols>  Set all columns for the output in `forever list`
+    columns reset       Resets all columns to defaults for the output in `forever list`
     cleanlogs           [CAREFUL] Deletes all historical forever log files
 
   options:
