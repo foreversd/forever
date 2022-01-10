@@ -21,7 +21,7 @@
     "async": "^1.5.2",
     "cliff": "^0.1.10",
     "clone": "^2.1.2",
-    "colors": "^0.6.2",
+    "colors": "0.6.2",
     "configstore": "4.0.0",
     "eventemitter2": "6.4.4",
     "flatiron": "~0.4.3",
@@ -29,7 +29,7 @@
     "mkdirp": "^0.5.5",
     "nssocket": "^0.6.0",
     "object-assign": "^4.1.1",
-    "prettyjson": "^1.2.1",
+    "prettyjson": "^1.2.2",
     "shush": "^1.0.0",
     "winston": "~0.8.1"
   },
