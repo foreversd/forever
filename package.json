@@ -21,7 +21,7 @@
     "async": "^1.5.2",
     "cliff": "^0.1.10",
     "clone": "^2.1.2",
-    "colors": "^0.6.2",
+    "colors": "1.4.0",
     "configstore": "4.0.0",
     "eventemitter2": "6.4.4",
     "flatiron": "~0.4.3",
