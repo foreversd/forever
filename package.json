@@ -31,7 +31,7 @@
     "object-assign": "^4.1.1",
     "prettyjson": "^1.2.2",
     "shush": "^1.0.0",
-    "winston": "~0.8.1"
+    "winston": "^3.4.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
