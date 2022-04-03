@@ -20,7 +20,7 @@ Note that this project currently fully depends on the community for implementing
 
 ``` bash
   $ cd /path/to/your/project
-  $ [sudo] npm install forever-monitor
+  $ npm install forever-monitor
 ```
 
 ## Usage
